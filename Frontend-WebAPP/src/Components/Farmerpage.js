@@ -74,10 +74,9 @@ const FarmerPage = () => {
         <p>Manage your crops, earnings, and market insights.</p>
 
         <div className="farmer-sections">
-          {/* Section 1 */}
           <div className="farmer-card">
             <img
-              src="https://source.unsplash.com/400x250/?farm,crops"
+              src="/Images/png1_ap.png"
               alt="Add Produce"
             />
             <div className="farmer-card-body">
@@ -89,10 +88,9 @@ const FarmerPage = () => {
             </div>
           </div>
 
-          {/* Section 2 */}
           <div className="farmer-card">
             <img
-              src="https://source.unsplash.com/400x250/?vegetables,market"
+              src="/Images/png2_pl.png"
               alt="Produce List"
             />
             <div className="farmer-card-body">
@@ -103,10 +101,9 @@ const FarmerPage = () => {
             </div>
           </div>
 
-          {/* Section 3 */}
           <div className="farmer-card">
             <img
-              src="https://source.unsplash.com/400x250/?money,agriculture"
+              src="/Images/png3_eo.png"
               alt="Earnings"
             />
             <div className="farmer-card-body">
@@ -118,10 +115,9 @@ const FarmerPage = () => {
             </div>
           </div>
 
-          {/* Section 4 */}
           <div className="farmer-card">
             <img
-              src="https://source.unsplash.com/400x250/?market,price"
+              src="/Images/png4_mp.png"
               alt="Market Prices"
             />
             <div className="farmer-card-body">

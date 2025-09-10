@@ -90,7 +90,7 @@ const MainDashboard = () => {
             </div>
 
             <div className="main-dashboard-content">
-                <h2>Welcome to AgriChain</h2>
+                <h2>Welcome to AgriChain <icon>🔗</icon></h2>
                 <p>Track the supply chain from farm to fork with transparency.</p>
                 <div className="dashboard-cards">
                     <StatCard title="Products" value="1,428" icon={<span>📦</span>} />

@@ -45,7 +45,6 @@
   border: none;
   cursor: pointer;
   font-size: 1.1rem;
-  color: #4b5563;
   transition: color 0.3s ease, transform 0.2s ease;
 }
 
@@ -64,7 +63,7 @@
   border: none;
   cursor: pointer;
   font-size: 0.9rem;
-  color: #4b5563;
+  font-weight: bolder;
   transition: all 0.3s ease;
 }
 
@@ -121,15 +120,16 @@
 
 .main-dashboard-content h2 {
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: bolder;
   margin-bottom: 0.5rem;
 }
 
 .main-dashboard-content p {
   font-size: 1.5rem;
-  color: #6b7280;
+  font-weight: bold;
   margin-bottom: 5%;
 }
+
 
 /* Stat Cards */
 .dashboard-cards {

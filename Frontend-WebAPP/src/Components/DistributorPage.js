@@ -75,7 +75,7 @@ const DistributorPage = () => {
                 <div className="distributor-sections">
                     {/* Section 1 */}
                     <div className="distributor-card">
-                        <img src="https://source.unsplash.com/400x250/?farm,produce" alt="Incoming Produce" />
+                        <img src="/Images/png5_ip.png" alt="Incoming Produce" />
                         <div className="distributor-card-body">
                             <h3>Incoming Produce</h3>
                             <p>Check all produce arriving from farmers before transport.</p>
@@ -84,7 +84,7 @@ const DistributorPage = () => {
 
                     {/* Section 2 */}
                     <div className="distributor-card">
-                        <img src="https://source.unsplash.com/400x250/?warehouse,storage" alt="Transport Storage" />
+                        <img src="/Images/png6_ts.png" alt="Transport Storage" />
                         <div className="distributor-card-body">
                             <h3>Update Transport & Storage</h3>
                             <p>Track pickup dates, storage temperatures, and delivery status.</p>
@@ -93,7 +93,7 @@ const DistributorPage = () => {
 
                     {/* Section 3 */}
                     <div className="distributor-card">
-                        <img src="https://source.unsplash.com/400x250/?logistics,truck" alt="Logistics Overview" />
+                        <img src="/Images/png7_li.png" alt="Logistics Overview" />
                         <div className="distributor-card-body">
                             <h3>Logistics Overview</h3>
                             <p>View current shipments, transport routes, and pending deliveries.</p>
@@ -102,7 +102,7 @@ const DistributorPage = () => {
 
                     {/* Section 4 */}
                     <div className="distributor-card">
-                        <img src="https://source.unsplash.com/400x250/?market,agriculture" alt="Market Insights" />
+                        <img src="/Images/png8_mi.png" alt="Market Insights" />
                         <div className="distributor-card-body">
                             <h3>Market Insights</h3>
                             <p>Get updates on market demand, pricing trends, and forecasts.</p>
