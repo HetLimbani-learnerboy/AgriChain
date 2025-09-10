@@ -9,7 +9,7 @@
 
 /* Navbar */
 .navigator-bar-container {
-  background: #fff;
+  background: #f0fdf4;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,17 +18,18 @@
   position: sticky;
   top: 0;
   z-index: 50;
+  height: 50px;
 }
 
 .logo {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   margin-right: 0.5rem;
 }
 
 .navigator-bar-container span {
   font-weight: bolder;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-right: auto;
 }
 
@@ -44,7 +45,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   transition: color 0.3s ease, transform 0.2s ease;
 }
 
@@ -100,7 +101,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   color: #374151;
   transition: background 0.2s ease, transform 0.2s ease;
 }

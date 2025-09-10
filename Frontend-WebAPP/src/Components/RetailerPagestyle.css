@@ -1,5 +1,5 @@
 /* Global */
-.farmer-dashboard-webapp {
+.retailer-dashboard-webapp {
     background: #fdfbf5;
     font-family: Inter, sans-serif;
     min-height: 100vh;
@@ -7,33 +7,32 @@
     padding: 0;
 }
 
-
-.farmer-dashboard-content {
+.retailer-dashboard-content {
     padding: 2rem;
     text-align: center;
 }
 
-.farmer-dashboard-content h2 {
+.retailer-dashboard-content h2 {
     font-size: 2.5rem;
     font-weight: bolder;
     margin-bottom: 0.5rem;
 }
 
-.farmer-dashboard-content p {
+.retailer-dashboard-content p {
     margin-bottom: 2rem;
     font-size: 1.5rem;
 }
 
-/* Sections Grid */
-.farmer-sections {
-     margin-top: 5%;
+.retailer-sections {
+    margin-top: 5%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.2rem;
+    gap: 1.5rem;
 }
 
 /* Section Card */
-.farmer-card {
+.retailer-card {
+
     font-weight: bolder;
     background: #fff;
     border-radius: 1rem;
@@ -44,29 +43,29 @@
     opacity: 0;
 }
 
-.farmer-card img {
+.retailer-card img {
     width: 100%;
     height: 300px;
     object-fit: cover;
 }
 
-.farmer-card-body {
+.retailer-card-body {
     padding: 1rem;
     text-align: center;
 }
 
-.farmer-card-body h3 {
+.retailer-card-body h3 {
     font-size: 1.1rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
 
-.farmer-card-body p {
+.retailer-card-body p {
     font-size: 0.95rem;
 }
 
 /* Hover Animation */
-.farmer-card:hover {
+.retailer-card:hover {
     transform: translateY(-6px) scale(1.02);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
@@ -88,61 +87,61 @@
 
 /* Tablets */
 @media (max-width: 992px) {
-    .farmer-navbar span {
+    .retailer-navbar span {
         font-size: 1rem;
     }
 
-    .farmer-navbar-links button {
+    .retailer-navbar-links button {
         font-size: 0.9rem;
     }
 
-    .farmer-dashboard-content h2 {
+    .retailer-dashboard-content h2 {
         font-size: 1.7rem;
     }
 
-    .farmer-dashboard-content p {
+    .retailer-dashboard-content p {
         font-size: 1rem;
     }
 
-    .farmer-card img {
+    .retailer-card img {
         height: 160px;
     }
 }
 
 /* Mobile */
 @media (max-width: 600px) {
-    .farmer-navbar {
+    .retailer-navbar {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
     }
 
-    .farmer-navbar-links {
+    .retailer-navbar-links {
         gap: 0.8rem;
         width: 100%;
         justify-content: flex-start;
         flex-wrap: wrap;
     }
 
-    .farmer-dashboard-content {
+    .retailer-dashboard-content {
         padding: 1rem;
         text-align: left;
     }
 
-    .farmer-dashboard-content h2 {
+    .retailer-dashboard-content h2 {
         font-size: 1.5rem;
     }
 
-    .farmer-dashboard-content p {
+    .retailer-dashboard-content p {
         font-size: 0.9rem;
     }
 
-    .farmer-sections {
+    .retailer-sections {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
 
-    .farmer-card img {
+    .retailer-card img {
         height: 150px;
     }
 }
