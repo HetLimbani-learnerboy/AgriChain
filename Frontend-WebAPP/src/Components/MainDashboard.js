@@ -72,13 +72,14 @@ const MainDashboard = () => {
                             >
                                 Farmer
                             </button>
-                            <button role="menuitem" onClick={() => setDropdownOpen(false)}>
+                            
+                            <button role="menuitem" onClick={() =>{ setDropdownOpen(false); navigate("/distributorpage");}}>
                                 Distributor
                             </button>
-                            <button role="menuitem" onClick={() => setDropdownOpen(false)}>
+                            <button role="menuitem" onClick={() => {setDropdownOpen(false); navigate("/retailerpage");}}>
                                 Retailer
                             </button>
-                            <button role="menuitem" onClick={() => setDropdownOpen(false)}>
+                            <button role="menuitem" onClick={() =>{ setDropdownOpen(false); navigate("/consumerpage");}}>
                                 Consumer
                             </button>
                         </div>

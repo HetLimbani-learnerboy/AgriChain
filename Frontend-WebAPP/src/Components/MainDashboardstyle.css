@@ -27,7 +27,7 @@
 }
 
 .navigator-bar-container span {
-  font-weight: bold;
+  font-weight: bolder;
   font-size: 1.2rem;
   margin-right: auto;
 }
@@ -40,7 +40,7 @@
 }
 
 .navigator-bar-links button {
-  font-weight: 900;
+  font-weight:bolder;
   background: none;
   border: none;
   cursor: pointer;
