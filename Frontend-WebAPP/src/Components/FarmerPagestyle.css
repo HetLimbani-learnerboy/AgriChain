@@ -1,0 +1,148 @@
+/* Global */
+.farmer-dashboard-webapp {
+    background: #fdfbf5;
+    font-family: Inter, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+
+.farmer-dashboard-content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.farmer-dashboard-content h2 {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    margin-bottom: 0.5rem;
+}
+
+.farmer-dashboard-content p {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+/* Sections Grid */
+.farmer-sections {
+     margin-top: 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+}
+
+/* Section Card */
+.farmer-card {
+    font-weight: bolder;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0;
+}
+
+.farmer-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.farmer-card-body {
+    padding: 1rem;
+    text-align: center;
+}
+
+.farmer-card-body h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.farmer-card-body p {
+    font-size: 0.95rem;
+}
+
+/* Hover Animation */
+.farmer-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+    from {
+        transform: translateY(15px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+
+/* Tablets */
+@media (max-width: 992px) {
+    .farmer-navbar span {
+        font-size: 1rem;
+    }
+
+    .farmer-navbar-links button {
+        font-size: 0.9rem;
+    }
+
+    .farmer-dashboard-content h2 {
+        font-size: 1.7rem;
+    }
+
+    .farmer-dashboard-content p {
+        font-size: 1rem;
+    }
+
+    .farmer-card img {
+        height: 160px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .farmer-navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .farmer-navbar-links {
+        gap: 0.8rem;
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .farmer-dashboard-content {
+        padding: 1rem;
+        text-align: left;
+    }
+
+    .farmer-dashboard-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .farmer-dashboard-content p {
+        font-size: 0.9rem;
+    }
+
+    .farmer-sections {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .farmer-card img {
+        height: 150px;
+    }
+}
