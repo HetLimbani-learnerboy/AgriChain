@@ -17,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/HetLimbani-learnerboy/AgriChain/issues"
   },
-  "homepage": "https://github.com/HetLimbani-learnerboy/AgriChain#readme"
+  "homepage": "https://github.com/HetLimbani-learnerboy/AgriChain#readme",
+  "dependencies": {
+    "expo": "^54.0.1"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2",
+    "@types/react": "~19.1.10"
+  }
 }
