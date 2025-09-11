@@ -10,36 +10,42 @@ type Action = {
   color: string;
 };
 
-const consumerActions: Action[] = [
+const distributorActions: Action[] = [
   {
-    title: "Traceability View",
-    description: "Crop → Farmer Details → Transport Info → Retail Price. Visualized as a timeline or flowchart for easy tracking.",
-    icon: "git-network-outline",
-    color: "#4CAF50",
+    title: "Incoming Produce",
+    description: "Check all produce arriving from farmers before transport.",
+    icon: "arrow-down-circle-outline",
+    color: "#FF5722",
   },
   {
-    title: "QR Code Verification",
-    description: "Scan or view QR codes for product authentication and detailed info.",
-    icon: "scan-outline",
+    title: "Update Transport & Storage",
+    description: "Track pickup dates, storage temperatures, and delivery status.",
+    icon: "car-outline",
     color: "#2196F3",
   },
   {
-    title: "Sustainability Tips",
-    description: "Learn about eco-friendly practices and support sustainable agriculture.",
-    icon: "leaf-outline",
-    color: "#8BC34A",
+    title: "Logistics Overview",
+    description: "View current shipments, transport routes, and pending deliveries.",
+    icon: "map-outline",
+    color: "#4CAF50",
+  },
+  {
+    title: "Market Insights",
+    description: "Get updates on market demand, pricing trends, and forecasts.",
+    icon: "bar-chart-outline",
+    color: "#9C27B0",
   },
 ];
 
-export default function ConsumerScreen() {
+export default function DistributorScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Consumer Portal</Text>
-        <Text style={styles.subtitle}>Scan QR codes and track the complete supply chain of your produce.</Text>
+        <Text style={styles.title}>Distributor Dashboard</Text>
+        <Text style={styles.subtitle}>Manage logistics, transport, and storage efficiently.</Text>
 
         <View style={styles.cardsContainer}>
-          {consumerActions.map(({ title, description, icon, color }) => (
+          {distributorActions.map(({ title, description, icon, color }) => (
             <TouchableOpacity key={title} style={styles.actionCard}>
               <View style={[styles.iconContainer, { backgroundColor: color + "20" }]}>
                 <Ionicons name={icon} size={40} color={color} />

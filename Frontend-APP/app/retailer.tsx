@@ -10,36 +10,42 @@ type Action = {
   color: string;
 };
 
-const consumerActions: Action[] = [
+const retailerActions: Action[] = [
   {
-    title: "Traceability View",
-    description: "Crop → Farmer Details → Transport Info → Retail Price. Visualized as a timeline or flowchart for easy tracking.",
-    icon: "git-network-outline",
+    title: "Received Produce",
+    description: "View all produce received from distributors and check status.",
+    icon: "checkmark-circle-outline",
     color: "#4CAF50",
   },
   {
-    title: "QR Code Verification",
-    description: "Scan or view QR codes for product authentication and detailed info.",
-    icon: "scan-outline",
+    title: "Add Final Price & Stock",
+    description: "Update stock quantities and set final selling price for each crop.",
+    icon: "pricetag-outline",
+    color: "#FF9800",
+  },
+  {
+    title: "Generate QR Code",
+    description: "Create QR codes for consumers to track products and verify authenticity.",
+    icon: "qr-code-outline",
     color: "#2196F3",
   },
   {
-    title: "Sustainability Tips",
-    description: "Learn about eco-friendly practices and support sustainable agriculture.",
-    icon: "leaf-outline",
-    color: "#8BC34A",
+    title: "Sales Overview",
+    description: "Check sales performance and basic charts to analyze trends.",
+    icon: "trending-up-outline",
+    color: "#9C27B0",
   },
 ];
 
-export default function ConsumerScreen() {
+export default function RetailerScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Consumer Portal</Text>
-        <Text style={styles.subtitle}>Scan QR codes and track the complete supply chain of your produce.</Text>
+        <Text style={styles.title}>Retailer Dashboard</Text>
+        <Text style={styles.subtitle}>Manage your stock, pricing, sales, and generate QR codes for consumers.</Text>
 
         <View style={styles.cardsContainer}>
-          {consumerActions.map(({ title, description, icon, color }) => (
+          {retailerActions.map(({ title, description, icon, color }) => (
             <TouchableOpacity key={title} style={styles.actionCard}>
               <View style={[styles.iconContainer, { backgroundColor: color + "20" }]}>
                 <Ionicons name={icon} size={40} color={color} />
