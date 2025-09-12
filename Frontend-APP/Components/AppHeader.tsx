@@ -1,6 +1,6 @@
 // AppHeader.tsx
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet,Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image } from 'react-native';
 const { width: screenWidth } = Dimensions.get('window');
 
 export default function AppHeader() {
@@ -17,6 +17,13 @@ export default function AppHeader() {
 
   return (
     <View style={styles.navbar}>
+      <View style={styles.logoContainer}>
+                <Image 
+                  source={require('../assets/MainLogo.png')} 
+                  style={styles.logoImage}
+                  resizeMode="contain"
+                />
+        </View>
       <Text style={styles.navTitle}>AgriChain</Text>
 
       <View>
@@ -46,12 +53,22 @@ export default function AppHeader() {
 }
 
 const styles = StyleSheet.create({
+  logoContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logoImage: {
+    width: 30,
+    height: 30,
+    marginRight:6,
+    borderRadius: 20,
+  },
   navbar: {
     height: 70,
     backgroundColor: '#eaf5ecff',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    // justifyContent: 'space-between',
     paddingHorizontal: screenWidth < 400 ? 20 : 24,
     paddingVertical:8,
     shadowColor: '#000',
@@ -64,11 +81,14 @@ const styles = StyleSheet.create({
   navTitle: {
     fontSize: 18,
     fontWeight: '600',
-    marginTop:18,
+    // marginTop:18,
     color: '#3d9369ff',
+    marginBottom: 4, // remove extra margin
+    marginLeft: 0, // small gap between logo and text
   },
   dropdownButton: {
     marginTop:12,
+    marginLeft:165,
     padding: 8,
     
   },
