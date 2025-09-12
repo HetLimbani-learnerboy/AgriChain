@@ -19,7 +19,6 @@ const DistributorPage = () => {
 
     return (
         <div className="distributor-dashboard-webapp">
-            {/* Navbar */}
             <div className="navigator-bar-container">
                 <img src="/MainLogo.png" alt="logo" className="logo" />
                 <span>AgriChain</span>
@@ -73,7 +72,6 @@ const DistributorPage = () => {
                 <p>Manage logistics, transport, and storage efficiently.</p>
 
                 <div className="distributor-sections">
-                    {/* Section 1 */}
                     <div className="distributor-card">
                         <img src="/Images/png5_ip.png" alt="Incoming Produce" />
                         <div className="distributor-card-body">
@@ -82,7 +80,6 @@ const DistributorPage = () => {
                         </div>
                     </div>
 
-                    {/* Section 2 */}
                     <div className="distributor-card">
                         <img src="/Images/png6_ts.png" alt="Transport Storage" />
                         <div className="distributor-card-body">
@@ -91,7 +88,6 @@ const DistributorPage = () => {
                         </div>
                     </div>
 
-                    {/* Section 3 */}
                     <div className="distributor-card">
                         <img src="/Images/png7_li.png" alt="Logistics Overview" />
                         <div className="distributor-card-body">
@@ -100,7 +96,6 @@ const DistributorPage = () => {
                         </div>
                     </div>
 
-                    {/* Section 4 */}
                     <div className="distributor-card">
                         <img src="/Images/png8_mi.png" alt="Market Insights" />
                         <div className="distributor-card-body">

@@ -25,7 +25,7 @@ const TransactionRow = ({ hash, from, to, product, status }) => (
 );
 
 const MainDashboard = () => {
-    const navigate = useNavigate(); // ✅ moved inside component
+    const navigate = useNavigate();
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -72,14 +72,14 @@ const MainDashboard = () => {
                             >
                                 Farmer
                             </button>
-                            
-                            <button role="menuitem" onClick={() =>{ setDropdownOpen(false); navigate("/distributorpage");}}>
+
+                            <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/distributorpage"); }}>
                                 Distributor
                             </button>
-                            <button role="menuitem" onClick={() => {setDropdownOpen(false); navigate("/retailerpage");}}>
+                            <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/retailerpage"); }}>
                                 Retailer
                             </button>
-                            <button role="menuitem" onClick={() =>{ setDropdownOpen(false); navigate("/consumerpage");}}>
+                            <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/consumerpage"); }}>
                                 Consumer
                             </button>
                         </div>

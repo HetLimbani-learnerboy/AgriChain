@@ -19,56 +19,54 @@ const FarmerPage = () => {
 
   return (
     <div className="farmer-dashboard-webapp">
-      {/* Navbar */}
-     <div className="navigator-bar-container">
-                <img src="/MainLogo.png" alt="logo" className="logo" />
-                <span>AgriChain</span>
+      <div className="navigator-bar-container">
+        <img src="/MainLogo.png" alt="logo" className="logo" />
+        <span>AgriChain</span>
 
-                <div className="navigator-bar-links">
-                    <button onClick={() => navigate("/")}>Dashboard</button>
-                    <button>Transactions</button>
+        <div className="navigator-bar-links">
+          <button onClick={() => navigate("/")}>Dashboard</button>
+          <button>Transactions</button>
 
-                    <div className="role-dropdown" ref={dropdownRef}>
-                        <button
-                            className="role-button"
-                            aria-haspopup="true"
-                            aria-expanded={isDropdownOpen}
-                            onClick={() => setDropdownOpen((prev) => !prev)}
-                        >
-                            Role ▾
-                        </button>
+          <div className="role-dropdown" ref={dropdownRef}>
+            <button
+              className="role-button"
+              aria-haspopup="true"
+              aria-expanded={isDropdownOpen}
+              onClick={() => setDropdownOpen((prev) => !prev)}
+            >
+              Role ▾
+            </button>
 
-                        <div
-                            className={`dropdown-menulist ${isDropdownOpen ? "show" : ""}`}
-                            role="menu"
-                        >
-                            <button
-                                role="menuitem"
-                                onClick={() => {
-                                    setDropdownOpen(false);
-                                    navigate("/farmerpage");
-                                }}
-                            >
-                                Farmer
-                            </button>
-                            
-                            <button role="menuitem" onClick={() =>{ setDropdownOpen(false); navigate("/distributorpage");}}>
-                                Distributor
-                            </button>
-                            <button role="menuitem" onClick={() => {setDropdownOpen(false); navigate("/retailerpage");}}>
-                                Retailer
-                            </button>
-                            <button role="menuitem" onClick={() =>{ setDropdownOpen(false); navigate("/consumerpage");}}>
-                                Consumer
-                            </button>
-                        </div>
-                    </div>
+            <div
+              className={`dropdown-menulist ${isDropdownOpen ? "show" : ""}`}
+              role="menu"
+            >
+              <button
+                role="menuitem"
+                onClick={() => {
+                  setDropdownOpen(false);
+                  navigate("/farmerpage");
+                }}
+              >
+                Farmer
+              </button>
 
-                    <button>Profile</button>
-                </div>
+              <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/distributorpage"); }}>
+                Distributor
+              </button>
+              <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/retailerpage"); }}>
+                Retailer
+              </button>
+              <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/consumerpage"); }}>
+                Consumer
+              </button>
             </div>
+          </div>
 
-      {/* Dashboard Content */}
+          <button>Profile</button>
+        </div>
+      </div>
+
       <div className="farmer-dashboard-content">
         <h2>Farmer Dashboard</h2>
         <p>Manage your crops, earnings, and market insights.</p>
