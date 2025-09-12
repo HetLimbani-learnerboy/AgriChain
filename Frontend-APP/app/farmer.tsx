@@ -45,6 +45,7 @@ const farmerActions: Action[] = [
 export default function FarmerScreen() {
   return (
     <SafeAreaView style={styles.container}>
+      
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Farmer Dashboard</Text>
         <Text style={styles.subtitle}>
