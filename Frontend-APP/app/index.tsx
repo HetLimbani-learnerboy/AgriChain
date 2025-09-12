@@ -13,7 +13,7 @@ export default function Dashboard() {
             resizeMode="contain"
           />
         </View>
-        <Text style={styles.title}>Welcome to AgriChain </Text>
+        <Text style={styles.title}>Welcome to AgriChain 🔗</Text>
         <Text style={styles.subtitle}>Track the supply chain from farm to fork with transparency.</Text>
 
         <View style={styles.statsContainer}>

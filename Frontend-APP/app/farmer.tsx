@@ -1,39 +1,44 @@
 import React from "react";
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
 
 type Action = {
   title: string;
   description: string;
-  icon: keyof typeof Ionicons.glyphMap;
-  color: string;
+  image: any; // local image
 };
 
 const farmerActions: Action[] = [
   {
     title: "Add Produce",
-    description: "Add new crops with details like crop name, quantity, price, grade, and location.",
-    icon: "add-circle-outline",
-    color: "#4CAF50",
+    description:
+      "Add new crops with details like crop name, quantity, price, grade, and location.",
+    image: require("../assets/Images/png1_ap.png"),
   },
   {
     title: "My Produce List",
-    description: "Track the status of your crops from Added → Transported → Sold.",
-    icon: "list-outline",
-    color: "#2196F3",
+    description:
+      "Track the status of your crops from Added → Transported → Sold.",
+    image: require("../assets/Images/png2_pl.png"),
   },
   {
     title: "Earnings Overview",
-    description: "View your total earnings, recent transactions, and profit summary.",
-    icon: "trending-up-outline",
-    color: "#FF9800",
+    description:
+      "View your total earnings, recent transactions, and profit summary.",
+    image: require("../assets/Images/png3_eo.png"),
   },
   {
     title: "Market Prices",
-    description: "Stay updated with the latest market rates and pricing trends for different crops.",
-    icon: "analytics-outline",
-    color: "#9C27B0",
+    description:
+      "Stay updated with the latest market rates and pricing trends for different crops.",
+    image: require("../assets/Images/png4_mp.png"),
   },
 ];
 
@@ -42,14 +47,14 @@ export default function FarmerScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Farmer Dashboard</Text>
-        <Text style={styles.subtitle}>Manage your crops, earnings, and market insights.</Text>
+        <Text style={styles.subtitle}>
+          Manage your crops, earnings, and market insights.
+        </Text>
 
         <View style={styles.cardsContainer}>
-          {farmerActions.map(({ title, description, icon, color }) => (
+          {farmerActions.map(({ title, description, image }) => (
             <TouchableOpacity key={title} style={styles.actionCard}>
-              <View style={[styles.iconContainer, { backgroundColor: color + "20" }]}>
-                <Ionicons name={icon} size={40} color={color} />
-              </View>
+              <Image source={image} style={styles.actionImage} resizeMode="cover" />
               <Text style={styles.actionTitle}>{title}</Text>
               <Text style={styles.actionDescription}>{description}</Text>
             </TouchableOpacity>
@@ -61,22 +66,61 @@ export default function FarmerScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f7faf1" },
-  content: { padding: 20 },
-  title: { fontSize: 28, fontWeight: "bold", color: "#1E2B21", marginBottom: 8, textAlign: "center" },
-  subtitle: { fontSize: 16, color: "#38423d", textAlign: "center", marginBottom: 30 },
-  cardsContainer: { gap: 15 },
+  container: {
+    flex: 1,
+    backgroundColor: "#f7faf1",
+  },
+  content: {
+    paddingHorizontal: 20,
+    paddingBottom: 30,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#1E2B21",
+    marginTop: 10,
+    marginBottom: 6,
+    textAlign: "center",
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#555",
+    textAlign: "center",
+    marginBottom: 25,
+  },
+  cardsContainer: {
+    flexDirection: "column",
+    gap: 20,
+  },
   actionCard: {
     backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 15,
+    borderRadius: 18,
+    overflow: "hidden",
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowRadius: 6,
+    elevation: 4,
   },
-  iconContainer: { width: 60, height: 60, borderRadius: 30, justifyContent: "center", alignItems: "center", marginBottom: 15 },
-  actionTitle: { fontSize: 18, fontWeight: "bold", color: "#1E2B21", marginBottom: 8 },
-  actionDescription: { fontSize: 14, color: "#666", lineHeight: 20 },
+  actionImage: {
+    width: "100%",
+    height: 180,
+  },
+  actionTitle: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#1E2B21",
+    marginTop: 15,
+    marginHorizontal: 15,
+    textAlign: "center",
+  },
+  actionDescription: {
+    fontSize: 15,
+    color: "#666",
+    lineHeight: 22,
+    textAlign: "center",
+    marginHorizontal: 20,
+    marginBottom: 20,
+    marginTop: 6,
+  },
 });
