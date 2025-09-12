@@ -1,20 +1,4 @@
-<<<<<<< HEAD
-import { Text, View } from "react-native";
 
-export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
-}
-=======
 import React from "react";
 import { View, Text, ScrollView, StyleSheet,Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -96,4 +80,4 @@ const styles = StyleSheet.create({
   statNumber: { fontSize: 24, fontWeight: "bold", color: "#269b59" },
   statLabel: { fontSize: 14, color: "#666", marginTop: 5 },
 });
->>>>>>> main
+
