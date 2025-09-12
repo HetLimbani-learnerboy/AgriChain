@@ -1,4 +1,3 @@
-
 import React from "react";
 import { View, Text, ScrollView, StyleSheet,Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -36,7 +35,7 @@ export default function Dashboard() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f7faf1" },
+  container: { flex: 1, backgroundColor: "#fdfbf5" },
   content: { padding: 20, alignItems: "center" },
   logoContainer: {
     alignItems: "center",
@@ -44,9 +43,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     height: 120,
     width: 120,
-    borderRadius: 60, // Use number instead of 50%
+    borderRadius: 60,
     backgroundColor: "#ffffff",
-    shadowColor: "#000",
+    shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -57,8 +56,8 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
   },
-  title: { fontSize: 28, fontWeight: "bold", color: "#1E2B21", marginBottom: 8 },
-  subtitle: { fontSize: 16, color: "#38423d", textAlign: "center", marginBottom: 30 },
+  title: { fontSize: 28, fontWeight: "bold", color: "black", marginBottom: 8 },
+  subtitle: { fontSize: 16, color: "black", textAlign: "center", marginBottom: 30 },
   statsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -71,12 +70,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: "center",
     width: "45%",
-    shadowColor: "#000",
+    shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
   },
   statNumber: { fontSize: 24, fontWeight: "bold", color: "#269b59" },
-  statLabel: { fontSize: 14, color: "#666", marginTop: 5 },
+  statLabel: { fontSize: 14, color: "black", marginTop: 5 },
 });

@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 type Action = {
   title: string;
   description: string;
-  image: any; // local image
+  image: any; 
 };
 
 const retailerActions: Action[] = [
@@ -66,19 +66,19 @@ export default function RetailerScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f7faf1" },
+  container: { flex: 1, backgroundColor: "#fdfbf5" },
   content: { paddingHorizontal: 20, paddingBottom: 30 },
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#1E2B21",
+    color: "black",
     marginTop: 10,
     marginBottom: 6,
     textAlign: "center",
   },
   subtitle: {
     fontSize: 16,
-    color: "#555",
+    color: "black",
     textAlign: "center",
     marginBottom: 25,
   },
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   actionDescription: {
     fontSize: 15,
-    color: "#666",
+    color: "black",
     lineHeight: 22,
     textAlign: "center",
     marginHorizontal: 20,

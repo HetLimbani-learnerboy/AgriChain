@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 type Action = {
   title: string;
   description: string;
-  image: any; // local image
+  image: any; 
 };
 
 const consumerActions: Action[] = [
@@ -62,7 +62,7 @@ export default function ConsumerScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f7faf1",
+    backgroundColor: "#fdfbf5",
   },
   content: {
     paddingHorizontal: 20,
@@ -71,14 +71,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#1E2B21",
+    color: "black",
     marginTop: 10,
     marginBottom: 6,
     textAlign: "center",
   },
   subtitle: {
     fontSize: 16,
-    color: "#555",
+    color: "black",
     textAlign: "center",
     marginBottom: 25,
   },
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 18,
     overflow: "hidden",
-    shadowColor: "#000",
+    shadowColor: "black",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
@@ -104,14 +104,14 @@ const styles = StyleSheet.create({
   actionTitle: {
     fontSize: 20,
     fontWeight: "600",
-    color: "#1E2B21",
+    color: "black",
     marginTop: 15,
     marginHorizontal: 15,
     textAlign: "center",
   },
   actionDescription: {
     fontSize: 15,
-    color: "#666",
+    color: "black",
     lineHeight: 22,
     textAlign: "center",
     marginHorizontal: 20,

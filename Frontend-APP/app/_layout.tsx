@@ -1,4 +1,3 @@
-
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import AppHeader from '../Components/AppHeader';
@@ -7,15 +6,13 @@ import { View } from 'react-native';
 export default function RootLayout() {
   return (
     <View style={{ flex: 1 }}>
-      {/* Custom header on top */}
       <AppHeader />
 
-      {/* Tabs without default header */}
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: "#269b59",
           tabBarInactiveTintColor: "#8E8E93",
-          headerShown: false, // <-- hide the default tab headers
+          headerShown: false, 
         }}
       >
         <Tabs.Screen
