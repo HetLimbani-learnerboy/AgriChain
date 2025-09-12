@@ -1,0 +1,123 @@
+.distributor-dashboard-webapp {
+    background: #fdfbf5;
+    font-family: Inter, sans-serif;
+    min-height: 100vh;          
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+.distributor-dashboard-content {
+    flex: 1;                   
+    padding: 2rem;
+    text-align: center;
+}
+
+.distributor-dashboard-content h2 {
+    font-size: clamp(1.8rem, 2.5vw + 1rem, 2.5rem);
+    font-weight: bolder;
+    margin-bottom: 0.5rem;
+}
+
+.distributor-dashboard-content p {
+    margin-bottom: 2rem;
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.5rem);
+}
+
+.distributor-sections {
+    margin-top: 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.distributor-card {
+    font-weight: bolder;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0;
+}
+
+.distributor-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.distributor-card-body {
+    padding: 1rem;
+    text-align: center;
+}
+
+.distributor-card-body h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.distributor-card-body p {
+    font-size: 0.95rem;
+}
+
+.distributor-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeInUp {
+    from { transform: translateY(15px); opacity: 0; }
+    to   { transform: translateY(0);   opacity: 1; }
+}
+
+@media (max-width: 992px) {
+    .distributor-dashboard-content h2 {
+        font-size: 2rem;
+    }
+    .distributor-dashboard-content p {
+        font-size: 1.2rem;
+    }
+    .distributor-card img {
+        height: 240px;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 600px) {
+    .distributor-dashboard-content {
+        padding: 1rem;
+        text-align: left;
+    }
+    .distributor-dashboard-content h2 {
+        font-size: 1.6rem;
+    }
+    .distributor-dashboard-content p {
+        font-size: 1rem;
+    }
+    .distributor-sections {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .distributor-card img {
+        height: 180px;
+    }
+}
+
+@media (max-height: 500px) {
+    .distributor-dashboard-content {
+        padding: 1rem;
+    }
+    .distributor-card img {
+        height: 200px;
+    }
+    .distributor-card-body h3 {
+        font-size: 1rem;
+    }
+    .distributor-card-body p {
+        font-size: 0.9rem;
+    }
+}
