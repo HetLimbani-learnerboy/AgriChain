@@ -1,3 +1,4 @@
+
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import AppHeader from '../Components/AppHeader';
@@ -50,4 +51,5 @@ export default function RootLayout() {
       </Tabs>
     </View>
   );
+
 }

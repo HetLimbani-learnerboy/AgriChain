@@ -19,62 +19,59 @@ const ConsumerPage = () => {
 
   return (
     <div className="consumer-dashboard-webapp">
-      {/* Navbar */}
-     <div className="navigator-bar-container">
-                <img src="/MainLogo.png" alt="logo" className="logo" />
-                <span>AgriChain</span>
+      <div className="navigator-bar-container">
+        <img src="/MainLogo.png" alt="logo" className="logo" />
+        <span>AgriChain</span>
 
-                <div className="navigator-bar-links">
-                    <button onClick={() => navigate("/")}>Dashboard</button>
-                    <button>Transactions</button>
+        <div className="navigator-bar-links">
+          <button onClick={() => navigate("/")}>Dashboard</button>
+          <button>Transactions</button>
 
-                    <div className="role-dropdown" ref={dropdownRef}>
-                        <button
-                            className="role-button"
-                            aria-haspopup="true"
-                            aria-expanded={isDropdownOpen}
-                            onClick={() => setDropdownOpen((prev) => !prev)}
-                        >
-                            Role ▾
-                        </button>
+          <div className="role-dropdown" ref={dropdownRef}>
+            <button
+              className="role-button"
+              aria-haspopup="true"
+              aria-expanded={isDropdownOpen}
+              onClick={() => setDropdownOpen((prev) => !prev)}
+            >
+              Role ▾
+            </button>
 
-                        <div
-                            className={`dropdown-menulist ${isDropdownOpen ? "show" : ""}`}
-                            role="menu"
-                        >
-                            <button
-                                role="menuitem"
-                                onClick={() => {
-                                    setDropdownOpen(false);
-                                    navigate("/farmerpage");
-                                }}
-                            >
-                                Farmer
-                            </button>
-                            
-                            <button role="menuitem" onClick={() =>{ setDropdownOpen(false); navigate("/distributorpage");}}>
-                                Distributor
-                            </button>
-                            <button role="menuitem" onClick={() => {setDropdownOpen(false); navigate("/retailerpage");}}>
-                                Retailer
-                            </button>
-                            <button role="menuitem" onClick={() =>{ setDropdownOpen(false); navigate("/consumerpage");}}>
-                                Consumer
-                            </button>
-                        </div>
-                    </div>
+            <div
+              className={`dropdown-menulist ${isDropdownOpen ? "show" : ""}`}
+              role="menu"
+            >
+              <button
+                role="menuitem"
+                onClick={() => {
+                  setDropdownOpen(false);
+                  navigate("/farmerpage");
+                }}
+              >
+                Farmer
+              </button>
 
-                    <button>Profile</button>
-                </div>
+              <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/distributorpage"); }}>
+                Distributor
+              </button>
+              <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/retailerpage"); }}>
+                Retailer
+              </button>
+              <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/consumerpage"); }}>
+                Consumer
+              </button>
             </div>
+          </div>
 
-      {/* Dashboard Content */}
+          <button>Profile</button>
+        </div>
+      </div>
+
       <div className="consumer-dashboard-content">
         <h2>Consumer Portal</h2>
         <p>Scan QR codes and track the complete supply chain of your produce.</p>
 
         <div className="consumer-sections">
-          {/* Section 1: Traceability */}
           <div className="consumer-card">
             <img
               src="/Images/png13_tv.png"
@@ -90,7 +87,6 @@ const ConsumerPage = () => {
             </div>
           </div>
 
-          {/* Section 2: QR Code */}
           <div className="consumer-card">
             <img
               src="/Images/png14_qv.png"
@@ -104,7 +100,6 @@ const ConsumerPage = () => {
             </div>
           </div>
 
-          {/* Section 3: Sustainability Tips */}
           <div className="consumer-card">
             <img
               src="/Images/png15_st.png"
