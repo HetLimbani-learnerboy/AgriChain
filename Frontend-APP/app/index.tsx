@@ -1,3 +1,4 @@
+
 import React from "react";
 import { View, Text, ScrollView, StyleSheet,Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -84,5 +85,6 @@ const styles = StyleSheet.create({
   },
   statNumber: { fontSize: 24, fontWeight: "bold", color: "#269b59" },
 
-  statLabel: { fontSize: 14, color: "black", marginTop: 5 },
+  statLabel: { fontSize: 14, color: "#666", marginTop: 5 },
 });
+
