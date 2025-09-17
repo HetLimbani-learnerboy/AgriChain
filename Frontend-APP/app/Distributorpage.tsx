@@ -12,47 +12,43 @@ import { SafeAreaView } from "react-native-safe-area-context";
 type Action = {
   title: string;
   description: string;
-  image: any; // local image
+  image: any;
 };
 
-const retailerActions: Action[] = [
+const distributorActions: Action[] = [
   {
-    title: "Received Produce",
-    description:
-      "View all produce received from distributors and check status.",
-    image: require("../assets/Images/png9_rp.png"),
+    title: "Incoming Produce",
+    description: "Check all produce arriving from farmers before transport.",
+    image: require("../assets/Images/png5_ip.png"),
   },
   {
-    title: "Add Final Price & Stock",
-    description:
-      "Update stock quantities and set final selling price for each crop.",
-    image: require("../assets/Images/png10_fs.png"),
+    title: "Update Transport & Storage",
+    description: "Track pickup dates, storage temperatures, and delivery status.",
+    image: require("../assets/Images/png6_ts.png"),
   },
   {
-    title: "Generate QR Code",
-    description:
-      "Create QR codes for consumers to track products and verify authenticity.",
-    image: require("../assets/Images/png11_gq.png"),
+    title: "Logistics Overview",
+    description: "View current shipments, transport routes, and pending deliveries.",
+    image: require("../assets/Images/png7_li.png"),
   },
   {
-    title: "Sales Overview",
-    description:
-      "Check sales performance and basic charts to analyze trends.",
-    image: require("../assets/Images/png12_so.png"),
+    title: "Market Insights",
+    description: "Get updates on market demand, pricing trends, and forecasts.",
+    image: require("../assets/Images/png8_mi.png"),
   },
 ];
 
-export default function RetailerScreen() {
+export default function DistributorScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Retailer Dashboard</Text>
+        <Text style={styles.title}>Distributor Dashboard</Text>
         <Text style={styles.subtitle}>
-          Manage your stock, pricing, sales, and generate QR codes for consumers.
+          Manage logistics, transport, and storage efficiently.
         </Text>
 
         <View style={styles.cardsContainer}>
-          {retailerActions.map(({ title, description, image }) => (
+          {distributorActions.map(({ title, description, image }) => (
             <TouchableOpacity key={title} style={styles.actionCard}>
               <Image source={image} style={styles.actionImage} resizeMode="cover" />
               <Text style={styles.actionTitle}>{title}</Text>
@@ -66,28 +62,37 @@ export default function RetailerScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f7faf1" },
-  content: { paddingHorizontal: 20, paddingBottom: 30 },
+  container: {
+    flex: 1,
+    backgroundColor: "#fdfbf5",
+  },
+  content: {
+    paddingHorizontal: 20,
+    paddingBottom: 30,
+  },
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#1E2B21",
+    color: "black",
     marginTop: 10,
     marginBottom: 6,
     textAlign: "center",
   },
   subtitle: {
     fontSize: 16,
-    color: "#555",
+    color: "black",
     textAlign: "center",
     marginBottom: 25,
   },
-  cardsContainer: { flexDirection: "column", gap: 20 },
+  cardsContainer: {
+    flexDirection: "column",
+    gap: 20,
+  },
   actionCard: {
     backgroundColor: "#fff",
     borderRadius: 18,
     overflow: "hidden",
-    shadowColor: "#000",
+    shadowColor: "black",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
@@ -101,14 +106,14 @@ const styles = StyleSheet.create({
   actionTitle: {
     fontSize: 20,
     fontWeight: "600",
-    color: "#1E2B21",
+    color: "black",
     marginTop: 15,
     marginHorizontal: 15,
     textAlign: "center",
   },
   actionDescription: {
     fontSize: 15,
-    color: "#666",
+    color: "black",
     lineHeight: 22,
     textAlign: "center",
     marginHorizontal: 20,

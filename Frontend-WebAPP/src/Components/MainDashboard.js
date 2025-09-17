@@ -12,20 +12,8 @@ const StatCard = ({ title, value, icon }) => (
     </div>
 );
 
-const TransactionRow = ({ hash, from, to, product, status }) => (
-    <tr className="row">
-        <td className="cell hidden md:block font-mono">{hash}</td>
-        <td className="cell">{from}</td>
-        <td className="cell">{to}</td>
-        <td className="cell hidden sm:block">{product}</td>
-        <td className="cell">
-            <span className={`status ${status.toLowerCase()}`}>{status}</span>
-        </td>
-    </tr>
-);
-
 const MainDashboard = () => {
-    const navigate = useNavigate(); // ✅ moved inside component
+    const navigate = useNavigate();
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -72,14 +60,14 @@ const MainDashboard = () => {
                             >
                                 Farmer
                             </button>
-                            
-                            <button role="menuitem" onClick={() =>{ setDropdownOpen(false); navigate("/distributorpage");}}>
+
+                            <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/distributorpage"); }}>
                                 Distributor
                             </button>
-                            <button role="menuitem" onClick={() => {setDropdownOpen(false); navigate("/retailerpage");}}>
+                            <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/retailerpage"); }}>
                                 Retailer
                             </button>
-                            <button role="menuitem" onClick={() =>{ setDropdownOpen(false); navigate("/consumerpage");}}>
+                            <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/consumerpage"); }}>
                                 Consumer
                             </button>
                         </div>

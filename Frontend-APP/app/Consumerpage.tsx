@@ -12,48 +12,41 @@ import { SafeAreaView } from "react-native-safe-area-context";
 type Action = {
   title: string;
   description: string;
-  image: any; // local image
+  image: any; 
 };
 
-const farmerActions: Action[] = [
+const consumerActions: Action[] = [
   {
-    title: "Add Produce",
+    title: "Traceability View",
     description:
-      "Add new crops with details like crop name, quantity, price, grade, and location.",
-    image: require("../assets/Images/png1_ap.png"),
+      "Crop → Farmer Details → Transport Info → Retail Price. Visualized as a timeline or flowchart for easy tracking.",
+    image: require("../assets/Images/png13_tv.png"),
   },
   {
-    title: "My Produce List",
+    title: "QR Code Verification",
     description:
-      "Track the status of your crops from Added → Transported → Sold.",
-    image: require("../assets/Images/png2_pl.png"),
+      "Scan or view QR codes for product authentication and detailed info.",
+    image: require("../assets/Images/png14_qv.png"),
   },
   {
-    title: "Earnings Overview",
+    title: "Sustainability Tips",
     description:
-      "View your total earnings, recent transactions, and profit summary.",
-    image: require("../assets/Images/png3_eo.png"),
-  },
-  {
-    title: "Market Prices",
-    description:
-      "Stay updated with the latest market rates and pricing trends for different crops.",
-    image: require("../assets/Images/png4_mp.png"),
+      "Learn about eco-friendly practices and support sustainable agriculture.",
+    image: require("../assets/Images/png15_st.png"),
   },
 ];
 
-export default function FarmerScreen() {
+export default function ConsumerScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Farmer Dashboard</Text>
+        <Text style={styles.title}>Consumer Portal</Text>
         <Text style={styles.subtitle}>
-          Manage your crops, earnings, and market insights.
+          Scan QR codes and track the complete supply chain of your produce.
         </Text>
 
         <View style={styles.cardsContainer}>
-          {farmerActions.map(({ title, description, image }) => (
+          {consumerActions.map(({ title, description, image }) => (
             <TouchableOpacity key={title} style={styles.actionCard}>
               <Image source={image} style={styles.actionImage} resizeMode="cover" />
               <Text style={styles.actionTitle}>{title}</Text>
@@ -69,7 +62,7 @@ export default function FarmerScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f7faf1",
+    backgroundColor: "#fdfbf5",
   },
   content: {
     paddingHorizontal: 20,
@@ -78,14 +71,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#1E2B21",
+    color: "black",
     marginTop: 10,
     marginBottom: 6,
     textAlign: "center",
   },
   subtitle: {
     fontSize: 16,
-    color: "#555",
+    color: "black",
     textAlign: "center",
     marginBottom: 25,
   },
@@ -97,11 +90,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 18,
     overflow: "hidden",
-    shadowColor: "#000",
+    shadowColor: "black",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 4,
+    alignItems: "center",
   },
   actionImage: {
     width: "100%",
@@ -110,14 +104,14 @@ const styles = StyleSheet.create({
   actionTitle: {
     fontSize: 20,
     fontWeight: "600",
-    color: "#1E2B21",
+    color: "black",
     marginTop: 15,
     marginHorizontal: 15,
     textAlign: "center",
   },
   actionDescription: {
     fontSize: 15,
-    color: "#666",
+    color: "black",
     lineHeight: 22,
     textAlign: "center",
     marginHorizontal: 20,

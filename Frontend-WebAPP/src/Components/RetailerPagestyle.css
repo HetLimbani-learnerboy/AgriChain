@@ -1,147 +1,110 @@
-/* Global */
 .retailer-dashboard-webapp {
-    background: #fdfbf5;
-    font-family: Inter, sans-serif;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
+  background: #fdfbf5;
+  font-family: Inter, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 .retailer-dashboard-content {
-    padding: 2rem;
-    text-align: center;
+  padding: 2rem;
+  text-align: center;
 }
 
 .retailer-dashboard-content h2 {
-    font-size: 2.5rem;
-    font-weight: bolder;
-    margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  margin-bottom: 0.5rem;
 }
 
 .retailer-dashboard-content p {
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
 }
 
 .retailer-sections {
-    margin-top: 5%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
+  margin-top: 5%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
 }
 
-/* Section Card */
 .retailer-card {
-
-    font-weight: bolder;
-    background: #fff;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeInUp 0.8s ease forwards;
-    opacity: 0;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+  font-weight: bolder;
 }
 
 .retailer-card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
 }
 
 .retailer-card-body {
-    padding: 1rem;
-    text-align: center;
+  padding: 1rem;
+  text-align: center;
 }
 
 .retailer-card-body h3 {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .retailer-card-body p {
-    font-size: 0.95rem;
+  font-size: 0.95rem;
 }
 
-/* Hover Animation */
 .retailer-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Fade-in animation */
 @keyframes fadeInUp {
-    from {
-        transform: translateY(15px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-/* Responsive Design */
-
-/* Tablets */
 @media (max-width: 992px) {
-    .retailer-navbar span {
-        font-size: 1rem;
-    }
-
-    .retailer-navbar-links button {
-        font-size: 0.9rem;
-    }
-
-    .retailer-dashboard-content h2 {
-        font-size: 1.7rem;
-    }
-
-    .retailer-dashboard-content p {
-        font-size: 1rem;
-    }
-
-    .retailer-card img {
-        height: 160px;
-    }
+  .retailer-dashboard-content h2 {
+    font-size: 1.7rem;
+  }
+  .retailer-dashboard-content p {
+    font-size: 1rem;
+  }
+  .retailer-card img {
+    height: 160px;
+  }
 }
 
-/* Mobile */
 @media (max-width: 600px) {
-    .retailer-navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-
-    .retailer-navbar-links {
-        gap: 0.8rem;
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-    }
-
-    .retailer-dashboard-content {
-        padding: 1rem;
-        text-align: left;
-    }
-
-    .retailer-dashboard-content h2 {
-        font-size: 1.5rem;
-    }
-
-    .retailer-dashboard-content p {
-        font-size: 0.9rem;
-    }
-
-    .retailer-sections {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .retailer-card img {
-        height: 150px;
-    }
+  .retailer-dashboard-content {
+    padding: 1rem;
+    text-align: left;
+  }
+  .retailer-dashboard-content h2 {
+    font-size: 1.5rem;
+  }
+  .retailer-dashboard-content p {
+    font-size: 0.9rem;
+  }
+  .retailer-sections {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .retailer-card img {
+    height: 150px;
+  }
 }

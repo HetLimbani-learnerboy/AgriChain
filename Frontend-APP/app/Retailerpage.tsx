@@ -12,41 +12,47 @@ import { SafeAreaView } from "react-native-safe-area-context";
 type Action = {
   title: string;
   description: string;
-  image: any; // local image
+  image: any; 
 };
 
-const consumerActions: Action[] = [
+const retailerActions: Action[] = [
   {
-    title: "Traceability View",
+    title: "Received Produce",
     description:
-      "Crop → Farmer Details → Transport Info → Retail Price. Visualized as a timeline or flowchart for easy tracking.",
-    image: require("../assets/Images/png13_tv.png"),
+      "View all produce received from distributors and check status.",
+    image: require("../assets/Images/png9_rp.png"),
   },
   {
-    title: "QR Code Verification",
+    title: "Add Final Price & Stock",
     description:
-      "Scan or view QR codes for product authentication and detailed info.",
-    image: require("../assets/Images/png14_qv.png"),
+      "Update stock quantities and set final selling price for each crop.",
+    image: require("../assets/Images/png10_fs.png"),
   },
   {
-    title: "Sustainability Tips",
+    title: "Generate QR Code",
     description:
-      "Learn about eco-friendly practices and support sustainable agriculture.",
-    image: require("../assets/Images/png15_st.png"),
+      "Create QR codes for consumers to track products and verify authenticity.",
+    image: require("../assets/Images/png11_gq.png"),
+  },
+  {
+    title: "Sales Overview",
+    description:
+      "Check sales performance and basic charts to analyze trends.",
+    image: require("../assets/Images/png12_so.png"),
   },
 ];
 
-export default function ConsumerScreen() {
+export default function RetailerScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Consumer Portal</Text>
+        <Text style={styles.title}>Retailer Dashboard</Text>
         <Text style={styles.subtitle}>
-          Scan QR codes and track the complete supply chain of your produce.
+          Manage your stock, pricing, sales, and generate QR codes for consumers.
         </Text>
 
         <View style={styles.cardsContainer}>
-          {consumerActions.map(({ title, description, image }) => (
+          {retailerActions.map(({ title, description, image }) => (
             <TouchableOpacity key={title} style={styles.actionCard}>
               <Image source={image} style={styles.actionImage} resizeMode="cover" />
               <Text style={styles.actionTitle}>{title}</Text>
@@ -60,32 +66,23 @@ export default function ConsumerScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f7faf1",
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingBottom: 30,
-  },
+  container: { flex: 1, backgroundColor: "#fdfbf5" },
+  content: { paddingHorizontal: 20, paddingBottom: 30 },
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#1E2B21",
+    color: "black",
     marginTop: 10,
     marginBottom: 6,
     textAlign: "center",
   },
   subtitle: {
     fontSize: 16,
-    color: "#555",
+    color: "black",
     textAlign: "center",
     marginBottom: 25,
   },
-  cardsContainer: {
-    flexDirection: "column",
-    gap: 20,
-  },
+  cardsContainer: { flexDirection: "column", gap: 20 },
   actionCard: {
     backgroundColor: "#fff",
     borderRadius: 18,
@@ -111,7 +108,7 @@ const styles = StyleSheet.create({
   },
   actionDescription: {
     fontSize: 15,
-    color: "#666",
+    color: "black",
     lineHeight: 22,
     textAlign: "center",
     marginHorizontal: 20,
