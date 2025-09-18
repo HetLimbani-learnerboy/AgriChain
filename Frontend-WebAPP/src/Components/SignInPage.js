@@ -12,12 +12,8 @@ const SignIn = () => {
         <img src="/MainLogo.png" alt="logo" className="logo" />
         <span>AgriChain</span>
         <div className="navigator-bar-links">
-          <button onClick={() => navigate("/maindashboardpage")}>Dashboard</button>
-          <button>Transactions</button>
-          <div className="role-dropdown">
-            <button className="role-button">Role ▾</button>
-          </div>
-          <button>Profile</button>
+          <button onClick={() => navigate("/")}>Dashboard</button>
+
         </div>
       </div>
 
@@ -36,7 +32,7 @@ const SignIn = () => {
         </form>
         <p className="switch-text">
           Don’t have an account?{" "}
-          <span onClick={() => navigate("/signup")}>Sign Up</span>
+          <span onClick={() => navigate("/signuppage")}>Sign Up</span>
         </p>
       </div>
     </div>

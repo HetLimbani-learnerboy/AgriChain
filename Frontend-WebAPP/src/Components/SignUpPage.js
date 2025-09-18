@@ -4,6 +4,21 @@ import "./SignUpPage.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  const fullName = e.target[0].value;
+  const email = e.target[1].value;
+  const password = e.target[2].value;
+
+  const res = await fetch("http://localhost:5000/api/auth/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ fullName, email, password }),
+  });
+
+  const data = await res.json();
+  console.log(data);
+};
 
   return (
     <div className="signup-page">
@@ -12,19 +27,15 @@ const SignUp = () => {
         <img src="/MainLogo.png" alt="logo" className="logo" />
         <span>AgriChain</span>
         <div className="navigator-bar-links">
-          <button onClick={() => navigate("/maindashboardpage")}>Dashboard</button>
-          <button>Transactions</button>
-          <div className="role-dropdown">
-            <button className="role-button">Role ▾</button>
-          </div>
-          <button>Profile</button>
+          <button onClick={() => navigate("/")}>Dashboard</button>
+
         </div>
       </div>
 
       {/* SignUp Form */}
       <div className="signup-container">
         <h2>Create Your Account</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input type="text" placeholder="Full Name" required />
           <input type="email" placeholder="Email Address" required />
           <input type="password" placeholder="Password" required />
@@ -38,7 +49,7 @@ const SignUp = () => {
         </form>
         <p className="switch-text">
           Already have an account?{" "}
-          <span onClick={() => navigate("/signin")}>Sign In</span>
+          <span onClick={() => navigate("/signinpage")}>Sign In</span>
         </p>
       </div>
     </div>

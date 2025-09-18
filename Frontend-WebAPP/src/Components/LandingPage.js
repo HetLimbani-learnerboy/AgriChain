@@ -56,7 +56,7 @@ const LandingPage = () => {
                 </p>
 
                 <div className="auth-btn-group">
-                    <button className="hero-btn" onClick={() => navigate('/siginpage')}>Sign In</button>
+                    <button className="hero-btn" onClick={() => navigate('/signinpage')}>Sign In</button>
                     <button className="hero-btn" onClick={() => navigate('/signuppage')}>Sign Up</button>
                     <button className="hero-btn" onClick={() => navigate('/maindashboardpage')}>Get Started</button>
                 </div>
