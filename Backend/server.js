@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./Config/db");
 const authRoutes = require("./routes/authRoutes");
+const bcrypt=require("bcrypt");
 const User =require("./models/User");
 
 dotenv.config();
@@ -34,7 +35,8 @@ app.post("/signup",async (req,res)=>{
       return res.status(400).json({ message: "Email already registered" });
     }
 
-    const newUser = new User({ name, email, password });
+    const hashpass=bcrypt.hashSync(password,10);
+    const newUser = new User({ name, email, password:hashpass });
     await newUser.save();
     res.status(201).json({
         message: "User created successfully",
@@ -52,4 +54,10 @@ app.post("/signup",async (req,res)=>{
 app.get("/",(req,res)=>{
   console.log("root requested");
   res.send("root requested");
+})
+app.get("/signin",(req,res)=>{
+  const {email}=req.body;
+  const user=User.findOne({email});
+  res.send(user.password);
+  console.log(user.password);
 })
