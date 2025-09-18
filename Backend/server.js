@@ -63,7 +63,7 @@ app.get("/signin",async (req,res)=>{
       if (!existingUser) {
         return res.status(400).json({ message: "user not exist" });
       }
-      
+
       const user= await User.findOne({email});
       const passcheck=await bcrypt.compare(password,user.password);
 
@@ -78,4 +78,41 @@ app.get("/signin",async (req,res)=>{
   }catch(err){
       res.status(400).send("err is catched",err);
   }
+});
+
+
+app.get("/signin/forgotpassword",(req,res)=>{
+  // render a form where user write a email
+  // after click on the btn then re directed to /signin/forgotpassword/auth
+});
+
+app.get("/signin/forgotpassword/auth",(req,res)=>{
+    //render a form same as above but adding one addtional input of otp
+    //generat a otp and on click on verify button redirected to patch request of /signin/forgotpassword
+    //and entering a new password
 })
+
+
+app.patch("/signin/forgotpassword",async(req,res)=>{
+    try{
+        const {email,otp,password}=req.body;
+
+        // first verify the otp and after that continew
+
+
+        const hashPass = bcrypt.hashSync(password, 10);
+        const updatedUser = await User.findOneAndUpdate(
+          { email: email },            // filter condition
+          { password: hashPass },      // update object
+          { new: true }                // return updated user
+        );
+
+        res.json({
+          message: "User updated successfully",
+          user: updatedUser
+        });
+
+    }catch(err){
+      res.status(500).send("err is catched",err);
+    }
+});
