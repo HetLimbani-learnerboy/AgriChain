@@ -6,6 +6,8 @@ import Farmerpage from "./Components/Farmerpage";
 import DistributorPage from "./Components/DistributorPage";
 import RetailerPage from "./Components/RetailerPage";
 import ConsumerPage from "./Components/ConsumerPage";
+import SignInPage from "./Components/SignInPage"
+import SignUpPage from "./Components/SignUpPage"
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
         <Route path="/distributorpage" element={<DistributorPage />} />
         <Route path="/retailerpage" element={<RetailerPage />} />
         <Route path="/consumerpage" element={<ConsumerPage />} />
+        <Route path="/signin" element={< SignInPage />} />
+        <Route path="/signup" element={< SignUpPage />} />
       </Routes>
   );
 };
