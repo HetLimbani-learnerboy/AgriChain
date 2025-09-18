@@ -64,11 +64,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   navbar: {
-    height: 70,
+    height: 85,
     backgroundColor: '#eaf5ecff',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    // justifyContent: 'space-between',
+    justifyContent: 'space-between',
     paddingHorizontal: screenWidth < 400 ? 20 : 24,
     paddingVertical:8,
     shadowColor: '#000',
@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
   navTitle: {
     fontSize: 18,
     fontWeight: '600',
-    // marginTop:18,
+    marginTop:5,
     color: '#3d9369ff',
-    marginBottom: 4, // remove extra margin
-    marginLeft: 0, // small gap between logo and text
+    marginBottom: 4, 
+    marginLeft: 0, 
   },
   dropdownButton: {
-    marginTop:12,
+    marginTop:25,
     marginLeft:165,
     padding: 8,
     
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     top: 50,
     right: 0,
     width: 130,
-    backgroundColor: '#dfebe1ff',
+    backgroundColor: '#fff',
     borderRadius: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
