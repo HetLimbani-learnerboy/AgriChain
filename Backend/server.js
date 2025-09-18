@@ -55,9 +55,27 @@ app.get("/",(req,res)=>{
   console.log("root requested");
   res.send("root requested");
 })
-app.get("/signin",(req,res)=>{
-  const {email}=req.body;
-  const user=User.findOne({email});
-  res.send(user.password);
-  console.log(user.password);
+app.get("/signin",async (req,res)=>{
+  try{
+      const {email,password}=req.body;
+
+      const existingUser = await User.findOne({ email });
+      if (!existingUser) {
+        return res.status(400).json({ message: "user not exist" });
+      }
+      
+      const user= await User.findOne({email});
+      const passcheck=await bcrypt.compare(password,user.password);
+
+
+      if(passcheck){
+        console.log("lognin successful ");
+        res.send("lognin successful");
+      }else{
+        console.log("lognin unsuccessful");
+        res.send("lognin unsuccessful");
+      }
+  }catch(err){
+      res.status(400).send("err is catched",err);
+  }
 })
