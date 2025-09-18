@@ -43,7 +43,7 @@ const SignUp = () => {
 
           <button type="submit" className="signup-btn">Sign Up</button>
           <button type="button" className="google-btn">
-            <img src="//GoogleLogo.png" alt="Google" />
+            <img src="/GoogleLogo.png" alt="Google" />
             Sign Up with Google
           </button>
         </form>
