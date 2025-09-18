@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./Config/db");
 const authRoutes = require("./routes/authRoutes");
+const bcrypt=require("bcrypt");
 const User =require("./models/User");
 
 dotenv.config();
@@ -34,7 +35,8 @@ app.post("/signup",async (req,res)=>{
       return res.status(400).json({ message: "Email already registered" });
     }
 
-    const newUser = new User({ name, email, password });
+    const hashpass=bcrypt.hashSync(password,10);
+    const newUser = new User({ name, email, password:hashpass });
     await newUser.save();
     res.status(201).json({
         message: "User created successfully",
@@ -52,4 +54,28 @@ app.post("/signup",async (req,res)=>{
 app.get("/",(req,res)=>{
   console.log("root requested");
   res.send("root requested");
+})
+app.get("/signin",async (req,res)=>{
+  try{
+      const {email,password}=req.body;
+
+      const existingUser = await User.findOne({ email });
+      if (!existingUser) {
+        return res.status(400).json({ message: "user not exist" });
+      }
+      
+      const user= await User.findOne({email});
+      const passcheck=await bcrypt.compare(password,user.password);
+
+
+      if(passcheck){
+        console.log("lognin successful ");
+        res.send("lognin successful");
+      }else{
+        console.log("lognin unsuccessful");
+        res.send("lognin unsuccessful");
+      }
+  }catch(err){
+      res.status(400).send("err is catched",err);
+  }
 })
