@@ -10,12 +10,21 @@ const StatCard = ({ title, value, icon }) => (
       <h3>{title}</h3>
       <p>{value}</p>
     </div>
+<<<<<<< HEAD
+);
+
+const MainDashboard = () => {
+    const navigate = useNavigate();
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+=======
   </div>
 );
 
 const MainDashboard = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+>>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad
 
   const [roleOpen, setRoleOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -43,9 +52,37 @@ const MainDashboard = () => {
         <img src="/MainLogo.png" alt="logo" className="logo" />
         <span>AgriChain</span>
 
+<<<<<<< HEAD
+                        <div
+                            className={`dropdown-menulist ${isDropdownOpen ? "show" : ""}`}
+                            role="menu"
+                        >
+                            <button
+                                role="menuitem"
+                                onClick={() => {
+                                    setDropdownOpen(false);
+                                    navigate("/farmerpage");
+                                }}
+                            >
+                                Farmer
+                            </button>
+
+                            <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/distributorpage"); }}>
+                                Distributor
+                            </button>
+                            <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/retailerpage"); }}>
+                                Retailer
+                            </button>
+                            <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/consumerpage"); }}>
+                                Consumer
+                            </button>
+                        </div>
+                    </div>
+=======
         <div className="navigator-bar-links">
           <button onClick={() => navigate("/maindashboardpage")}>{t("dashboard")}</button>
           <button>{t("Transaction")}</button>
+>>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad
 
           {/* Role Dropdown */}
           <div className="role-dropdown" ref={roleRef}>

@@ -8,42 +8,55 @@ import {
   Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n"; // your i18n config
 
 type Action = {
   title: string;
   description: string;
+<<<<<<< HEAD:Frontend-APP/app/consumer.tsx
+  image: any;
+=======
   image: any; 
+>>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad:Frontend-APP/app/Consumerpage.tsx
 };
 
-const consumerActions: Action[] = [
-  {
-    title: "Traceability View",
-    description:
-      "Crop → Farmer Details → Transport Info → Retail Price. Visualized as a timeline or flowchart for easy tracking.",
-    image: require("../assets/Images/png13_tv.png"),
-  },
-  {
-    title: "QR Code Verification",
-    description:
-      "Scan or view QR codes for product authentication and detailed info.",
-    image: require("../assets/Images/png14_qv.png"),
-  },
-  {
-    title: "Sustainability Tips",
-    description:
-      "Learn about eco-friendly practices and support sustainable agriculture.",
-    image: require("../assets/Images/png15_st.png"),
-  },
-];
-
 export default function ConsumerScreen() {
+  const { t } = useTranslation();
+
+  const consumerActions: Action[] = [
+    {
+      title: t("Traceability View"),
+      description: t(
+        "Crop → Farmer Details → Transport Info → Retail Price. Visualized as a timeline or flowchart for easy tracking."
+      ),
+      image: require("../assets/Images/png13_tv.png"),
+    },
+    {
+      title: t("QR Code Verification"),
+      description: t(
+        "Scan or view QR codes for product authentication and detailed info."
+      ),
+      image: require("../assets/Images/png14_qv.png"),
+    },
+    {
+      title: t("Sustainability Tips"),
+      description: t(
+        "Learn about eco-friendly practices and support sustainable agriculture."
+      ),
+      image: require("../assets/Images/png15_st.png"),
+    },
+  ];
+
+  const changeLanguage = (lang: "en" | "hi" | "gu") => {
+    i18n.changeLanguage(lang);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Consumer Portal</Text>
-        <Text style={styles.subtitle}>
-          Scan QR codes and track the complete supply chain of your produce.
-        </Text>
+        <Text style={styles.title}>{t("ConsumerPortal")}</Text>
+        <Text style={styles.subtitle}>{t("ConsumerSubtitle")}</Text>
 
         <View style={styles.cardsContainer}>
           {consumerActions.map(({ title, description, image }) => (
@@ -60,6 +73,10 @@ export default function ConsumerScreen() {
 }
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD:Frontend-APP/app/consumer.tsx
+  container: { flex: 1, backgroundColor: "#f7faf1" },
+  content: { paddingHorizontal: 20, paddingBottom: 30 },
+=======
   container: {
     flex: 1,
     backgroundColor: "#fdfbf5",
@@ -68,6 +85,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 30,
   },
+>>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad:Frontend-APP/app/Consumerpage.tsx
   title: {
     fontSize: 28,
     fontWeight: "700",
@@ -76,6 +94,10 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     textAlign: "center",
   },
+<<<<<<< HEAD:Frontend-APP/app/consumer.tsx
+  subtitle: { fontSize: 16, color: "#555", textAlign: "center", marginBottom: 25 },
+  cardsContainer: { flexDirection: "column", gap: 20 },
+=======
   subtitle: {
     fontSize: 16,
     color: "black",
@@ -86,6 +108,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     gap: 20,
   },
+>>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad:Frontend-APP/app/Consumerpage.tsx
   actionCard: {
     backgroundColor: "#fff",
     borderRadius: 18,
@@ -97,10 +120,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     alignItems: "center",
   },
-  actionImage: {
-    width: "100%",
-    height: 180,
-  },
+  actionImage: { width: "100%", height: 180 },
   actionTitle: {
     fontSize: 20,
     fontWeight: "600",
