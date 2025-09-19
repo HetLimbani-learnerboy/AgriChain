@@ -10,54 +10,56 @@ export default function RootLayout() {
   const { t } = useTranslation();
 
   return (
-    <I18nextProvider i18n={i18n}>
-      <View style={{ flex: 1 }}>
-        <AppHeader />
+    <View style={{ flex: 1 }}>
+      <AppHeader />
 
-        <Tabs
-          screenOptions={{
-            tabBarActiveTintColor: "#269b59",
-            tabBarInactiveTintColor: "#8E8E93",
-            headerShown: false,
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: "#269b59",
+          tabBarInactiveTintColor: "#8E8E93",
+          headerShown: false,
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" size={size} color={color} />,
           }}
-        >
-          <Tabs.Screen
-            name="index"
-            options={{
-              tabBarLabel: t("Home"),
-              tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" size={size} color={color} />,
-            }}
-          />
-          <Tabs.Screen
-            name="farmer"
-            options={{
-              tabBarLabel: t("Farmer"),
-              tabBarIcon: ({ color, size }) => <Ionicons name="leaf-outline" size={size} color={color} />,
-            }}
-          />
-          <Tabs.Screen
-            name="distributor"
-            options={{
-              tabBarLabel: t("Distributor"),
-              tabBarIcon: ({ color, size }) => <Ionicons name="car-outline" size={size} color={color} />,
-            }}
-          />
-          <Tabs.Screen
-            name="retailer"
-            options={{
-              tabBarLabel: t("Retailer"),
-              tabBarIcon: ({ color, size }) => <Ionicons name="storefront-outline" size={size} color={color} />,
-            }}
-          />
-          <Tabs.Screen
-            name="consumer"
-            options={{
-              tabBarLabel: t("Consumer"),
-              tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" size={size} color={color} />,
-            }}
-          />
-        </Tabs>
-      </View>
-    </I18nextProvider>
+        />
+        <Tabs.Screen
+          name="Farmerpage"              
+          options={{
+            title: "Framerpage",      
+            tabBarLabel: "Framer",   
+            tabBarIcon: ({ color, size }) =>
+              <Ionicons name="leaf-outline" size={size} color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="Distributorpage"
+          options={{
+            title: "Distributorpage",
+            tabBarLabel: "Distributor",
+            tabBarIcon: ({ color, size }) => <Ionicons name="car-outline" size={size} color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="Retailerpage"
+          options={{
+            title: "Retailerpage",
+            tabBarLabel: "Retailer",
+            tabBarIcon: ({ color, size }) => <Ionicons name="storefront-outline" size={size} color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="Consumerpage"
+          options={{
+            title: "Consumerpage",
+            tabBarLabel: "Consumer",
+            tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" size={size} color={color} />,
+          }}
+        />
+      </Tabs>
+    </View>
   );
 }
