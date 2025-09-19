@@ -101,6 +101,32 @@ const styles = StyleSheet.create({
     elevation: 3,
     zIndex: 10,
   },
+  burgerButton: {
+    borderRadius: 8,
+    marginLeft:125,
+    backgroundColor: 'transparent',
+  },
+  burgerText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
+  settingsButton: {
+    padding: 8,
+    borderRadius: 8,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  logoImage: {
+    width: 40,
+    height: 40,
+    marginRight: 8,
+  },
   navTitle: {
     fontSize: 18,
     fontWeight: '600',
@@ -143,4 +169,10 @@ const styles = StyleSheet.create({
   langButtonText: { color: '#fff', fontWeight: '600', fontSize: 14 },
   menuItem: { paddingVertical: 6, paddingHorizontal: 12, borderRadius: 6, marginVertical: 2, backgroundColor: '#bde0c4ff' },
   menuText: { fontSize: 14, color: '#1E2B21', fontWeight: '500', textAlign: 'center' },
+  settingsIcon: {
+    borderRadius:8,
+    marginBottom:-4,
+    width: 28,
+    height: 28,
+  },
 });

@@ -3,15 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Image } from "rea
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 
-<<<<<<< HEAD:Frontend-APP/app/retailer.tsx
 type Action = { titleKey: string; descriptionKey: string; image: any };
-=======
-type Action = {
-  title: string;
-  description: string;
-  image: any; 
-};
->>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad:Frontend-APP/app/Retailerpage.tsx
 
 const retailerActions: Action[] = [
   { titleKey: "ReceivedProduce", descriptionKey: "ReceivedProduceDesc", image: require("../assets/Images/png9_rp.png") },
@@ -46,7 +38,6 @@ export default function RetailerScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fdfbf5" },
   content: { paddingHorizontal: 20, paddingBottom: 30 },
-<<<<<<< HEAD:Frontend-APP/app/retailer.tsx
   title: { fontSize: 28, fontWeight: "700", color: "#1E2B21", marginTop: 10, marginBottom: 6, textAlign: "center" },
   subtitle: { fontSize: 16, color: "#555", textAlign: "center", marginBottom: 25 },
   cardsContainer: { flexDirection: "column", gap: 20 },
@@ -55,53 +46,3 @@ const styles = StyleSheet.create({
   actionTitle: { fontSize: 20, fontWeight: "600", color: "#1E2B21", marginTop: 15, marginHorizontal: 15, textAlign: "center" },
   actionDescription: { fontSize: 15, color: "#666", lineHeight: 22, textAlign: "center", marginHorizontal: 20, marginBottom: 20, marginTop: 6 },
 });
-=======
-  title: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: "black",
-    marginTop: 10,
-    marginBottom: 6,
-    textAlign: "center",
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "black",
-    textAlign: "center",
-    marginBottom: 25,
-  },
-  cardsContainer: { flexDirection: "column", gap: 20 },
-  actionCard: {
-    backgroundColor: "#fff",
-    borderRadius: 18,
-    overflow: "hidden",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    alignItems: "center",
-  },
-  actionImage: {
-    width: "100%",
-    height: 180,
-  },
-  actionTitle: {
-    fontSize: 20,
-    fontWeight: "600",
-    color: "#1E2B21",
-    marginTop: 15,
-    marginHorizontal: 15,
-    textAlign: "center",
-  },
-  actionDescription: {
-    fontSize: 15,
-    color: "black",
-    lineHeight: 22,
-    textAlign: "center",
-    marginHorizontal: 20,
-    marginBottom: 20,
-    marginTop: 6,
-  },
-});
->>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad:Frontend-APP/app/Retailerpage.tsx

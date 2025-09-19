@@ -14,11 +14,7 @@ import i18n from "../i18n"; // your i18n config
 type Action = {
   title: string;
   description: string;
-<<<<<<< HEAD:Frontend-APP/app/consumer.tsx
   image: any;
-=======
-  image: any; 
->>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad:Frontend-APP/app/Consumerpage.tsx
 };
 
 export default function ConsumerScreen() {
@@ -73,19 +69,8 @@ export default function ConsumerScreen() {
 }
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD:Frontend-APP/app/consumer.tsx
   container: { flex: 1, backgroundColor: "#f7faf1" },
   content: { paddingHorizontal: 20, paddingBottom: 30 },
-=======
-  container: {
-    flex: 1,
-    backgroundColor: "#fdfbf5",
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingBottom: 30,
-  },
->>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad:Frontend-APP/app/Consumerpage.tsx
   title: {
     fontSize: 28,
     fontWeight: "700",
@@ -94,21 +79,8 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     textAlign: "center",
   },
-<<<<<<< HEAD:Frontend-APP/app/consumer.tsx
   subtitle: { fontSize: 16, color: "#555", textAlign: "center", marginBottom: 25 },
   cardsContainer: { flexDirection: "column", gap: 20 },
-=======
-  subtitle: {
-    fontSize: 16,
-    color: "black",
-    textAlign: "center",
-    marginBottom: 25,
-  },
-  cardsContainer: {
-    flexDirection: "column",
-    gap: 20,
-  },
->>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad:Frontend-APP/app/Consumerpage.tsx
   actionCard: {
     backgroundColor: "#fff",
     borderRadius: 18,

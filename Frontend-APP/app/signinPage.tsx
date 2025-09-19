@@ -90,15 +90,7 @@ export default function SignInPage() {
         </TouchableOpacity>
       </View>
 
-      {/* Right column illustration */}
-      <View style={styles.branding}>
-        <Image
-          source={require("../assets/MainLogo.png")}
-          style={styles.brandLogo}
-          resizeMode="contain"
-        />
-        <Text style={styles.brandTitle}>Welcome Back to AgriChain</Text>
-      </View>
+     
     </ScrollView>
   );
 }
