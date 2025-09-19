@@ -30,6 +30,7 @@ const SignIn = () => {
             Sign In with Google
           </button>
         </form>
+        <span className="forget-password" onClick={()=>navigate('/forgetpasswordpage')}> Forget Password</span>
         <p className="switch-text">
           Don’t have an account?{" "}
           <span onClick={() => navigate("/signuppage")}>Sign Up</span>
