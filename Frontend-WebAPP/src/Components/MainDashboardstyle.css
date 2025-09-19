@@ -5,9 +5,10 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Navbar */
 .navigator-bar-container {
   background: #f0fdf4;
   display: flex;
@@ -18,12 +19,13 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  height: 50px;
+  height: 8vh; 
+  min-height: 50px;
 }
 
 .logo {
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   margin-right: 0.5rem;
 }
 
@@ -41,11 +43,11 @@
 }
 
 .navigator-bar-links button {
-  font-weight:bolder;
+  font-weight: bolder;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   transition: color 0.3s ease, transform 0.2s ease;
 }
 
@@ -63,7 +65,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: bolder;
   transition: all 0.3s ease;
 }
@@ -75,7 +77,7 @@
 
 .dropdown-menulist {
   position: absolute;
-  top: 2.5rem;
+  top: 2.8rem;
   right: 0;
   background: #fff;
   border-radius: 0.5rem;
@@ -101,7 +103,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #374151;
   transition: background 0.2s ease, transform 0.2s ease;
 }
@@ -112,11 +114,10 @@
   transform: translateX(3px);
 }
 
-/* Main content */
 .main-dashboard-content {
-  margin-top: 2%;
+  flex: 1; 
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 1rem;
 }
 
 .main-dashboard-content h2 {
@@ -126,30 +127,40 @@
 }
 
 .main-dashboard-content p {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
   margin-bottom: 5%;
 }
 
-
-/* Stat Cards */
 .dashboard-cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Always 2 per row */
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   max-width: 1000px;
   margin: 0 auto;
 }
 
+@media (max-width: 1024px) {
+  .main-dashboard-content h2 {
+    font-size: 2rem;
+  }
+  .main-dashboard-content p {
+    font-size: 1.2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .dashboard-cards {
-    grid-template-columns: 1fr; /* Mobile: 1 per row */
+    grid-template-columns: 1fr;
+  }
+  .navigator-bar-container {
+    height: 9vh;
   }
 }
 
 .stat-card {
   background: #fff;
-  padding: 2.5rem; /* Bigger size */
+  padding: 2.2rem;
   border-radius: 1.2rem;
   display: flex;
   align-items: center;
@@ -185,4 +196,16 @@
   font-size: 2rem;
   font-weight: bold;
   color: #374151;
+}
+
+@media (max-height: 500px) {
+  .main-dashboard-content {
+    padding: 1rem;
+  }
+  .stat-card {
+    padding: 1.5rem;
+  }
+  .stat-card p {
+    font-size: 1.6rem;
+  }
 }

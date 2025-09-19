@@ -1,26 +1,28 @@
-
 .consumer-dashboard-webapp {
   background: #fdfbf5;
-font-family: Inter, sans-serif;
-  min-height: 100vh;
+  font-family: Inter, sans-serif;
+  min-height: 100vh;      
+  display: flex;
+  flex-direction: column; 
   margin: 0;
   padding: 0;
 }
 
 .consumer-dashboard-content {
+  flex: 1;              
   padding: 2rem;
   text-align: center;
 }
 
 .consumer-dashboard-content h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 2.5vw + 1rem, 2.5rem);
   font-weight: bolder;
   margin-bottom: 0.5rem;
 }
 
 .consumer-dashboard-content p {
   margin-bottom: 2rem;
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 1.5vw + 0.5rem, 1.5rem);
 }
 
 .consumer-sections {
@@ -30,7 +32,6 @@ font-family: Inter, sans-serif;
   gap: 1.5rem;
 }
 
-/* Section Card */
 .consumer-card {
   background: #fff;
   border-radius: 1rem;
@@ -62,67 +63,39 @@ font-family: Inter, sans-serif;
   font-size: 0.95rem;
 }
 
-/* Hover Animation */
 .consumer-card:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Fade-in animation */
 @keyframes fadeInUp {
-  from {
-    transform: translateY(15px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(15px); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
 }
 
-/* Responsive Design */
-
-/* Tablets */
 @media (max-width: 992px) {
-  .consumer-dashboard-content h2 {
-    font-size: 1.7rem;
-  }
-  .consumer-dashboard-content p {
-    font-size: 1rem;
-  }
-  .consumer-card img {
-    height: 160px;
-  }
+  .consumer-dashboard-content h2 { font-size: 1.7rem; }
+  .consumer-dashboard-content p  { font-size: 1rem;  }
+  .consumer-card img { height: 220px; }
 }
 
-/* Mobile */
 @media (max-width: 600px) {
-  .consumer-navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  .consumer-navbar-links {
-    gap: 0.8rem;
-    width: 100%;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
   .consumer-dashboard-content {
     padding: 1rem;
     text-align: left;
   }
-  .consumer-dashboard-content h2 {
-    font-size: 1.5rem;
-  }
-  .consumer-dashboard-content p {
-    font-size: 0.9rem;
-  }
+  .consumer-dashboard-content h2 { font-size: 1.5rem; }
+  .consumer-dashboard-content p  { font-size: 0.9rem; }
   .consumer-sections {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  .consumer-card img {
-    height: 150px;
-  }
+  .consumer-card img { height: 160px; }
+}
+
+@media (max-height: 500px) {
+  .consumer-dashboard-content { padding: 1rem; }
+  .consumer-card img { height: 180px; }
+  .consumer-card-body h3 { font-size: 1rem; }
+  .consumer-card-body p  { font-size: 0.9rem; }
 }
