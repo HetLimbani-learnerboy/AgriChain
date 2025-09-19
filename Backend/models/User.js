@@ -8,7 +8,27 @@ const userSchema = new mongoose.Schema(
     role: { type: String, enum: ["farmer", "admin", "distributor", "retailer"], default: "farmer" },
     phoneNumber: { type: String, default: "" },
   },
-  { timestamps: true }
-);
+
+  email: { 
+    type: String, 
+    required: true, 
+    unique: true 
+  },
+  password: { 
+    type: String,
+    required: true 
+  },
+  isverifyed:{
+    type: Boolean,
+    default:false
+  },
+  otp:{
+    type:Number
+  },
+  otpExpiry: {
+    type:Date
+  }
+}, { timestamps: true });
+
 
 module.exports = mongoose.model("User", userSchema);
