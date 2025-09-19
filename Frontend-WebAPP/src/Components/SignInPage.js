@@ -63,6 +63,9 @@ const SignIn = () => {
             Don’t have an account?{" "}
             <span onClick={() => navigate("/signuppage")}>Sign Up</span>
           </p>
+          <p className="switch-text-back">
+           <span onClick={() => navigate("/")}>Back to home</span>
+          </p>
         </div>
       </section>
 

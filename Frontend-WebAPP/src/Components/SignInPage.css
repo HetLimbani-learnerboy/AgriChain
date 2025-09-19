@@ -165,6 +165,22 @@
   font-size: 1.2rem;
   justify-content: center;
 }
+.switch-text-back span {
+  color: #16a34a;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+.switch-text-back {
+  display: flex;
+  font-size: 1.2rem;
+  justify-content: center;
+}
+.switch-text-back span:hover{
+  text-decoration: underline;
+
+}
 
 /* Animation */
 @keyframes slideIn {

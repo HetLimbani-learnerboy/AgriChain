@@ -93,7 +93,6 @@ const LandingPage = () => {
         <p>© 2025 AgriChain. All Rights Reserved.</p>
         <div className="footer-links">
           <button className="footer-link" onClick={() => navigate('/contactuspage')}>Contact Us</button>
-          <button className="footer-link" onClick={() => document.querySelector('.about-area').scrollIntoView({ behavior: 'smooth' })}>About</button>
           <button className="footer-link" onClick={() => navigate('/helpdeskpage')}>Help Desk</button>
         </div>
       </footer>
