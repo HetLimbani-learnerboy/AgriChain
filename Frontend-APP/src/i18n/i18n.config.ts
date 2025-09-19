@@ -22,7 +22,7 @@ i18next.use(initReactI18next).init({
         escapeValue: false,
     },
     resources,
-    
 })
+
 
 export default i18next;
