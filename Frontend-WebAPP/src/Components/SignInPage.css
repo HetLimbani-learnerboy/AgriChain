@@ -1,118 +1,110 @@
-.signin-page {
+.signin-wrapper {
+  display: flex;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #fdfbf5;
   font-family: Inter, sans-serif;
+  background: #fdfbf5;
 }
 
-/* Header styling reused from dashboard */
-.navigator-bar-container {
-  background: #f0fdf4;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  height: 8vh;
-  min-height: 50px;
-}
-
-.logo {
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-right: 0.5rem;
-}
-
-.navigator-bar-container span {
-  font-weight: bolder;
-  font-size: 1.5rem;
-  margin-right: auto;
-}
-
-.navigator-bar-links {
-  display: flex;
-  align-items: center;
-  gap: 2em;
-}
-
-.navigator-bar-links button {
-  font-weight: bolder;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: color 0.3s ease, transform 0.2s ease;
-}
-
-.navigator-bar-links button:hover {
-  color: #15803d;
-  transform: scale(1.05);
-}
-
-/* SignIn form */
-.signin-container {
+/* Left column */
+.signin-left {
   flex: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 2rem;
 }
 
-.signin-container h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  color: #374151;
-}
-
-.signin-container form {
+/* Card container */
+.signin-card {
+  background: #ffffff;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  padding: 2rem 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.signin-container input {
-  padding: 0.9rem 1rem;
+.form-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.signin-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.signin-form label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.signin-form input {
+  width: 92%;
+  padding: 0.8rem 1rem;
   border: 1px solid #d1d5db;
-  border-radius: 25px;
+  border-radius: 8px;
   font-size: 1rem;
   outline: none;
   transition: border 0.3s;
 }
-
-.signin-container input:focus {
-  border: 1px solid #16a34a;
+.signin-form input:focus {
+  border-color: #16a34a;
   box-shadow: 0 0 0 2px #bbf7d0;
 }
 
-.signin-btn,
-.google-btn {
-  padding: 0.9rem;
-  border-radius: 25px;
-  font-size: 1rem;
-  font-weight: bold;
+/* Password field */
+.password-field {
+  position: relative;
+}
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 0.8rem;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
   cursor: pointer;
-  width: 100%;
+  padding: 0;
+}
+.toggle-password img {
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+}
+
+/* Buttons */
+.signin-btn,
+.google-btn { 
+  padding: 0.9rem; 
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
   transition: transform 0.2s ease;
 }
 
 .signin-btn {
+  width: 100%;
+  border-radius: 8px;
   background: #16a34a;
   color: white;
   border: none;
 }
-
 .signin-btn:hover {
   background: #15803d;
   transform: scale(1.02);
 }
 
 .google-btn {
+  width: 97%;
   background: white;
+  border-radius: 4px;
   border: 1px solid #d1d5db;
   color: #374151;
   display: flex;
@@ -120,25 +112,94 @@
   justify-content: center;
   gap: 0.5rem;
 }
-
 .google-btn img {
   width: 20px;
   height: 20px;
 }
-
 .google-btn:hover {
   background: #f9fafb;
   transform: scale(1.02);
 }
 
-.switch-text {
-  margin-top: 1rem;
-  font-size: 0.9rem;
+/* Right column */
+.signin-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  padding: 2rem;
+}
+.branding img {
+  border: 2px dashed;
+  border-radius: 50% 50%;
+  width: 60%;
+  max-width: 350px;
+  margin-bottom: 1rem;
+}
+.branding h1 {
+  font-size: 2rem;
+  color: #065f46;
+  margin-bottom: 0.5rem;
+}
+.branding p {
+  color: #064e3b;
+  font-size: 1rem;
 }
 
+/* Misc text */
+.forget-password,
 .switch-text span {
   color: #16a34a;
   cursor: pointer;
   font-weight: bold;
+  display: block;
+  text-align: center;
+}
+.switch-text {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  justify-content: center;
+}
+.switch-text-back span {
+  color: #16a34a;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+.switch-text-back {
+  display: flex;
+  font-size: 1.2rem;
+  justify-content: center;
+}
+.switch-text-back span:hover{
+  text-decoration: underline;
+
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide {
+  animation: slideIn 0.6s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .signin-right {
+    display: none;
+  }
+  .signin-left {
+    flex: 1 1 100%;
+  }
+  .signin-card {
+    max-width: 90%;
+  }
 }
