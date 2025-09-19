@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 
-// Particle Component for hero background
 const Particle = ({ style }) => <div className="particle" style={style}></div>;
 
 const LandingPage = () => {
