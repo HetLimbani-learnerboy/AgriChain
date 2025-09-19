@@ -101,6 +101,16 @@ const styles = StyleSheet.create({
     elevation: 3,
     zIndex: 10,
   },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  logoImage: {
+    width: 40,
+    height: 40,
+    marginRight: 8,
+  },
   navTitle: {
     fontSize: 18,
     fontWeight: '600',
@@ -143,4 +153,22 @@ const styles = StyleSheet.create({
   langButtonText: { color: '#fff', fontWeight: '600', fontSize: 14 },
   menuItem: { paddingVertical: 6, paddingHorizontal: 12, borderRadius: 6, marginVertical: 2, backgroundColor: '#bde0c4ff' },
   menuText: { fontSize: 14, color: '#1E2B21', fontWeight: '500', textAlign: 'center' },
+  burgerText: { fontSize: 28, fontWeight: 'bold' },
+  settingsButton: {
+    padding: 8,
+    marginLeft: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  burgerButton: {
+    padding: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
+  },
+  settingsIcon: {
+    width: 28,
+    height: 28,
+    
+  },
 });
