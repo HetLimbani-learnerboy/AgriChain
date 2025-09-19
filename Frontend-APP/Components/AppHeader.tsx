@@ -155,18 +155,17 @@ const styles = StyleSheet.create({
   menuText: { fontSize: 14, color: '#1E2B21', fontWeight: '500', textAlign: 'center' },
   burgerText: { fontSize: 28, fontWeight: 'bold' },
   settingsButton: {
-    padding: 8,
     marginLeft: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   burgerButton: {
-    padding: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 10,
+    marginLeft:125,
+    
   },
   settingsIcon: {
+    borderRadius:8,
+    marginBottom:4,
     width: 28,
     height: 28,
     
