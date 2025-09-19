@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const bcrypt=require("bcrypt");
 const User =require("./models/User");
+const transporter = require("./controllers/emailController");
 
 dotenv.config();
 const app = express();
@@ -51,10 +52,7 @@ app.post("/signup",async (req,res)=>{
   }
 });
 
-app.get("/",(req,res)=>{
-  console.log("root requested");
-  res.send("root requested");
-})
+
 app.get("/signin",async (req,res)=>{
   try{
       const {email,password}=req.body;
@@ -81,16 +79,33 @@ app.get("/signin",async (req,res)=>{
 });
 
 
-app.get("/signin/forgotpassword",(req,res)=>{
-  // render a form where user write a email
-  // after click on the btn then re directed to /signin/forgotpassword/auth
+// app.get("/signin/forgotpassword",(req,res)=>{
+//   // render a form where user write a email
+//   // after click on the btn then re directed to /signin/forgotpassword/auth
+// });
+
+app.post("/signin/forgotpassword/auth", async (req, res) => {
+    try {
+
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      // const user = await User.findOne({ email });
+      // if (!user) return res.status(404).json({ message: "User not found" });
+
+
+      await transporter.sendMail({
+        from: '"My App" <harshwithpc@gmail.com>',
+        to: req.body.email,
+        subject: "Password Reset",
+        html: `<p>Your OTP is <b>${otp}</b>. It is valid for 5 minutes.</p>`
+      });
+
+      res.json({ message: "Email sent" });
+    } catch (err) {
+      console.error("Mailer error:", err);
+      res.status(500).json({ error: err.message });
+    }
 });
 
-app.get("/signin/forgotpassword/auth",(req,res)=>{
-    //render a form same as above but adding one addtional input of otp
-    //generat a otp and on click on verify button redirected to patch request of /signin/forgotpassword
-    //and entering a new password
-})
 
 
 app.patch("/signin/forgotpassword",async(req,res)=>{
@@ -115,4 +130,9 @@ app.patch("/signin/forgotpassword",async(req,res)=>{
     }catch(err){
       res.status(500).send("err is catched",err);
     }
+});
+
+app.get("/",(req,res)=>{
+  console.log("root requested");
+  res.send("root requested");
 });
