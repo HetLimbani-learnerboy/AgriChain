@@ -1,91 +1,104 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 
+// Particle Component for hero background
+const Particle = ({ style }) => <div className="particle" style={style}></div>;
+
 const LandingPage = () => {
-    const navigate = useNavigate();
-    const [showAbout, setShowAbout] = useState(false);
-    const aboutRef = useRef(null);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    setShowAbout(true);
-                    observer.disconnect();
-                }
-            },
-            { threshold: 0.2 }
-        );
-        if (aboutRef.current) observer.observe(aboutRef.current);
-        return () => observer.disconnect();
-    }, []);
+  const team = [
+    { name: 'Het Limbani', role: 'Project Lead & Full-Stack Developer' },
+    { name: 'Abhi Patel', role: 'Blockchain Developer' },
+    { name: 'Anuj Raval', role: 'Blockchain Developer' },
+    { name: 'Tirtha Jhaveri', role: 'Mobile App Developer' },
+    { name: 'Harsh Patel', role: 'Full-Stack Developer' },
+    { name: 'Meet Babariya', role: 'Mobile App Developer' },
+  ];
 
-    useEffect(() => {
-        const savedY = sessionStorage.getItem('scrollY');
-        if (savedY) window.scrollTo(0, parseInt(savedY, 10));
+  const processSteps = [
+    { title: 'Cultivation', description: 'Farmers register their produce, creating the first digital link in the chain.' },
+    { title: 'Processing', description: 'Processors log every step, from cleaning to packaging, ensuring quality control.' },
+    { title: 'Distribution', description: 'Distributors track shipments in real-time, maintaining the integrity of the supply line.' },
+    { title: 'Retail', description: 'Retailers provide consumers with a scannable QR code for full product history.' }
+  ];
 
-        const handleUnload = () => sessionStorage.setItem('scrollY', window.scrollY);
-        window.addEventListener('beforeunload', handleUnload);
-        return () => window.removeEventListener('beforeunload', handleUnload);
-    }, []);
-
-    const scrollToAbout = () => {
-        aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
+  // particle animation data
+  const particles = Array.from({ length: 50 }).map((_, i) => {
+    const style = {
+      '--x': `${Math.random() * 100}vw`,
+      '--y': `${Math.random() * 100}vh`,
+      '--s': `${Math.random() * 0.5 + 0.5}`,
+      '--d': `${Math.random() * 20 + 10}s`,
     };
+    return <Particle key={i} style={style} />;
+  });
 
-    const team = [
-        { name: 'Het Limbani', role: 'Project Lead & FrontendWebAPP-Backend Developer' },
-        { name: 'Abhi Patel', role: 'BlockChain Developer' },
-        { name: 'Anuj Raval', role: 'Blockchain Developer' },
-        { name: 'Tirtha Jhaveri', role: 'Frontend-APP Developer' },
-        { name: 'Harsh Patel', role: 'FrontendWebAPP-Backend Developer' },
-        { name: 'Meet Babariya', role: 'Frontend-APP Developer' },
-    ];
-
-    return (
-        <div className="landing-wrapper">
-            {/* ---------- HERO ---------- */}
-            <section className="hero-box">
-                <img src="/MainLogo.png" alt="logo" className="logo-landingpage" />
-                <h1 className="hero-title">Welcome to AgriChain 🔗</h1>
-                <p className="hero-tagline">
-                    <span className="typewriter-text">
-                        Track the supply chain from farm to fork with transparency.
-                    </span>
-                </p>
-
-                <div className="auth-btn-group">
-                    <button className="hero-btn" onClick={() => navigate('/signinpage')}>Sign In</button>
-                    <button className="hero-btn" onClick={() => navigate('/signuppage')}>Sign Up</button>
-                    <button className="hero-btn" onClick={() => navigate('/maindashboardpage')}>Get Started</button>
-                </div>
-            </section>
-
-            <section
-                ref={aboutRef}
-                className={`about-area ${showAbout ? 'show' : ''}`}
-            >
-                <h2>About Us</h2>
-                <p>Meet the dedicated team behind AgriChain, driving transparency in agriculture.</p>
-                <div className="team-grid">
-                    {team.map((member) => (
-                        <div key={member.name} className="team-member-card">
-                            <h3>{member.name}</h3>
-                            <p>{member.role}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            <footer className="footer-bar">
-                <p>© 2025 AgriChain. All Rights Reserved.</p>
-                <button className="footer-link" onClick={() => navigate('/contactuspage')}>Contact Us</button>
-                <button className="footer-link" onClick={scrollToAbout}>About Us</button>
-                <button className="footer-link" onClick={() => navigate('/helpdeskpage')}>Help Desk</button>
-            </footer>
+  return (
+    <div className="landing-wrapper">
+      {/* Hero Section */}
+      <section className="hero-box">
+        <div className="particle-container">{particles}</div>
+        <div className="hero-content">
+          <img src="/MainLogo.png" alt="AgriChain Logo" className="logo-landingpage" />
+          <h1 className="hero-title">Welcome to AgriChain 🔗</h1>
+          <p className="hero-tagline">
+            <span className="typewriter-text">
+              Track the supply chain from farm to fork with transparency.
+            </span>
+          </p>
+          <p className="hero-description">
+            AgriChain leverages blockchain to bring radical transparency to the agricultural supply chain.
+          </p>
+          <div className="auth-btn-group">
+            <button className="hero-btn primary" onClick={() => navigate('/maindashboardpage')}>Get Started</button>
+            <button className="hero-btn" onClick={() => navigate('/signinpage')}>Sign In</button>
+            <button className="hero-btn" onClick={() => navigate('/signuppage')}>Sign Up</button>
+          </div>
         </div>
-    );
+      </section>
+
+      {/* How it Works */}
+      <section className="how-it-works-area">
+        <h2 className="section-title">How AgriChain Works</h2>
+        <p className="section-subtitle">A simple, four-step process to ensure complete transparency.</p>
+        <div className="process-grid">
+          {processSteps.map((step, index) => (
+            <div key={step.title} className="process-card" style={{ '--delay': `${index * 0.15}s` }}>
+              <div className="process-number">{index + 1}</div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="about-area">
+        <h2 className="section-title">Meet the Innovators</h2>
+        <p className="section-subtitle">The dedicated team building the future of agricultural transparency.</p>
+        <div className="team-grid">
+          {team.map((member, index) => (
+            <div key={member.name} className="team-member-card" style={{ '--delay': `${index * 0.1}s` }}>
+              <h3>{member.name}</h3>
+              <p>{member.role}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer-bar">
+        <p>© 2025 AgriChain. All Rights Reserved.</p>
+        <div className="footer-links">
+          <button className="footer-link" onClick={() => navigate('/contactuspage')}>Contact Us</button>
+          <button className="footer-link" onClick={() => navigate('/helpdeskpage')}>Help Desk</button>
+        </div>
+      </footer>
+    </div>
+  );
 };
 
 export default LandingPage;
+

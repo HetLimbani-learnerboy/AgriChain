@@ -6,7 +6,6 @@ const authRoutes = require("./routes/authRoutes");
 const bcrypt=require("bcrypt");
 const User =require("./models/User");
 const transporter = require("./controllers/emailController");
-
 dotenv.config();
 const app = express();
 
@@ -15,6 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+
 
 connectDB().then(() => {
   app.listen(process.env.PORT || 3000, () =>
@@ -197,7 +197,13 @@ app.patch("/signin/forgotpassword",async(req,res)=>{
     }
 });
 
-app.get("/",(req,res)=>{
-  console.log("root requested");
-  res.send("root requested");
+app.get("/", (req, res) => {
+  res.send("AgriChain API Root");
 });
+
+// Connect to DB and start server
+connectDB().then(() => {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+});
+
