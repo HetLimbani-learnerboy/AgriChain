@@ -2,10 +2,17 @@ import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import AppHeader from '../Components/AppHeader';
 import { View } from 'react-native';
+import "../i18n"; 
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "../i18n";
+
 
 export default function RootLayout() {
+  const { t } = useTranslation();
+
   return (
     <View style={{ flex: 1 }}>
+      {/* <LandingPage /> */}
       <AppHeader />
 
       <Tabs
@@ -15,6 +22,15 @@ export default function RootLayout() {
           headerShown: false,
         }}
       >
+           <Tabs.Screen
+        name="LandingPage"
+        options={{
+          title: "Landing",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="planet-outline" size={size} color={color} />
+          ),
+        }}
+      />
         <Tabs.Screen
           name="index"
           options={{
@@ -57,5 +73,4 @@ export default function RootLayout() {
       </Tabs>
     </View>
   );
-
 }
