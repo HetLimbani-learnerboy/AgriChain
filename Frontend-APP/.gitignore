@@ -29,3 +29,4 @@ expo-env.d.ts
 # @end expo-cli
 
 
+.expo/
