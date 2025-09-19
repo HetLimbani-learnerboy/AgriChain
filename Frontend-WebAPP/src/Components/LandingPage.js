@@ -36,7 +36,6 @@ const LandingPage = () => {
 
   return (
     <div className="landing-wrapper">
-      {/* Hero Section */}
       <section className="hero-box">
         <div className="particle-container">{particles}</div>
         <div className="hero-content">
