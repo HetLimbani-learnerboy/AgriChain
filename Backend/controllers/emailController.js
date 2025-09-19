@@ -1,14 +1,13 @@
 const nodemailer = require("nodemailer");
-
+const dotenv = require("dotenv");
+dotenv.config();
+// transporter setup
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "gmail", // tells Nodemailer to use Gmail SMTP
     auth: {
-
-      // https://myaccount.google.com/apppasswords
-      // goto this url and generat a app password and write at .env file PASS="google pass"
-      // gmail
-        user: 'harshwithpc@gmail.com',
-        pass: 'cpig flhh pizq iunk'
+        user: process.env.EMAIL, // your Gmail ID (from .env)
+        // got this pass from https://myaccount.google.com/apppasswords
+        pass: process.env.PASS   // your Gmail App Password (from .env)
     }
 });
 

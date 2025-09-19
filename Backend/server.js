@@ -22,6 +22,69 @@ connectDB().then(() => {
   );
 });
 
+
+
+app.get("/signup/verify/:id",async (req,res)=>{
+    const {id}=req.params;
+    const user = await User.findById(id);
+    if(user.isverifyed){
+      return res.status(400).json({ message: "Email already verifyed" });
+    }
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiry = new Date(Date.now() + 5 * 60 * 1000); 
+    await User.updateOne(
+      { _id: id },
+      { $set: { otp: otp, otpExpiry:expiry} }
+    );
+
+
+    await transporter.sendMail({
+        from: '"My App" <harshwithpc@gmail.com>',
+        to: user.email,
+        subject: "Password Reset",
+        html: `<p>Your OTP is <b>${otp}</b>. It is valid for 5 minutes.</p>`
+      });
+    return res.status(200).json({ message: "otp is sent",email:user.email });
+
+
+});
+
+app.post("/signup/verify/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { otp } = req.body;
+
+    const user = await User.findById(id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (user.isverifyed) {
+      return res.status(400).json({ message: "Email already verified" });
+    }
+
+    // Check OTP match
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: "OTP is wrong" });
+    }
+
+    // Check OTP expiry
+    if (!user.otpExpiry || user.otpExpiry < new Date()) {
+      return res.status(400).json({ message: "OTP expired" });
+    }
+
+    // OTP is correct and not expired → mark verified
+    user.isverifyed = true;
+    user.otp = undefined;        // clear OTP
+    user.otpExpiry = undefined;  // clear expiry
+    await user.save();
+
+    return res.status(200).json({ message: "Email verified successfully" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+
 app.post("/signup",async (req,res)=>{
 
   try{
@@ -44,14 +107,16 @@ app.post("/signup",async (req,res)=>{
         user: {
           id: newUser._id,
           name: newUser.name,
-          email: newUser.email
+          email: newUser.email,
+          isverifyed:false
         }
     });
+
+    // res.redirect(`/signup/verify/:${newUser._id}`);
   }catch(err){
     res.status(500).json({ message: "Server error", err });
   }
 });
-
 
 app.get("/signin",async (req,res)=>{
   try{
