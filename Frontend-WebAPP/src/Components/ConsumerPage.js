@@ -19,10 +19,6 @@ const ConsumerPage = () => {
 
   return (
     <div className="consumer-dashboard-webapp">
-<<<<<<< HEAD
-      {/* Navbar */}
-=======
->>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad
       <div className="navigator-bar-container">
         <img src="/MainLogo.png" alt="logo" className="logo" />
         <span>AgriChain</span>
@@ -55,11 +51,7 @@ const ConsumerPage = () => {
                 Farmer
               </button>
 
-<<<<<<< HEAD
-              <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/distributorpage");}}>
-=======
               <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/distributorpage"); }}>
->>>>>>> eb662a97909fbc95ed6f8ad210a068697deff7ad
                 Distributor
               </button>
               <button role="menuitem" onClick={() => { setDropdownOpen(false); navigate("/retailerpage"); }}>
