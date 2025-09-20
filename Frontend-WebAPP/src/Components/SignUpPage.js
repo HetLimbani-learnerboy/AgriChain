@@ -66,7 +66,6 @@ const SignUp = () => {
         })
         if(res1.status === 201){
             setStep(2);
-            alert(`OTP sent to ${formData.email} otp is valid for 5 minutes`);
         }else {
         alert(data.message || "faild to send otp");
         }
@@ -90,8 +89,7 @@ const SignUp = () => {
       });
       const data = await res.json();
       if (res.status === 200) {
-        alert("Signup successful! Redirecting to dashboard...");
-        window.location.href = "http://localhost:3000/maindashboard";
+        window.location.href = "http://localhost:3000/dashboard";
       } else {
         alert(data.message || "OTP verification failed");
       }

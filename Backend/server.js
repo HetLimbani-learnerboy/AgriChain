@@ -32,7 +32,6 @@ app.get("/signup/verify/:id",async (req,res)=>{
     }
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiry = new Date(Date.now() + 5 * 60 * 1000); 
-    console.log(otp);
     await User.updateOne(
       { _id: id },
       { $set: { otp: otp, otpExpiry:expiry} }
@@ -86,63 +85,103 @@ app.post("/signup/verify/:id", async (req, res) => {
 });
 
 
-app.post("/signup",async (req,res)=>{
-
-  try{
-    const { name, email, password,role,phone } = req.body;
+app.post("/signup", async (req, res) => {
+  try {
+    const { name, email, password, role, phone } = req.body;
 
     if (!name || !email || !password) {
-        return res.status(400).json({ message: "All fields are required" });
-    }
-    
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "Email already registered" });
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    const hashpass=bcrypt.hashSync(password,10);
-    const newUser = new User({ name, email, password:hashpass,role,phone });
-    await newUser.save();
-    res.status(201).json({
-        message: "User created successfully",
-        user: {
-          id: newUser._id,
-          name: newUser.name,
-          email: newUser.email,
-          isverifyed:false
-        }
+    let user = await User.findOne({ email });
+
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    if (user) {
+      if (user.isverifyed) {
+        return res.status(400).json({ message: "Email already registered" });
+      } else {
+        // Update unverified user
+        user.name = name;
+        user.password = hashedPassword;
+        user.role = role;
+        user.phone = phone;
+        user.isverifyed = false;
+
+        const updatedUser = await user.save();
+
+        return res.status(201).json({
+          message: "Unverified user updated successfully",
+          user: {
+            id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isverifyed: updatedUser.isverifyed
+          }
+        });
+      }
+    }
+
+    // Create new user
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+      role,
+      phone,
+      isverifyed: false
     });
 
-    // res.redirect(`/signup/verify/:${newUser._id}`);
-  }catch(err){
-    res.status(500).json({ message: "Server error", err });
+    await newUser.save();
+
+    return res.status(201).json({
+      message: "User created successfully",
+      user: {
+        id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        isverifyed: newUser.isverifyed
+      }
+    });
+
+  } catch (err) {
+    console.error("Signup error:", err);
+    return res.status(500).json({ message: "Server error", err: err.message });
   }
 });
 
-app.get("/signin",async (req,res)=>{
-  try{
-      const {email,password}=req.body;
 
-      const existingUser = await User.findOne({ email });
-      if (!existingUser) {
-        return res.status(400).json({ message: "user not exist" });
-      }
+app.post("/signin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-      const user= await User.findOne({email});
-      const passcheck=await bcrypt.compare(password,user.password);
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: "User does not exist" });
+    }
+    if(!user.isverifyed){
+      return res.status(404).json({ message: "User does not verifyed" });
+    }
+    if (!password || !user.password) {
+      return res.status(400).json({ message: "Missing credentials" });
+    }
 
+    const passcheck = await bcrypt.compare(password, user.password);
+    if (!passcheck) {
+      console.log("Login unsuccessful");
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
 
-      if(passcheck){
-        console.log("lognin successful ");
-        res.send("lognin successful");
-      }else{
-        console.log("lognin unsuccessful");
-        res.send("lognin unsuccessful");
-      }
-  }catch(err){
-      res.status(400).send("err is catched",err);
+    console.log("Login successful");
+    return res.status(200).json({ message: "Login successful" });
+
+  } catch (err) {
+    console.error("Signin error:", err);
+    return res.status(500).json({ message: "Server error" });
   }
 });
+
+
 
 
 // app.get("/signin/forgotpassword",(req,res)=>{
