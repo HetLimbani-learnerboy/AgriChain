@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     enum: ["farmer", "admin", "distributor", "retailer"], 
     default: "farmer" 
   },
-  phoneNumber: { 
+  phone: { 
     type: String, 
     default: "" 
   },
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
     default:false
   },
   otp:{
-    type:Number
+    type:String
   },
   otpExpiry: {
     type:Date
