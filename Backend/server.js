@@ -17,7 +17,7 @@ app.use("/api/auth", authRoutes);
 
 
 connectDB().then(() => {
-  app.listen(process.env.PORT || 3000, () =>
+  app.listen(process.env.PORT || 3021, () =>
     console.log(`Server running on port ${process.env.PORT}`)
   );
 });
@@ -32,7 +32,7 @@ app.get("/signup/verify/:id",async (req,res)=>{
     }
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiry = new Date(Date.now() + 5 * 60 * 1000); 
-    console.log(otp);
+    console.log("Otp is send in email.");
     await User.updateOne(
       { _id: id },
       { $set: { otp: otp, otpExpiry:expiry} }
