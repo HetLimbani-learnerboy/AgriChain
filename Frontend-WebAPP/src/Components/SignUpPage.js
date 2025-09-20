@@ -149,7 +149,7 @@ const SignUp = () => {
               <p style={{ color: passwordValid.lower ? "green" : "red" }}>• Lowercase letter</p>
               <p style={{ color: passwordValid.number ? "green" : "red" }}>• Number</p>
               <p style={{ color: passwordValid.special ? "green" : "red" }}>• Special character (!@#$%^&*)</p>
-              <p style={{ color: passwordValid.match ? "green" : "red" }}>• Passwords match</p>
+              
             </div>
 
             <input
@@ -159,6 +159,8 @@ const SignUp = () => {
               onChange={handleConfirmPasswordChange}
               required
             />
+             <div className="password-rules">
+            <p style={{ color: passwordValid.match ? "green" : "red" }}>• Passwords match</p> </div>
             <select
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}

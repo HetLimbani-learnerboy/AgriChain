@@ -108,6 +108,10 @@
   transform: translateY(-3px);
 }
 
+.password-rules {
+  margin-top: -6%;
+}
+
 .password-rules p {
   font-size: 0.85rem;
   margin: 0.2rem 0;
