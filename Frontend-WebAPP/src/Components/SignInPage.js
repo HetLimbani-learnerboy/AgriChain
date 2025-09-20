@@ -10,12 +10,11 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: sign-in logic here
+
   };
 
   return (
     <div className="signin-wrapper">
-      {/* Left: Sign-in Form */}
       <section className="signin-left">
         <div className="signin-card animate-slide">
           <h2 className="form-title">Sign In</h2>
@@ -69,7 +68,6 @@ const SignIn = () => {
         </div>
       </section>
 
-      {/* Right: Illustration / Branding */}
       <section className="signin-right">
         <div className="branding">
           <img src="/MainLogo.png" alt="AgriChain" />

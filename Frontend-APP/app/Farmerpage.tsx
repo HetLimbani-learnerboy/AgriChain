@@ -8,49 +8,50 @@ import {
   Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next"; // ✅ import hook
+import i18n from "../i18n"; // ✅ your i18n setup
 
 type Action = {
   title: string;
   description: string;
-  image: any; 
+  image: any;
 };
 
-const farmerActions: Action[] = [
-  {
-    title: "Add Produce",
-    description:
-      "Add new crops with details like crop name, quantity, price, grade, and location.",
-    image: require("../assets/Images/png1_ap.png"),
-  },
-  {
-    title: "My Produce List",
-    description:
-      "Track the status of your crops from Added → Transported → Sold.",
-    image: require("../assets/Images/png2_pl.png"),
-  },
-  {
-    title: "Earnings Overview",
-    description:
-      "View your total earnings, recent transactions, and profit summary.",
-    image: require("../assets/Images/png3_eo.png"),
-  },
-  {
-    title: "Market Prices",
-    description:
-      "Stay updated with the latest market rates and pricing trends for different crops.",
-    image: require("../assets/Images/png4_mp.png"),
-  },
-];
-
 export default function FarmerScreen() {
+  const { t } = useTranslation();
+
+  const farmerActions: Action[] = [
+    {
+      title: t("addProduceTitle"),
+      description: t("addProduceDesc"),
+      image: require("../assets/Images/png1_ap.png"),
+    },
+    {
+      title: t("produceListTitle"),
+      description: t("produceListDesc"),
+      image: require("../assets/Images/png2_pl.png"),
+    },
+    {
+      title: t("earningsOverviewTitle"),
+      description: t("earningsOverviewDesc"),
+      image: require("../assets/Images/png3_eo.png"),
+    },
+    {
+      title: t("marketPricesTitle"),
+      description: t("marketPricesDesc"),
+      image: require("../assets/Images/png4_mp.png"),
+    },
+  ];
+
+  const changeLanguage = (lang: "en" | "hi" | "gu") => {
+    i18n.changeLanguage(lang);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Farmer Dashboard</Text>
-        <Text style={styles.subtitle}>
-          Manage your crops, earnings, and market insights.
-        </Text>
+        <Text style={styles.title}>{t("farmerDashboard")}</Text>
+        <Text style={styles.subtitle}>{t("manageCrops")}</Text>
 
         <View style={styles.cardsContainer}>
           {farmerActions.map(({ title, description, image }) => (
@@ -67,14 +68,8 @@ export default function FarmerScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fdfbf5",
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingBottom: 30,
-  },
+  container: { flex: 1, backgroundColor: "#f7faf1" },
+  content: { paddingHorizontal: 20, paddingBottom: 30 },
   title: {
     fontSize: 28,
     fontWeight: "700",
@@ -83,16 +78,8 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     textAlign: "center",
   },
-  subtitle: {
-    fontSize: 16,
-    color: "black",
-    textAlign: "center",
-    marginBottom: 25,
-  },
-  cardsContainer: {
-    flexDirection: "column",
-    gap: 20,
-  },
+  subtitle: { fontSize: 16, color: "#555", textAlign: "center", marginBottom: 25 },
+  cardsContainer: { flexDirection: "column", gap: 20 },
   actionCard: {
     backgroundColor: "#fff",
     borderRadius: 18,
@@ -103,10 +90,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 4,
   },
-  actionImage: {
-    width: "100%",
-    height: 180,
-  },
+  actionImage: { width: "100%", height: 180 },
   actionTitle: {
     fontSize: 20,
     fontWeight: "600",

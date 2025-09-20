@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 
-// Particle Component for hero background
 const Particle = ({ style }) => <div className="particle" style={style}></div>;
 
 const LandingPage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const team = [
     { name: 'Het Limbani', role: 'Project Lead & Full-Stack Developer' },
@@ -24,7 +27,6 @@ const LandingPage = () => {
     { title: 'Retail', description: 'Retailers provide consumers with a scannable QR code for full product history.' }
   ];
 
-  // particle animation data
   const particles = Array.from({ length: 50 }).map((_, i) => {
     const style = {
       '--x': `${Math.random() * 100}vw`,
@@ -37,7 +39,6 @@ const LandingPage = () => {
 
   return (
     <div className="landing-wrapper">
-      {/* Hero Section */}
       <section className="hero-box">
         <div className="particle-container">{particles}</div>
         <div className="hero-content">
@@ -59,9 +60,8 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* How it Works */}
       <section className="how-it-works-area">
-        <h2 className="section-title">How AgriChain Works</h2>
+        <h2 className="section-title">How AgriChain Works 🚀</h2>
         <p className="section-subtitle">A simple, four-step process to ensure complete transparency.</p>
         <div className="process-grid">
           {processSteps.map((step, index) => (
@@ -74,7 +74,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Team Section */}
       <section className="about-area">
         <h2 className="section-title">Meet the Innovators</h2>
         <p className="section-subtitle">The dedicated team building the future of agricultural transparency.</p>
@@ -88,7 +87,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="footer-bar">
         <p>© 2025 AgriChain. All Rights Reserved.</p>
         <div className="footer-links">
@@ -101,4 +99,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
