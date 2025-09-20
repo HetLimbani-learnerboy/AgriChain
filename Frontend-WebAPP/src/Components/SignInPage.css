@@ -5,7 +5,6 @@
   background: #fdfbf5;
 }
 
-/* Left column */
 .signin-left {
   flex: 1;
   display: flex;
@@ -14,7 +13,6 @@
   padding: 2rem;
 }
 
-/* Card container */
 .signin-card {
   background: #ffffff;
   width: 100%;
@@ -54,15 +52,16 @@
   outline: none;
   transition: border 0.3s;
 }
+
 .signin-form input:focus {
   border-color: #16a34a;
   box-shadow: 0 0 0 2px #bbf7d0;
 }
 
-/* Password field */
 .password-field {
   position: relative;
 }
+
 .toggle-password {
   position: absolute;
   top: 50%;
@@ -73,16 +72,16 @@
   cursor: pointer;
   padding: 0;
 }
+
 .toggle-password img {
   width: 22px;
   height: 22px;
   pointer-events: none;
 }
 
-/* Buttons */
 .signin-btn,
-.google-btn { 
-  padding: 0.9rem; 
+.google-btn {
+  padding: 0.9rem;
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
@@ -92,19 +91,19 @@
 .signin-btn {
   width: 100%;
   border-radius: 8px;
-  background: #16a34a;
+  background: #166534;
   color: white;
   border: none;
 }
+
 .signin-btn:hover {
-  background: #15803d;
   transform: scale(1.02);
 }
 
 .google-btn {
-  width: 97%;
+  width: 100%;
   background: white;
-  border-radius: 4px;
+  border-radius: 10px;
   border: 1px solid #d1d5db;
   color: #374151;
   display: flex;
@@ -112,16 +111,17 @@
   justify-content: center;
   gap: 0.5rem;
 }
+
 .google-btn img {
   width: 20px;
   height: 20px;
 }
+
 .google-btn:hover {
   background: #f9fafb;
   transform: scale(1.02);
 }
 
-/* Right column */
 .signin-right {
   flex: 1;
   display: flex;
@@ -130,6 +130,7 @@
   text-align: center;
   padding: 2rem;
 }
+
 .branding img {
   border: 2px dashed;
   border-radius: 50% 50%;
@@ -137,26 +138,29 @@
   max-width: 350px;
   margin-bottom: 1rem;
 }
+
 .branding h1 {
   font-size: 2rem;
   color: #065f46;
   margin-bottom: 0.5rem;
 }
+
 .branding p {
   color: #064e3b;
   font-size: 1rem;
 }
 
-/* Misc text */
 .forget-password,
 .switch-text span {
-  color: #16a34a;
+  color: #166534;
   cursor: pointer;
   font-weight: bold;
   display: block;
   text-align: center;
 }
+
 .switch-text {
+  margin-top: -1%;
   display: flex;
   flex-direction: row;
   text-align: center;
@@ -165,40 +169,52 @@
   font-size: 1.2rem;
   justify-content: center;
 }
+
 .switch-text-back span {
-  color: #16a34a;
+  color: #166534;
   cursor: pointer;
   font-weight: bold;
   display: block;
   text-align: center;
 }
+
 .switch-text-back {
+  margin-top: -5%;
   display: flex;
   font-size: 1.2rem;
   justify-content: center;
 }
-.switch-text-back span:hover{
+
+.switch-text-back span:hover {
   text-decoration: underline;
 
 }
 
-/* Animation */
 @keyframes slideIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .animate-slide {
   animation: slideIn 0.6s ease-out;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .signin-right {
     display: none;
   }
+
   .signin-left {
     flex: 1 1 100%;
   }
+
   .signin-card {
     max-width: 90%;
   }
