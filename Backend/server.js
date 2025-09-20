@@ -32,6 +32,7 @@ app.get("/signup/verify/:id",async (req,res)=>{
     }
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiry = new Date(Date.now() + 5 * 60 * 1000); 
+    console.log(otp);
     await User.updateOne(
       { _id: id },
       { $set: { otp: otp, otpExpiry:expiry} }
@@ -44,7 +45,7 @@ app.get("/signup/verify/:id",async (req,res)=>{
         subject: "Password Reset",
         html: `<p>Your OTP is <b>${otp}</b>. It is valid for 5 minutes.</p>`
       });
-    return res.status(200).json({ message: "otp is sent",email:user.email });
+    return res.status(201).json({ message: "otp is sent",email:user.email });
 
 
 });
@@ -53,7 +54,7 @@ app.post("/signup/verify/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { otp } = req.body;
-
+    
     const user = await User.findById(id);
     if (!user) return res.status(404).json({ message: "User not found" });
 
@@ -88,7 +89,7 @@ app.post("/signup/verify/:id", async (req, res) => {
 app.post("/signup",async (req,res)=>{
 
   try{
-    const { name, email, password } = req.body;
+    const { name, email, password,role,phone } = req.body;
 
     if (!name || !email || !password) {
         return res.status(400).json({ message: "All fields are required" });
@@ -100,7 +101,7 @@ app.post("/signup",async (req,res)=>{
     }
 
     const hashpass=bcrypt.hashSync(password,10);
-    const newUser = new User({ name, email, password:hashpass });
+    const newUser = new User({ name, email, password:hashpass,role,phone });
     await newUser.save();
     res.status(201).json({
         message: "User created successfully",
