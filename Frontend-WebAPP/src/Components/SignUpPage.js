@@ -4,7 +4,6 @@ import {url} from "../utils/basicUtils";
 
 const SignUp = () => {
   const [step, setStep] = useState(1);
-  // const [url, setUrl] = useState("http://localhost:3021");
   const [userId, setUserId] = useState("");
   const [otp, setOtp] = useState("");
   const [formData, setFormData] = useState({
