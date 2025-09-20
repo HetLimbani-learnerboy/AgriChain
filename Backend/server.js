@@ -39,7 +39,7 @@ app.get("/signup/verify/:id",async (req,res)=>{
 
 
     await transporter.sendMail({
-        from: '"My App" <harshwithpc@gmail.com>',
+        from: '"Agri Chain" <harshwithpc@gmail.com>',
         to: user.email,
         subject: "Password Reset",
         html: `<p>Your OTP is <b>${otp}</b>. It is valid for 5 minutes.</p>`
