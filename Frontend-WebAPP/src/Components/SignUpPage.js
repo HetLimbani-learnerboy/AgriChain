@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./SignUpPage.css";
 
 const SignUp = () => {
@@ -23,7 +22,6 @@ const SignUp = () => {
     special: false,
     match: false,
   });
-  const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
@@ -92,7 +90,7 @@ const SignUp = () => {
       const data = await res.json();
       if (res.status === 200) {
         alert("Signup successful! Redirecting to dashboard...");
-        navigate("/");
+        window.location.href = "http://localhost:3021/distributorpage"; // Redirect to dashboard
       } else {
         alert(data.message || "OTP verification failed");
       }
