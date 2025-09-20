@@ -46,7 +46,7 @@ const SignUp = () => {
     e.preventDefault();
     if (!passwordValid.match) return alert("Passwords do not match!");
     try {
-      const res = await fetch("http://localhost:5000/signup", {
+      const res = await fetch("http://localhost:3021/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -60,7 +60,7 @@ const SignUp = () => {
       const data = await res.json();
       if (res.status === 201) {
         setUserId(data.user.id);
-        const res1 = await fetch(`http://localhost:5000/signup/verify/${data.user.id}`,{
+        const res1 = await fetch(`http://localhost:3021/signup/verify/${data.user.id}`,{
           method:"GET"
         })
         if(res1.status === 201){
@@ -82,7 +82,7 @@ const SignUp = () => {
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/signup/verify/${userId}`, {
+      const res = await fetch(`http://localhost:3021/signup/verify/${userId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ otp }),
