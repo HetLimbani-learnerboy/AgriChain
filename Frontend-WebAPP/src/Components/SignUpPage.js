@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./SignUpPage.css";
+import {url} from "../utils/basicUtils";
 
 const SignUp = () => {
   const [step, setStep] = useState(1);
@@ -46,7 +47,7 @@ const SignUp = () => {
     e.preventDefault();
     if (!passwordValid.match) return alert("Passwords do not match!");
     try {
-      const res = await fetch("http://localhost:3021/signup", {
+      const res = await fetch(url+"/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -60,12 +61,11 @@ const SignUp = () => {
       const data = await res.json();
       if (res.status === 201) {
         setUserId(data.user.id);
-        const res1 = await fetch(`http://localhost:3021/signup/verify/${data.user.id}`,{
+        const res1 = await fetch( url+`/signup/verify/${data.user.id}`,{
           method:"GET"
         })
         if(res1.status === 201){
             setStep(2);
-            alert(`OTP sent to ${formData.email} otp is valid for 5 minutes`);
         }else {
         alert(data.message || "faild to send otp");
         }
@@ -82,15 +82,14 @@ const SignUp = () => {
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:3021/signup/verify/${userId}`, {
+      const res = await fetch(url+`/signup/verify/${userId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ otp }),
       });
       const data = await res.json();
       if (res.status === 200) {
-        alert("Signup successful! Redirecting to dashboard...");
-        window.location.href = "http://localhost:3021/distributorpage"; // Redirect to dashboard
+        window.location.href = "http://localhost:3000/dashboard";
       } else {
         alert(data.message || "OTP verification failed");
       }

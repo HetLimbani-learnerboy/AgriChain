@@ -15,9 +15,8 @@ const userSchema = new mongoose.Schema({
   },
   password: { 
     type: String, 
-    required: true, 
-    select: false 
-  }, // select:false to hide by default
+    required: true
+  }, 
   role: { 
     type: String, 
     enum: ["farmer", "admin", "distributor", "retailer"], 
