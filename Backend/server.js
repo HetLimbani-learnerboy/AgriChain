@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
-const authRoutesgoogle = require("./routes/authRoutesgoogle");
 const bcrypt = require("bcrypt");
 const User = require("./models/User");
 const transporter = require("./controllers/emailController");
@@ -37,7 +36,7 @@ app.get("/signup/verify/:id", async (req, res) => {
 
   await transporter.sendMail({
     // from: `"Agri Chain" <${process.env.EMAIL}>`
-    from: "Agri Chain",
+    from: "AgriChain",
     to: user.email,
     subject: "Verify your email",
     html: `<p>Your OTP is <b>${otp}</b>. It is valid for 5 minutes.</p>`
