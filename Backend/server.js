@@ -17,7 +17,7 @@ app.use("/api/auth", authRoutes);
 
 
 connectDB().then(() => {
-  app.listen(process.env.PORT || 3000, () =>
+  app.listen(process.env.PORT || 3021, () =>
     console.log(`Server running on port ${process.env.PORT}`)
   );
 });
@@ -39,9 +39,10 @@ app.get("/signup/verify/:id",async (req,res)=>{
 
 
     await transporter.sendMail({
-        from: '"Agri Chain" <harshwithpc@gmail.com>',
+        // from: `"Agri Chain" <${process.env.EMAIL}>`
+        from: "Agri Chain",
         to: user.email,
-        subject: "Password Reset",
+        subject: "Verify your email",
         html: `<p>Your OTP is <b>${otp}</b>. It is valid for 5 minutes.</p>`
       });
     return res.status(201).json({ message: "otp is sent",email:user.email });

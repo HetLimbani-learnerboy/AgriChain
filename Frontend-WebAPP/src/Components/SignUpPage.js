@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SignUpPage.css";
-import {url} from "../utils/basicUtils";
+import { url } from "../utils/basicUtils";
 
 const SignUp = () => {
   const [step, setStep] = useState(1);
@@ -47,7 +47,7 @@ const SignUp = () => {
     e.preventDefault();
     if (!passwordValid.match) return alert("Passwords do not match!");
     try {
-      const res = await fetch(url+"/signup", {
+      const res = await fetch(url + "/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -61,15 +61,15 @@ const SignUp = () => {
       const data = await res.json();
       if (res.status === 201) {
         setUserId(data.user.id);
-        const res1 = await fetch( url+`/signup/verify/${data.user.id}`,{
-          method:"GET"
+        const res1 = await fetch(url + `/signup/verify/${data.user.id}`, {
+          method: "GET"
         })
-        if(res1.status === 201){
-            setStep(2);
-        }else {
-        alert(data.message || "faild to send otp");
+        if (res1.status === 201) {
+          setStep(2);
+        } else {
+          alert(data.message || "faild to send otp");
         }
-        
+
       } else {
         alert(data.message || "Error creating user");
       }
@@ -82,7 +82,7 @@ const SignUp = () => {
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(url+`/signup/verify/${userId}`, {
+      const res = await fetch(url + `/signup/verify/${userId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ otp }),
@@ -148,7 +148,7 @@ const SignUp = () => {
               <p style={{ color: passwordValid.lower ? "green" : "red" }}>• Lowercase letter</p>
               <p style={{ color: passwordValid.number ? "green" : "red" }}>• Number</p>
               <p style={{ color: passwordValid.special ? "green" : "red" }}>• Special character (!@#$%^&*)</p>
-              
+
             </div>
 
             <input
@@ -158,8 +158,8 @@ const SignUp = () => {
               onChange={handleConfirmPasswordChange}
               required
             />
-             <div className="password-rules">
-            <p style={{ color: passwordValid.match ? "green" : "red" }}>• Passwords match</p> </div>
+            <div className="password-rules">
+              <p style={{ color: passwordValid.match ? "green" : "red" }}>• Passwords match</p> </div>
             <select
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
@@ -179,7 +179,7 @@ const SignUp = () => {
             />
             <button type="submit" className="signup-btn">Sign Up</button>
             <span className="signup-switch-text">
-              Already have an account? <a href="/signinpage">Sign In</a>
+              Already have an account? <a href="/signin">Sign In</a>
             </span>
             <span className="signup-switch-text-back">
               <a href="/">Back to home</a>
