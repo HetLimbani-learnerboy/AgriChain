@@ -178,6 +178,7 @@ const SignUp = () => {
               required
             />
             <button type="submit" className="signup-btn">Sign Up</button>
+    
             <span className="signup-switch-text">
               Already have an account? <a href="/signin">Sign In</a>
             </span>
