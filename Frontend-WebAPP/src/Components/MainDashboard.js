@@ -44,7 +44,7 @@ const MainDashboard = () => {
         <span>AgriChain</span>
 
         <div className="navigator-bar-links">
-          <button onClick={() => navigate("/maindashboardpage")}>{t("dashboard")}</button>
+          <button onClick={() => navigate("/dashboard")}>{t("dashboard")}</button>
           <button>{t("Transaction")}</button>
 
           {/* Role Dropdown */}

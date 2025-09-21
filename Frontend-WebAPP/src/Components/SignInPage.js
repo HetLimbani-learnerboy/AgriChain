@@ -29,7 +29,7 @@ const handleSubmit = async (e) => {
       } else{
         alert(data.message || "Invalid credentials");
         if(res.status===401){
-         navigate("/signup");
+         navigate("/signin");
         }
       }
     } catch (err) {
