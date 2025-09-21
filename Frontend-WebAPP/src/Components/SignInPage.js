@@ -79,11 +79,6 @@ return (
         </div>
 
         <button type="submit" className="signin-btn">Sign In</button>
-
-        <button type="button" className="google-btn">
-          <img src="/GoogleLogo.png" alt="Google" />
-          Sign In with Google
-        </button>
       </form>
 
       <span
