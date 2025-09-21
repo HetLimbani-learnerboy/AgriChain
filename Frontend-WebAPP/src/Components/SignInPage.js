@@ -21,7 +21,6 @@ const handleSubmit = async (e) => {
         body: JSON.stringify({ email, password }),
       });
 
-
       const data = await res.json();
       if (res.ok) {
         // localStorage.setItem("token", data.token);
@@ -79,11 +78,6 @@ return (
         </div>
 
         <button type="submit" className="signin-btn">Sign In</button>
-
-        <button type="button" className="google-btn">
-          <img src="/GoogleLogo.png" alt="Google" />
-          Sign In with Google
-        </button>
       </form>
 
       <span

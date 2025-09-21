@@ -156,7 +156,11 @@
   cursor: pointer;
   font-weight: bold;
   display: block;
-  text-align: center;
+}
+
+.forget-password {
+  text-align: right;
+  font-size: 1.1rem;
 }
 
 .switch-text {
