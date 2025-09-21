@@ -160,7 +160,7 @@ app.post("/signin", async (req, res) => {
       return res.status(401).json({ message: "User does not exist" });
     }
     if(!user.isverifyed){
-      return res.status(404).json({ message: "User does not verifyed" });
+      return res.status(401).json({ message: "User does not verifyed" });
     }
     if (!password || !user.password) {
       return res.status(400).json({ message: "Missing credentials" });
