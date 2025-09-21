@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import { useRouter } from "expo-router";
+
 
 // ---- If you have a typed root stack, replace these with your route names ----
 type RootStackParamList = {
@@ -37,6 +39,7 @@ interface ProcessStep {
 
 const LandingPage: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
+  const router = useRouter();
 
   const team: TeamMember[] = [
     { name: 'Het Limbani', role: 'Project Lead & Full-Stack Developer' },
@@ -74,22 +77,23 @@ const LandingPage: React.FC = () => {
         <View style={styles.authButtonGroup}>
           <TouchableOpacity
             style={[styles.heroBtn, styles.heroBtnPrimary]}
-            onPress={() => navigation.navigate('MainDashboardPage')}
+            onPress={() => router.push("/")} // This opens index.tsx
           >
-            <Text style={[styles.heroBtnText, styles.heroBtnTextPrimary]}>Get Started</Text>
+            <Text style={[styles.heroBtnText, styles.heroBtnTextPrimary]}>
+              Get Started
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.heroBtn}
-            onPress={() => navigation.navigate('SignInPage')}
+            onPress={() => router.push("/signinPage")}
           >
             <Text style={styles.heroBtnText}>Sign In</Text>
           </TouchableOpacity>
 
-
           <TouchableOpacity
             style={styles.heroBtn}
-            onPress={() => navigation.navigate('SignUpPage')}
+            onPress={() => router.push("/signuppage")}
           >
             <Text style={styles.heroBtnText}>Sign Up</Text>
           </TouchableOpacity>
