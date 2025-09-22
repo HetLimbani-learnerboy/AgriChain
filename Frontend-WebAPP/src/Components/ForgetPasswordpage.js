@@ -23,7 +23,7 @@ const ForgetPassword = () => {
   };
   const isPasswordMatch = password && password === confirmPassword;
 
-  // OTP input
+  // Handle OTP input
   const handleOtpChange = (value, i) => {
     if (/^[0-9]?$/.test(value)) {
       const newOtp = [...otp];
@@ -106,28 +106,30 @@ const ForgetPassword = () => {
   };
 
   return (
-    <div className="wrapper">
+    <div className="forgetpassword-wrapper">
       {step === 1 && (
-        <div className="card">
+        <div className="forgetpassword-card">
           <h2>Forgot Password</h2>
           <input
             type="email"
             placeholder="Enter your email"
-            className="input"
+            className="forgetpassword-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button className="btn" onClick={sendOtp} disabled={sending}>
-            {sending ? "Sending..." : "Send OTP"}
+          <button className="forgetpassword-btn" onClick={sendOtp} disabled={sending}>
+            {sending ? <span className="forgetpassword-loader" /> : "Send OTP"}
           </button>
-          <span className="back" onClick={() => navigate(-1)}>Go Back</span>
+          <span className="forgetpassword-back" onClick={() => navigate(-1)}>
+            Go Back
+          </span>
         </div>
       )}
 
       {step === 2 && (
-        <div className="card">
+        <div className="forgetpassword-card">
           <h2>Enter OTP</h2>
-          <div className="otp-wrapper">
+          <div className="forgetpassword-otp-wrapper">
             {otp.map((d, i) => (
               <input
                 key={i}
@@ -135,53 +137,66 @@ const ForgetPassword = () => {
                 value={d}
                 onChange={(e) => handleOtpChange(e.target.value, i)}
                 maxLength={1}
-                className="otp-box"
+                className="forgetpassword-otpbox"
               />
             ))}
           </div>
           <p>OTP will be verified automatically</p>
           {resendTimer > 0 ? (
-            <button className="resend-otpbox1" disabled>Resend OTP in {resendTimer}s</button>
+            <button className="forgetpassword-resend1" disabled>
+              Resend OTP in {resendTimer}s
+            </button>
           ) : (
-            <button className="resend-otpbox2" onClick={sendOtp}>Resend OTP</button>
+            <button className="forgetpassword-resend2" onClick={sendOtp}>
+              Resend OTP
+            </button>
           )}
         </div>
       )}
 
       {step === 3 && (
-        <div className="card">
+        <div className="forgetpassword-card">
           <h2>Reset Password</h2>
-          <div className="input-wrapper">
+          <div className="forgetpassword-input-wrapper">
             <input
               type={passwordVisible ? "text" : "password"}
               placeholder="New Password"
-              className="input"
+              className="forgetpassword-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="toggle-btn" onClick={() => setPasswordVisible(!passwordVisible)}>
+            <button
+              className="forgetpassword-toggle-btn"
+              onClick={() => setPasswordVisible(!passwordVisible)}
+            >
               {passwordVisible ? "Hide" : "Show"}
             </button>
           </div>
-          <div className="validation">
+          <div className="forgetpassword-validation">
             <p style={{ color: passwordValid.length ? "green" : "red" }}>• Minimum 8 characters</p>
             <p style={{ color: passwordValid.upper ? "green" : "red" }}>• Uppercase letter</p>
             <p style={{ color: passwordValid.lower ? "green" : "red" }}>• Lowercase letter</p>
             <p style={{ color: passwordValid.number ? "green" : "red" }}>• Number</p>
-            <p style={{ color: passwordValid.special ? "green" : "red" }}>• Special character (!@#$%^&*)</p>
+            <p style={{ color: passwordValid.special ? "green" : "red" }}>
+              • Special character (!@#$%^&*)
+            </p>
           </div>
 
           <input
             type="password"
             placeholder="Confirm Password"
-            className="input"
+            className="forgetpassword-input"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          {!isPasswordMatch && confirmPassword && <p style={{ color: "red" }}>Passwords do not match</p>}
+          {!isPasswordMatch && confirmPassword && (
+            <p className="forgetpassword-validation-message" style={{ color: "red" }}>
+              Passwords do not match
+            </p>
+          )}
 
           <button
-            className="btn"
+            className="forgetpassword-btn"
             disabled={!Object.values(passwordValid).every(Boolean) || !isPasswordMatch}
             onClick={resetPassword}
           >
