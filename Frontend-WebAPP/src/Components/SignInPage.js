@@ -82,7 +82,7 @@ return (
 
       <span
         className="forget-password"
-        onClick={() => navigate("/forgetpasswordpage")}
+        onClick={() => navigate("/forgetpassword")}
       >
         Forgot Password?
       </span>
