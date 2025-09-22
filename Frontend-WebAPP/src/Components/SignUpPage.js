@@ -6,6 +6,7 @@ const SignUp = () => {
   const [step, setStep] = useState(1);
   const [userId, setUserId] = useState("");
   const [otp, setOtp] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -46,6 +47,7 @@ const SignUp = () => {
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     if (!passwordValid.match) return alert("Passwords do not match!");
+    setLoading(true);
     try {
       const res = await fetch(url + "/signup", {
         method: "POST",
@@ -63,24 +65,26 @@ const SignUp = () => {
         setUserId(data.user.id);
         const res1 = await fetch(url + `/signup/verify/${data.user.id}`, {
           method: "GET"
-        })
+        });
         if (res1.status === 201) {
           setStep(2);
         } else {
-          alert(data.message || "faild to send otp");
+          alert(data.message || "Failed to send OTP");
         }
-
       } else {
         alert(data.message || "Error creating user");
       }
     } catch (err) {
       console.error(err);
       alert("Server error");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await fetch(url + `/signup/verify/${userId}`, {
         method: "POST",
@@ -89,13 +93,15 @@ const SignUp = () => {
       });
       const data = await res.json();
       if (res.status === 200) {
-        window.location.href = "http://localhost:3000/dashboard";
+        window.location.href = "http://localhost:3000/GetStarted";
       } else {
         alert(data.message || "OTP verification failed");
       }
     } catch (err) {
       console.error(err);
       alert("Error verifying OTP");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -148,7 +154,6 @@ const SignUp = () => {
               <p style={{ color: passwordValid.lower ? "green" : "red" }}>• Lowercase letter</p>
               <p style={{ color: passwordValid.number ? "green" : "red" }}>• Number</p>
               <p style={{ color: passwordValid.special ? "green" : "red" }}>• Special character (!@#$%^&*)</p>
-
             </div>
 
             <input
@@ -159,7 +164,9 @@ const SignUp = () => {
               required
             />
             <div className="password-rules">
-              <p style={{ color: passwordValid.match ? "green" : "red" }}>• Passwords match</p> </div>
+              <p style={{ color: passwordValid.match ? "green" : "red" }}>• Passwords match</p>
+            </div>
+
             <select
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
@@ -177,8 +184,10 @@ const SignUp = () => {
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               required
             />
-            <button type="submit" className="signup-btn">Sign Up</button>
-    
+            <button type="submit" className="signup-btn" disabled={loading}>
+              {loading ? <span className="loader"></span> : "Sign Up"}
+            </button>
+
             <span className="signup-switch-text">
               Already have an account? <a href="/signin">Sign In</a>
             </span>
@@ -199,7 +208,9 @@ const SignUp = () => {
               onChange={(e) => setOtp(e.target.value)}
               required
             />
-            <button type="submit" className="signup-btn">Verify OTP</button>
+            <button type="submit" className="signup-btn" disabled={loading}>
+              {loading ? <span className="loader"></span> : "Verify OTP"}
+            </button>
           </form>
         )}
       </div>

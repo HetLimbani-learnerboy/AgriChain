@@ -24,7 +24,7 @@ const handleSubmit = async (e) => {
       const data = await res.json();
       if (res.ok) {
         // localStorage.setItem("token", data.token);
-        navigate("/dashboard");
+        navigate("/GetStarted");
       } else{
         alert(data.message || "Invalid credentials");
         if(res.status===401){
