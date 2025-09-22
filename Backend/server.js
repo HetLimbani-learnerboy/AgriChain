@@ -328,7 +328,7 @@ app.post("/signin/forgotpassword/auth", async (req, res) => {
       html: `<p>Your OTP is <b>${otp}</b>. It is valid for 5 minutes.</p>`
     });
 
-    res.status(200).json({ message: "OTP sent to email" });
+    res.status(201).json({ message: "OTP sent to email" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error", err: err.message });
@@ -336,7 +336,7 @@ app.post("/signin/forgotpassword/auth", async (req, res) => {
 });
 
 // FORGOT PASSWORD: Verify OTP & Reset Password
-app.patch("/signin/forgotpassword", async (req, res) => {
+app.patch("/signin/forgotpassword/auth", async (req, res) => {
   try {
     const { email, otp, password } = req.body;
     const user = await User.findOne({ email });
@@ -350,7 +350,7 @@ app.patch("/signin/forgotpassword", async (req, res) => {
     user.otpExpiry = undefined;
     await user.save();
 
-    res.status(200).json({ message: "Password reset successfully" });
+    res.status(201).json({ message: "Password reset successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error", err: err.message });
