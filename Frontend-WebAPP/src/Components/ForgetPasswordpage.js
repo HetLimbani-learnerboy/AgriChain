@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./ForgetPassword.css";
 
@@ -29,13 +28,28 @@ const ForgetPassword = () => {
       newOtp[i] = value;
       setOtp(newOtp);
       if (value && i < 5) otpRefs.current[i + 1].focus();
+       
     }
   };
 
   const sendOtp = async () => {
     try {
-      await axios.post("http://localhost:3021/signin/forgotpassword/auth", { email });
-      setStep(2);
+      const res=await fetch("http://localhost:3021/signin/forgotpassword/auth", { 
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email
+        }),
+      });
+
+      const data = await res.json();
+
+      if(res.ok){
+        setStep(2);
+      }else{
+        alert(data.message || "Invalid credentials");
+
+      }
     } catch (err) {
       console.error(err);
       alert(err.response?.data?.message || "Something went wrong");
@@ -45,19 +59,28 @@ const ForgetPassword = () => {
   useEffect(() => {
     if (step === 2 && otp.join("").length === 6) {
       const timer = setTimeout(() => setStep(3), 1000); // auto proceed after 1 sec
-      return () => clearTimeout(timer);
+      clearTimeout(timer);
+      
+
     }
   }, [otp, step]);
 
   const resetPassword = async () => {
     try {
-      await axios.patch("http://localhost:3021/signin/forgotpassword", {
-        email,
-        otp: otp.join(""),
-        password,
+      const res=await fetch("http://localhost:3021/signin/forgotpassword/auth", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp ,password}),
       });
-      alert("Password reset successfully");
-      navigate("/dashboard");
+      const data = await res.json();
+
+      if(res.ok){
+        navigate("/dashboard");
+        alert(data.message);
+      }else{
+        alert(data.message || "Invalid credentials");
+      }
+      
     } catch (err) {
       console.error(err);
       alert(err.response?.data?.message || "Something went wrong");
