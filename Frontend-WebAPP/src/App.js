@@ -9,7 +9,7 @@ import RetailerPage from "./Components/RetailerPage";
 import ConsumerPage from "./Components/ConsumerPage";
 import SignInPage from "./Components/SignInPage"
 import SignUpPage from "./Components/SignUpPage"
-import ForgetPasswordpage from "./Components/ForgetPasswordpage"
+import ForgetPassword from "./Components/ForgetPasswordpage"
 
 const App = () => {
   return (
@@ -22,7 +22,7 @@ const App = () => {
         <Route path="/consumer" element={<ConsumerPage />} />
         <Route path="/signin" element={< SignInPage />} />
         <Route path="/signup" element={< SignUpPage />} />
-        <Route path="/forgetpassword" element={< ForgetPasswordpage />} />
+        <Route path="/forgetpassword" element={< ForgetPassword/>} />
       </Routes>
   );
 };
