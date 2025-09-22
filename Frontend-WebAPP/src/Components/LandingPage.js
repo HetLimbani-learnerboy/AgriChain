@@ -45,15 +45,13 @@ const LandingPage = () => {
           <img src="/MainLogo.png" alt="AgriChain Logo" className="logo-landingpage" />
           <h1 className="hero-title">Welcome to AgriChain 🔗</h1>
           <p className="hero-tagline">
-            <span className="typewriter-text">
-              Track the supply chain from farm to fork with transparency.
-            </span>
+            <span className="typewriter-text">Track the supply chain from farm to fork with transparency.</span>
           </p>
           <p className="hero-description">
             AgriChain leverages blockchain to bring radical transparency to the agricultural supply chain.
           </p>
           <div className="auth-btn-group">
-            <button className="hero-btn primary" onClick={() => navigate('/dashboard')}>Get Started</button>
+            <button className="hero-btn primary" onClick={() => navigate('/GetStarted')}>Get Started</button>
             <button className="hero-btn" onClick={() => navigate('/signin')}>Sign In</button>
             <button className="hero-btn" onClick={() => navigate('/signup')}>Sign Up</button>
           </div>

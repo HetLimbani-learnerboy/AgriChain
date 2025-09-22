@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
 import LandingPage from "./Components/LandingPage";
-import MainDashboard from "./Components/MainDashboard";
+import GetStartedPage from "./Components/GetStartedPage";
 import Farmerpage from "./Components/Farmerpage";
 import DistributorPage from "./Components/DistributorPage";
 import RetailerPage from "./Components/RetailerPage";
@@ -15,7 +14,7 @@ const App = () => {
   return (
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<MainDashboard />} />
+        <Route path="/GetStarted" element={<GetStartedPage />} />
         <Route path="/farmer" element={<Farmerpage />} />
         <Route path="/distributor" element={<DistributorPage />} />
         <Route path="/retailer" element={<RetailerPage />} />
