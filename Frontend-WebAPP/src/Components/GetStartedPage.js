@@ -11,8 +11,8 @@ const GetStartedPage = () => {
   const [langOpen, setLangOpen] = useState(false);
   const roleRef = useRef(null);
   const langRef = useRef(null);
+  const workflowRef = useRef(null);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (roleRef.current && !roleRef.current.contains(e.target)) setRoleOpen(false);
@@ -27,6 +27,16 @@ const GetStartedPage = () => {
     setLangOpen(false);
   };
 
+  const scrollToWorkflow = () => {
+    workflowRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const imageFiles = [
+    "png1_ap.png","png2_pl.png","png3_eo.png","png4_mp.png","png5_ip.png",
+    "png6_ts.png","png7_li.png","png8_mi.png","png9_rp.png","png10_fs.png",
+    "png11_gq.png","png12_so.png","png13_tv.png","png14_qv.png","png15_st.png"
+  ];
+
   return (
     <div className="landing-wrapper">
       {/* Navbar */}
@@ -36,17 +46,9 @@ const GetStartedPage = () => {
           <span className="navbar-title">AgriChain</span>
         </div>
         <div className="navbar-right">
-          {/* Role Dropdown */}
           <div className="role-dropdown" ref={roleRef}>
-            <button
-              className="role-button"
-              aria-haspopup="true"
-              aria-expanded={roleOpen}
-              onClick={() => setRoleOpen((p) => !p)}
-            >
-              Role ▾
-            </button>
-            <div className={`dropdown-menulist ${roleOpen ? "show" : ""}`} role="menu">
+            <button className="role-button" onClick={() => setRoleOpen(p => !p)}>Role ▾</button>
+            <div className={`dropdown-menulist ${roleOpen ? "show" : ""}`}>
               <button onClick={() => navigate("/farmer")}>Farmer</button>
               <button onClick={() => navigate("/distributor")}>Distributor</button>
               <button onClick={() => navigate("/retailer")}>Retailer</button>
@@ -54,58 +56,56 @@ const GetStartedPage = () => {
             </div>
           </div>
 
-          {/* Language Dropdown */}
           <div className="language-dropdown" ref={langRef}>
-            <button
-              className="language-button"
-              aria-haspopup="true"
-              aria-expanded={langOpen}
-              onClick={() => setLangOpen((p) => !p)}
-            >
-              Language ▾
-            </button>
-            <div className={`dropdown-languagelist ${langOpen ? "show" : ""}`} role="menu">
+            <button className="language-button" onClick={() => setLangOpen(p => !p)}>Language ▾</button>
+            <div className={`dropdown-languagelist ${langOpen ? "show" : ""}`}>
               <button onClick={() => changeLanguage("en")}>English</button>
               <button onClick={() => changeLanguage("hi")}>Hindi</button>
               <button onClick={() => changeLanguage("gu")}>Gujarati</button>
             </div>
           </div>
 
-          {/* Sign In / Sign Up */}
-          <button className="auth-btn" onClick={() => navigate("/signin")}>Sign In</button>
-          <button className="auth-btn signup" onClick={() => navigate("/signup")}>Sign Up</button>
+          <button className="auth-btn-signin" onClick={() => navigate("/signin")}>Sign In</button>
+          <button className="auth-btn-signup" onClick={() => navigate("/signup")}>Sign Up</button>
+          <button className="auth-btn-backbutton" onClick={() => navigate("/")}>Back</button>
         </div>
       </nav>
 
-      {/* Main Content */}
+      {/* Header */}
       <header className="landing-header">
-        <h1>{t("welcome")} to AgriChain 🌾</h1>
-        <p>
-          {t("title") || "AgriChain connects farmers, distributors, retailers, and consumers seamlessly, bringing transparency and efficiency to the agricultural supply chain."}
-        </p>
+        <h1>{t("welcome")} 🌾</h1>
+        <p>{t("title")}</p>
+
+        {/* Image Marquee */}
+        <div className="image-marquee">
+          <div className="marquee-track">
+            {imageFiles.concat(imageFiles).map((file, i) => (
+              <img key={i} src={`/Images/${file}`} alt={`slide-${i}`} />
+            ))}
+          </div>
+        </div>
       </header>
 
       {/* Government Section */}
       <section className="landing-government">
-        <h2>Government Collaboration</h2>
-        <p>
-          AgriChain allows government agencies to integrate directly with the supply chain ecosystem.
-          This ensures proper monitoring of agricultural resources, subsidies, and quality standards.
-          Farmers can access government schemes, track compliance, and report issues transparently.
-        </p>
-        <p>
-          By connecting with AgriChain, government departments can reduce bureaucracy, increase
-          accountability, and support sustainable agricultural practices nationwide.
-        </p>
-        <button className="gov-learnmore-btn" onClick={() => navigate("/government")}>
-          Learn More
-        </button>
+        <h2>{t("government")}</h2>
+        <p>{t("govText1")}</p>
+        <p>{t("govText2")}</p>
+        <button className="gov-learnmore-btn" onClick={scrollToWorkflow}>{t("learnMore")}</button>
       </section>
 
-      {/* Footer */}
-      <footer className="landing-footer">
-        <p>© 2025 AgriChain. All rights reserved.</p>
-      </footer>
+      {/* Workflow Section */}
+      <section className="workflow-section" ref={workflowRef}>
+        <h2 className="workflow-title">{t("workflowTitle")}</h2>
+        <div className="workflow-steps">
+          {t("steps", { returnObjects: true }).map((step, idx) => (
+            <div className="workflow-card" key={idx}>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
