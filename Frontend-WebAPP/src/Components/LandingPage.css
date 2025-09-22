@@ -28,8 +28,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vh;
+  height: 100vh;
   pointer-events: none;
   z-index: 1;
 }
@@ -38,9 +38,9 @@
   position: absolute;
   background-color: #166534;
   border-radius: 50%;
-  opacity: 0.4;
-  width: 5px;
-  height: 5px;
+  opacity: 0.7;
+  width: 10px;
+  height: 10px;
   animation: float var(--d) linear infinite;
   transform: translate(var(--x), var(--y)) scale(var(--s));
 }
@@ -88,7 +88,6 @@
   margin-bottom: 1rem;
   max-width: 600px;
   text-align: center;
-  /* center the <p> */
   margin-left: auto;
   margin-right: auto;
 }
@@ -259,7 +258,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
+  padding: 1rem 2rem;
   gap: 1rem;
 }
 
@@ -274,12 +273,10 @@
   color: #ffffff;
   cursor: pointer;
   font-size: 1rem;
-  opacity: 0.8;
   transition: opacity 0.3s ease;
 }
 
 .footer-link:hover {
-  opacity: 1;
   text-decoration: underline;
 }
 

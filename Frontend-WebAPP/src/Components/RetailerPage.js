@@ -24,7 +24,7 @@ const RetailerPage = () => {
         <span>AgriChain</span>
 
         <div className="navigator-bar-links">
-          <button onClick={() => navigate("/")}>Dashboard</button>
+          <button onClick={() => navigate("/dashboard")}>Dashboard</button>
           <button>Transactions</button>
 
           <div className="role-dropdown" ref={dropdownRef}>

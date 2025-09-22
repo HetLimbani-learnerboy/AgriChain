@@ -53,7 +53,7 @@ const LandingPage = () => {
             AgriChain leverages blockchain to bring radical transparency to the agricultural supply chain.
           </p>
           <div className="auth-btn-group">
-            <button className="hero-btn primary" onClick={() => navigate('/maindashboardpage')}>Get Started</button>
+            <button className="hero-btn primary" onClick={() => navigate('/dashboard')}>Get Started</button>
             <button className="hero-btn" onClick={() => navigate('/signin')}>Sign In</button>
             <button className="hero-btn" onClick={() => navigate('/signup')}>Sign Up</button>
           </div>
