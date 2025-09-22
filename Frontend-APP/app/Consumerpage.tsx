@@ -26,7 +26,7 @@ export default function ConsumerScreen() {
       description: t(
         "Crop → Farmer Details → Transport Info → Retail Price. Visualized as a timeline or flowchart for easy tracking."
       ),
-      image: require("../assets/Images/png13_tv.png"),
+      image: require("../assets/Images/png14_qv.png"),
     },
     {
       title: t("QR Code Verification"),
