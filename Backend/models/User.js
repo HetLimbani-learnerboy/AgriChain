@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  fullName: { 
+  name: { 
     type: String, 
     required: true, 
     trim: true 
@@ -15,15 +15,14 @@ const userSchema = new mongoose.Schema({
   },
   password: { 
     type: String, 
-    required: true, 
-    select: false 
-  }, // select:false to hide by default
+    required: true
+  }, 
   role: { 
     type: String, 
-    enum: ["farmer", "admin", "distributor", "retailer"], 
+    enum: ["farmer", "admin", "distributor", "retailer","consumer","government"], 
     default: "farmer" 
   },
-  phoneNumber: { 
+  phone: { 
     type: String, 
     default: "" 
   },
@@ -32,7 +31,7 @@ const userSchema = new mongoose.Schema({
     default:false
   },
   otp:{
-    type:Number
+    type:String
   },
   otpExpiry: {
     type:Date

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 
@@ -6,6 +6,10 @@ const Particle = ({ style }) => <div className="particle" style={style}></div>;
 
 const LandingPage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const team = [
     { name: 'Het Limbani', role: 'Project Lead & Full-Stack Developer' },
@@ -23,7 +27,6 @@ const LandingPage = () => {
     { title: 'Retail', description: 'Retailers provide consumers with a scannable QR code for full product history.' }
   ];
 
-  // particle animation data
   const particles = Array.from({ length: 50 }).map((_, i) => {
     const style = {
       '--x': `${Math.random() * 100}vw`,
@@ -42,24 +45,21 @@ const LandingPage = () => {
           <img src="/MainLogo.png" alt="AgriChain Logo" className="logo-landingpage" />
           <h1 className="hero-title">Welcome to AgriChain 🔗</h1>
           <p className="hero-tagline">
-            <span className="typewriter-text">
-              Track the supply chain from farm to fork with transparency.
-            </span>
+            <span className="typewriter-text">Track the supply chain from farm to fork with transparency.</span>
           </p>
           <p className="hero-description">
             AgriChain leverages blockchain to bring radical transparency to the agricultural supply chain.
           </p>
           <div className="auth-btn-group">
-            <button className="hero-btn primary" onClick={() => navigate('/maindashboardpage')}>Get Started</button>
-            <button className="hero-btn" onClick={() => navigate('/signinpage')}>Sign In</button>
-            <button className="hero-btn" onClick={() => navigate('/signuppage')}>Sign Up</button>
+            <button className="hero-btn primary" onClick={() => navigate('/GetStarted')}>Get Started</button>
+            <button className="hero-btn" onClick={() => navigate('/signin')}>Sign In</button>
+            <button className="hero-btn" onClick={() => navigate('/signup')}>Sign Up</button>
           </div>
         </div>
       </section>
 
-      {/* How it Works */}
       <section className="how-it-works-area">
-        <h2 className="section-title">How AgriChain Works</h2>
+        <h2 className="section-title">How AgriChain Works 🚀</h2>
         <p className="section-subtitle">A simple, four-step process to ensure complete transparency.</p>
         <div className="process-grid">
           {processSteps.map((step, index) => (
@@ -72,7 +72,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Team Section */}
       <section className="about-area">
         <h2 className="section-title">Meet the Innovators</h2>
         <p className="section-subtitle">The dedicated team building the future of agricultural transparency.</p>
@@ -86,7 +85,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="footer-bar">
         <p>© 2025 AgriChain. All Rights Reserved.</p>
         <div className="footer-links">
@@ -99,4 +97,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
