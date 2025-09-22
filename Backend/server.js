@@ -184,53 +184,79 @@ app.post("/signin", async (req, res) => {
 //   // after click on the btn then re directed to /signin/forgotpassword/auth
 // });
 
+// FORGOT PASSWORD: Send OTP
+const sendOTPEmail = async (user) => {
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const expiry = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
+
+  user.otp = otp;
+  user.otpExpiry = expiry;
+  await user.save();
+
+  await transporter.sendMail({
+    from: `"AgriChain" <${process.env.EMAIL}>`,
+    to: user.email,
+    subject: "Password Reset OTP",
+    html: `<p>Your OTP is <b>${otp}</b>. It is valid for 5 minutes.</p>`
+  });
+  return otp;
+};
+
 app.post("/signin/forgotpassword/auth", async (req, res) => {
   try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    // const user = await User.findOne({ email });
-    // if (!user) return res.status(404).json({ message: "User not found" });
-
-
-    await transporter.sendMail({
-      from: '"My App" <harshwithpc@gmail.com>',
-      to: req.body.email,
-      subject: "Password Reset",
-      html: `<p>Your OTP is <b>${otp}</b>. It is valid for 5 minutes.</p>`
-    });
-
-    res.json({ message: "Email sent" });
+    const otp = await sendOTPEmail(user);
+    res.status(201).json({ message: "OTP sent to email" });
   } catch (err) {
-    console.error("Mailer error:", err);
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ message: "Server error", err: err.message });
   }
 });
 
 
 
-app.patch("/signin/forgotpassword", async (req, res) => {
+// FORGOT PASSWORD: Verify OTP
+app.post("/signin/forgotpassword/verify", async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (user.otp !== otp) return res.status(400).json({ message: "Invalid OTP" });
+    if (!user.otpExpiry || user.otpExpiry < new Date()) return res.status(400).json({ message: "OTP expired" });
+
+    res.status(200).json({ message: "OTP verified" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error", err: err.message });
+  }
+});
+
+// FORGOT PASSWORD: Reset Password
+app.patch("/signin/forgotpassword/reset", async (req, res) => {
   try {
     const { email, otp, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    // first verify the otp and after that continew
+    if (user.otp !== otp) return res.status(400).json({ message: "Invalid OTP" });
+    if (!user.otpExpiry || user.otpExpiry < new Date()) return res.status(400).json({ message: "OTP expired" });
 
+    user.password = bcrypt.hashSync(password, 10);
+    user.otp = undefined;
+    user.otpExpiry = undefined;
+    await user.save();
 
-    const hashPass = bcrypt.hashSync(password, 10);
-    const updatedUser = await User.findOneAndUpdate(
-      { email: email },            // filter condition
-      { password: hashPass },      // update object
-      { new: true }                // return updated user
-    );
-
-    res.json({
-      message: "User updated successfully",
-      user: updatedUser
-    });
-
+    res.status(200).json({ message: "Password reset successfully" });
   } catch (err) {
-    res.status(500).send("err is catched", err);
+    console.error(err);
+    res.status(500).json({ message: "Server error", err: err.message });
   }
 });
+
 
 app.get("/", (req, res) => {
   res.send("AgriChain API Root");
