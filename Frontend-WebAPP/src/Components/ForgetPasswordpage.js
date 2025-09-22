@@ -4,12 +4,14 @@ import "./ForgetPassword.css";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1); // 1-email, 2-OTP, 3-reset
+  const [step, setStep] = useState(1);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [resendTimer, setResendTimer] = useState(30);
   const otpRefs = useRef([]);
 
   const passwordValid = {
@@ -21,69 +23,85 @@ const ForgetPassword = () => {
   };
   const isPasswordMatch = password && password === confirmPassword;
 
-  // Handle OTP input
+  // OTP input
   const handleOtpChange = (value, i) => {
     if (/^[0-9]?$/.test(value)) {
       const newOtp = [...otp];
       newOtp[i] = value;
       setOtp(newOtp);
       if (value && i < 5) otpRefs.current[i + 1].focus();
-       
     }
   };
 
+  // Send OTP
   const sendOtp = async () => {
+    setSending(true);
     try {
-      const res=await fetch("http://localhost:3021/signin/forgotpassword/auth", { 
+      const res = await fetch("http://localhost:3021/signin/forgotpassword/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email
-        }),
+        body: JSON.stringify({ email }),
       });
-
       const data = await res.json();
-
-      if(res.ok){
+      if (!res.ok) alert(data.message);
+      else {
         setStep(2);
-      }else{
-        alert(data.message || "Invalid credentials");
-
+        setResendTimer(30);
       }
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Something went wrong");
+      alert("Something went wrong");
+    }
+    setSending(false);
+  };
+
+  // Resend OTP timer
+  useEffect(() => {
+    if (step === 2 && resendTimer > 0) {
+      const interval = setInterval(() => setResendTimer((prev) => prev - 1), 1000);
+      return () => clearInterval(interval);
+    }
+  }, [resendTimer, step]);
+
+  // Verify OTP
+  const verifyOtp = async () => {
+    try {
+      const res = await fetch("http://localhost:3021/signin/forgotpassword/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp: otp.join("") }),
+      });
+      const data = await res.json();
+      if (res.ok) setStep(3);
+      else alert(data.message);
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
     }
   };
 
   useEffect(() => {
     if (step === 2 && otp.join("").length === 6) {
-      const timer = setTimeout(() => setStep(3), 1000); // auto proceed after 1 sec
-      clearTimeout(timer);
-      
-
+      verifyOtp();
     }
-  }, [otp, step]);
+  }, [otp]);
 
+  // Reset password
   const resetPassword = async () => {
     try {
-      const res=await fetch("http://localhost:3021/signin/forgotpassword/auth", {
+      const res = await fetch("http://localhost:3021/signin/forgotpassword/reset", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp ,password}),
+        body: JSON.stringify({ email, otp: otp.join(""), password }),
       });
       const data = await res.json();
-
-      if(res.ok){
-        navigate("/dashboard");
+      if (res.ok) {
         alert(data.message);
-      }else{
-        alert(data.message || "Invalid credentials");
-      }
-      
+        navigate("/dashboard");
+      } else alert(data.message);
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Something went wrong");
+      alert("Something went wrong");
     }
   };
 
@@ -99,7 +117,9 @@ const ForgetPassword = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button className="btn" onClick={sendOtp}>Send OTP</button>
+          <button className="btn" onClick={sendOtp} disabled={sending}>
+            {sending ? "Sending..." : "Send OTP"}
+          </button>
           <span className="back" onClick={() => navigate(-1)}>Go Back</span>
         </div>
       )}
@@ -120,6 +140,11 @@ const ForgetPassword = () => {
             ))}
           </div>
           <p>OTP will be verified automatically</p>
+          {resendTimer > 0 ? (
+            <button className="resend-otpbox1" disabled>Resend OTP in {resendTimer}s</button>
+          ) : (
+            <button className="resend-otpbox2" onClick={sendOtp}>Resend OTP</button>
+          )}
         </div>
       )}
 
