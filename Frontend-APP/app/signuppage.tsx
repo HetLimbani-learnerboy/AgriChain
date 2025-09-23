@@ -5,197 +5,277 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image,
-  Alert,
+  ScrollView,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { useRouter } from "expo-router";
 
-const SignUpPage = () => {
+type Role = "Farmer" | "Distributor" | "Retailer" | "Consumer";
+
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phone: string;
+  role: Role;
+}
+
+interface PasswordValid {
+  length: boolean;
+  upper: boolean;
+  lower: boolean;
+  number: boolean;
+  special: boolean;
+  match: boolean;
+}
+
+const SignUp: React.FC = () => {
   const router = useRouter();
+  const [step, setStep] = useState<number>(1);
+  const [userId, setUserId] = useState<string>("");
+  const [otp, setOtp] = useState<string>("");
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    role: "Farmer",
+  });
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [passwordValid, setPasswordValid] = useState<PasswordValid>({
+    length: false,
+    upper: false,
+    lower: false,
+    number: false,
+    special: false,
+    match: false,
+  });
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const handlePasswordChange = (value: string) => {
+    setFormData({ ...formData, password: value });
+    setPasswordValid({
+      length: value.length >= 8,
+      upper: /[A-Z]/.test(value),
+      lower: /[a-z]/.test(value),
+      number: /[0-9]/.test(value),
+      special: /[!@#$%^&*]/.test(value),
+      match: value === formData.confirmPassword,
+    });
+  };
 
-  const handleSubmit = async () => {
-    if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match!");
+  const handleConfirmPasswordChange = (value: string) => {
+    setFormData({ ...formData, confirmPassword: value });
+    setPasswordValid({ ...passwordValid, match: value === formData.password });
+  };
+
+  const handleSignupSubmit = async () => {
+    if (!passwordValid.match) {
+      alert("Passwords do not match!");
       return;
     }
+    // backend signup call here
+    setStep(2);
+  };
 
-    try {
-      const res = await fetch("http://localhost:5000/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-      });
-
-      const data = await res.json();
-      console.log(data);
-      Alert.alert("Success", "Account created successfully!");
-      router.push("/signinPage");
-    } catch (err) {
-      console.error(err);
-      Alert.alert("Error", "Something went wrong!");
-    }
+  const handleOtpSubmit = async () => {
+    // backend OTP verification
+    alert("OTP Verified ✅");
   };
 
   return (
-    <View style={styles.container}>
-      
-      {/* Form */}
-      <View style={styles.formContainer}>
-        <Text style={styles.title}>Create Your Account</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Full Name"
-          value={name}
-          onChangeText={setName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Email Address"
-          keyboardType="email-address"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm Password"
-          secureTextEntry
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-        />
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.signupWrapper}>
+        {step === 1 && (
+          <View style={styles.signupForm}>
+            <Text style={styles.title}>Create Your Account</Text>
 
-        <TouchableOpacity style={styles.signupBtn} onPress={handleSubmit}>
-          <Text style={styles.signupText}>Sign Up</Text>
-        </TouchableOpacity>
+            <TextInput
+              style={styles.input}
+              placeholder="Full Name"
+              value={formData.name}
+              onChangeText={(text) => setFormData({ ...formData, name: text })}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              keyboardType="email-address"
+              value={formData.email}
+              onChangeText={(text) => setFormData({ ...formData, email: text })}
+            />
 
-        <TouchableOpacity style={styles.googleBtn}>
-          <Image
-            // source={require("../assets/GoogleLogo.png")}
-            style={styles.googleIcon}
-          />
-          <Text style={styles.googleText}>Sign Up with Google</Text>
-        </TouchableOpacity>
+            <View style={styles.passwordWrapper}>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                secureTextEntry={!passwordVisible}
+                value={formData.password}
+                onChangeText={handlePasswordChange}
+              />
+              <TouchableOpacity
+                onPress={() => setPasswordVisible(!passwordVisible)}
+              >
+                {/* You can add eye icon here */}
+              </TouchableOpacity>
+            </View>
 
-        <Text style={styles.switchText}>
-          Already have an account?{" "}
-          <Text
-            style={styles.switchLink}
-            onPress={() => router.push("/signinPage")}
-          >
-            Sign In
-          </Text>
-        </Text>
+            <View>
+              <Text style={{ color: passwordValid.length ? "green" : "red" }}>
+                • Minimum 8 characters
+              </Text>
+              <Text style={{ color: passwordValid.upper ? "green" : "red" }}>
+                • Uppercase letter
+              </Text>
+              <Text style={{ color: passwordValid.lower ? "green" : "red" }}>
+                • Lowercase letter
+              </Text>
+              <Text style={{ color: passwordValid.number ? "green" : "red" }}>
+                • Number
+              </Text>
+              <Text style={{ color: passwordValid.special ? "green" : "red" }}>
+                • Special character (!@#$%^&*)
+              </Text>
+            </View>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Confirm Password"
+              secureTextEntry
+              value={formData.confirmPassword}
+              onChangeText={handleConfirmPasswordChange}
+            />
+            <Text style={{ color: passwordValid.match ? "green" : "red" }}>
+              • Passwords match
+            </Text>
+
+            <Picker
+              selectedValue={formData.role}
+              onValueChange={(itemValue: string) =>
+                setFormData({ ...formData, role: itemValue as Role })
+              }
+              style={styles.input}
+            >
+              <Picker.Item label="Farmer" value="Farmer" />
+              <Picker.Item label="Distributor" value="Distributor" />
+              <Picker.Item label="Retailer" value="Retailer" />
+              <Picker.Item label="Consumer" value="Consumer" />
+            </Picker>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Phone Number"
+              keyboardType="phone-pad"
+              value={formData.phone}
+              onChangeText={(text) => setFormData({ ...formData, phone: text })}
+            />
+
+            <TouchableOpacity style={styles.button} onPress={handleSignupSubmit}>
+              <Text style={styles.buttonText}>Sign Up</Text>
+            </TouchableOpacity>
+
+            {/* Sign In link */}
+            <TouchableOpacity
+              style={styles.linkWrapper}
+              onPress={() => router.push("/signinPage")}
+            >
+              <Text style={styles.switchText}>
+                Already have an account? <Text style={styles.link}>Sign In</Text>
+              </Text>
+            </TouchableOpacity>
+
+            {/* Back to home link */}
+            <TouchableOpacity
+              style={styles.linkWrapper}
+              onPress={() => router.push("/LandingPage")}
+            >
+              <Text style={styles.switchText}>
+                <Text style={styles.link}>Back to Home</Text>
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {step === 2 && (
+          <View style={styles.otpForm}>
+            <Text style={styles.title}>Verify Your Email</Text>
+            <Text>Enter OTP sent to {formData.email}</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="OTP"
+              keyboardType="numeric"
+              value={otp}
+              onChangeText={setOtp}
+            />
+            <TouchableOpacity style={styles.button} onPress={handleOtpSubmit}>
+              <Text style={styles.buttonText}>Verify OTP</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
-export default SignUpPage;
+export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fdfbf5",
-  },
-  navbar: {
-    backgroundColor: "#f0fdf4",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    elevation: 2,
-  },
-  logo: {
-    width: 40,
-    height: 40,
-    marginRight: 8,
-  },
-  brand: {
-    flex: 1,
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  navLink: {
-    fontWeight: "bold",
-    fontSize: 16,
-    color: "#15803d",
-  },
-  formContainer: {
-    flex: 1,
-    alignItems: "center",
+    flexGrow: 1,
     justifyContent: "center",
-    paddingHorizontal: 24,
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "#f9f9f9",
+  },
+  signupWrapper: {
+    width: "100%",
+  },
+  signupForm: {
+    width: "100%",
+  },
+  otpForm: {
+    width: "100%",
   },
   title: {
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 24,
-    color: "#374151",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#2c3e50",
   },
   input: {
-    width: "100%",
     borderWidth: 1,
-    borderColor: "#d1d5db",
-    borderRadius: 25,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    marginBottom: 12,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 15,
+    backgroundColor: "#fff",
   },
-  signupBtn: {
-    backgroundColor: "#16a34a",
-    paddingVertical: 14,
-    borderRadius: 25,
-    width: "100%",
+  passwordWrapper: {
+    flexDirection: "row",
     alignItems: "center",
-    marginBottom: 12,
   },
-  signupText: {
+  button: {
+    backgroundColor: "#2ecc71",
+    padding: 15,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonText: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
   },
-  googleBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#d1d5db",
-    paddingVertical: 14,
-    borderRadius: 25,
-    width: "100%",
-    justifyContent: "center",
-    marginBottom: 16,
-    backgroundColor: "#fff",
-  },
-  googleIcon: {
-    width: 20,
-    height: 20,
-    marginRight: 8,
-  },
-  googleText: {
-    fontWeight: "bold",
-    fontSize: 16,
-    color: "#374151",
-  },
   switchText: {
-    fontSize: 14,
-    marginTop: 12,
     textAlign: "center",
+    fontSize: 14,
   },
-  switchLink: {
-    color: "#16a34a",
+  linkWrapper: {
+    marginTop: 10,
+  },
+  link: {
+    color: "#2980b9",
     fontWeight: "bold",
   },
 });
