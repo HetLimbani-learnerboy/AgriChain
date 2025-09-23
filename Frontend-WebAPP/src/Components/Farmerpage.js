@@ -6,7 +6,6 @@ import "./FarmerPagestyle.css";
 const FarmerPage = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-
   const [roleOpen, setRoleOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const roleRef = useRef(null);
