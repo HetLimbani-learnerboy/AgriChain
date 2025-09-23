@@ -24,22 +24,22 @@ export default function DistributorScreen() {
     {
       title: t("incomingProduceTitle"),
       description: t("incomingProduceDesc"),
-      image: require("../assets/images/png5_ip.png"),
+      image: require("../assets/Images/png5_ip.png"),
     },
     {
       title: t("updateTransportTitle"),
       description: t("updateTransportDesc"),
-      image: require("../assets/images/png6_ts.png"),
+      image: require("../assets/Images/png6_ts.png"),
     },
     {
       title: t("logisticsOverviewTitle"),
       description: t("logisticsOverviewDesc"),
-      image: require("../assets/images/png7_li.png"),
+      image: require("../assets/Images/png7_li.png"),
     },
     {
       title: t("marketInsightsTitle"),
       description: t("marketInsightsDesc"),
-      image: require("../assets/images/png8_mi.png"),
+      image: require("../assets/Images/png8_mi.png"),
     },
   ];
 
