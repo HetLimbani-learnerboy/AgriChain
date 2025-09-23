@@ -14,6 +14,8 @@ const ForgetPassword = () => {
   const [resendTimer, setResendTimer] = useState(30);
   const otpRefs = useRef([]);
 
+
+  
   const passwordValid = {
     length: password.length >= 8,
     upper: /[A-Z]/.test(password),
