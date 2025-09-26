@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,13 +7,16 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-} from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+  Animated,
+} from "react-native";
 import { useRouter } from "expo-router";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
+const { width } = Dimensions.get("window");
 
-// ---- If you have a typed root stack, replace these with your route names ----
+// Stack Param List
 type RootStackParamList = {
   LandingPage: undefined;
   MainDashboardPage: undefined;
@@ -23,10 +26,7 @@ type RootStackParamList = {
   HelpDeskPage: undefined;
 };
 
-type NavigationProp = StackNavigationProp<RootStackParamList>;
-
-const { width } = Dimensions.get('window');
-
+// Interfaces
 interface TeamMember {
   name: string;
   role: string;
@@ -38,108 +38,120 @@ interface ProcessStep {
 }
 
 const LandingPage: React.FC = () => {
-  const navigation = useNavigation<NavigationProp>();
   const router = useRouter();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { t, i18n } = useTranslation();
+
+
+  // Hero fade-in animation
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1200,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   const team: TeamMember[] = [
-    { name: 'Het Limbani', role: 'Project Lead & Full-Stack Developer' },
-    { name: 'Abhi Patel', role: 'Blockchain Developer' },
-    { name: 'Anuj Raval', role: 'Blockchain Developer' },
-    { name: 'Tirtha Jhaveri', role: 'Mobile App Developer' },
-    { name: 'Harsh Patel', role: 'Full-Stack Developer' },
-    { name: 'Meet Babariya', role: 'Mobile App Developer' },
-  ];
-
-  const processSteps: ProcessStep[] = [
-    { title: 'Cultivation', description: 'Farmers register their produce, creating the first digital link in the chain.' },
-    { title: 'Processing', description: 'Processors log every step, from cleaning to packaging, ensuring quality control.' },
-    { title: 'Distribution', description: 'Distributors track shipments in real-time, maintaining the integrity of the supply line.' },
-    { title: 'Retail', description: 'Retailers provide consumers with a scannable QR code for full product history.' },
-  ];
+  { name: i18n.t("HetLimbani"), role: i18n.t("ProjectLead") },
+  { name: i18n.t("AbhiPatel"), role: i18n.t("BlockchainDev") },
+  { name: i18n.t("AnujRaval"), role: i18n.t("BlockchainDev") },
+  { name: i18n.t("TirthaJhaveri"), role: i18n.t("MobileAppDev") },
+  { name: i18n.t("HarshPatel"), role: i18n.t("FullStackDev") },
+  { name: i18n.t("MeetBabariya"), role: i18n.t("MobileAppDev") },
+];
+ const processSteps: ProcessStep[] = [
+  {
+    title: i18n.t("Cultivation"),
+    description: i18n.t("CultivationDesc"),
+  },
+  {
+    title: i18n.t("Processing"),
+    description: i18n.t("ProcessingDesc"),
+  },
+  {
+    title: i18n.t("Distribution"),
+    description: i18n.t("DistributionDesc"),
+  },
+  {
+    title: i18n.t("Retail"),
+    description: i18n.t("RetailDesc"),
+  },
+];
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
-      {/* Hero Section */}
-      <View style={styles.heroBox}>
+    <ScrollView style={styles.wrapper} contentContainerStyle={{ paddingBottom: 40 }}>
+       {/* HERO */}
+      <Animated.View style={[styles.heroBox, { opacity: fadeAnim }]}>
         <Image
-          source={require('../assets/MainLogo.png')} // adjust path as needed
+          source={require("../assets/MainLogo.png")}
           style={styles.logo}
           resizeMode="contain"
         />
-        <Text style={styles.heroTitle}>Welcome to AgriChain 🔗</Text>
-        <Text style={styles.heroTagline}>
-          Track the supply chain from farm to fork with transparency.
-        </Text>
-        <Text style={styles.heroDescription}>
-          AgriChain leverages blockchain to bring radical transparency to the agricultural supply chain.
-        </Text>
-
-        <View style={styles.authButtonGroup}>
+        <Text style={styles.heroTitle}>{t("Welcome")}</Text>
+        <Text style={styles.heroTagline}>{t("Tagline")}</Text>
+        <Text style={styles.heroDescription}>{t("Description")}</Text>
+        <View style={styles.authBtnGroup}>
           <TouchableOpacity
-            style={[styles.heroBtn, styles.heroBtnPrimary]}
-            onPress={() => router.push("/")} // This opens index.tsx
+            style={[styles.heroBtn, styles.primaryBtn]}
+            onPress={() => router.push("/")}
           >
-            <Text style={[styles.heroBtnText, styles.heroBtnTextPrimary]}>
-              Get Started
+            <Text style={[styles.heroBtnText, styles.primaryBtnText]}>
+              {t("GetStarted")}
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.heroBtn}
-            onPress={() => router.push("/signinPage")}
-          >
-            <Text style={styles.heroBtnText}>Sign In</Text>
+          <TouchableOpacity style={styles.heroBtn} onPress={() => router.push("/signinPage")}>
+            <Text style={styles.heroBtnText}>{t("SignIn")}</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.heroBtn}
-            onPress={() => router.push("/signuppage")}
-          >
-            <Text style={styles.heroBtnText}>Sign Up</Text>
+          <TouchableOpacity style={styles.heroBtn} onPress={() => router.push("/signuppage")}>
+            <Text style={styles.heroBtnText}>{t("SignUp")}</Text>
           </TouchableOpacity>
+        </View>
+      </Animated.View>
+
+      
+      {/* HOW IT WORKS */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>{t("HowItWorks")}</Text>
+        <Text style={styles.sectionSubtitle}>{t("HowItWorksDesc")}</Text>
+
+        <View style={styles.processGrid}>
+          {processSteps.map((step, i) => (
+            <View key={i} style={styles.processCard}>
+              <Text style={styles.processCardTitle}>{step.title}</Text>
+              <Text style={styles.processCardDesc}>{step.description}</Text>
+            </View>
+          ))}
         </View>
       </View>
 
-      {/* How It Works */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>How AgriChain Works</Text>
-        <Text style={styles.sectionSubtitle}>
-          A simple, four-step process to ensure complete transparency.
-        </Text>
+       {/* TEAM */}
+      <View style={[styles.section, { backgroundColor: "#fff" }]}>
+        <Text style={styles.sectionTitle}>{t("MeetTeam")}</Text>
+        <Text style={styles.sectionSubtitle}>{t("MeetTeamDesc")}</Text>
 
-        {processSteps.map((step, index) => (
-          <View key={step.title} style={styles.processCard}>
-            <Text style={styles.processNumber}>{index + 1}</Text>
-            <Text style={styles.processTitle}>{step.title}</Text>
-            <Text style={styles.processDescription}>{step.description}</Text>
-          </View>
-        ))}
+        <View style={styles.teamGrid}>
+          {team.map((member) => (
+            <View key={member.name} style={styles.teamCard}>
+              <Text style={styles.teamName}>{member.name}</Text>
+              <Text style={styles.teamRole}>{member.role}</Text>
+            </View>
+          ))}
+        </View>
       </View>
 
-      {/* Team */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Meet the Innovators</Text>
-        <Text style={styles.sectionSubtitle}>
-          The dedicated team building the future of agricultural transparency.
-        </Text>
-
-        {team.map(member => (
-          <View key={member.name} style={styles.teamCard}>
-            <Text style={styles.teamName}>{member.name}</Text>
-            <Text style={styles.teamRole}>{member.role}</Text>
-          </View>
-        ))}
-      </View>
-
-      {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>© 2025 AgriChain. All Rights Reserved.</Text>
+      {/* FOOTER */}
+      <View style={styles.footerBar}>
+        <Text style={styles.footerText}>{t("Footer")}</Text>
         <View style={styles.footerLinks}>
-          <TouchableOpacity onPress={() => navigation.navigate('ContactUsPage')}>
-            <Text style={styles.footerLink}>Contact Us</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("ContactUsPage")}>
+            <Text style={styles.footerLink}>{t("Contact")}</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('HelpDeskPage')}>
-            <Text style={styles.footerLink}>Help Desk</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("HelpDeskPage")}>
+            <Text style={styles.footerLink}>{t("HelpDesk")}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -149,158 +161,182 @@ const LandingPage: React.FC = () => {
 
 export default LandingPage;
 
-/* ----------- Styles ----------- */
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     flex: 1,
-    backgroundColor: '#f0fdf4',
+    backgroundColor: "#f0fdf4",
   },
   heroBox: {
-    minHeight: '40%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    // padding: 24,
-    // backgroundColor: '#ffffff',
+    minHeight: Dimensions.get("window").height * 0.9,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 24,
+    backgroundColor: "#fdfbf5",
   },
   logo: {
-    width: width * 0.6,
+    width: width * 0.7,
+    maxWidth: 260,
     height: 120,
-    marginBottom: 24,
+    marginBottom: 20,
   },
   heroTitle: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#1a1a1a',
-    textAlign: 'center',
+    fontSize: 34,
+    fontWeight: "700",
+    textAlign: "center",
     marginBottom: 8,
+    color: "#1a1a1a",
   },
   heroTagline: {
     fontSize: 18,
-    fontWeight: '300',
-    color: '#1a1a1a',
-    textAlign: 'center',
+    fontWeight: "300",
+    textAlign: "center",
     marginBottom: 12,
+    maxWidth: 600,
+    color: "#1a1a1a",
   },
   heroDescription: {
     fontSize: 16,
     lineHeight: 24,
-    color: '#1a1a1a',
-    textAlign: 'center',
+    textAlign: "center",
+    maxWidth: 650,
     marginBottom: 28,
+    color: "#1a1a1a",
   },
-  authButtonGroup: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+  authBtnGroup: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 12,
   },
   heroBtn: {
     paddingVertical: 12,
     paddingHorizontal: 28,
     borderWidth: 2,
-    borderColor: '#166534',
+    borderColor: "#166534",
     borderRadius: 50,
     margin: 6,
-    backgroundColor: 'transparent',
-  },
-  heroBtnPrimary: {
-    backgroundColor: '#166534',
+    backgroundColor: "transparent",
   },
   heroBtnText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#1a1a1a',
+    fontWeight: "600",
+    color: "#1a1a1a",
   },
-  heroBtnTextPrimary: {
-    color: '#ffffff',
+  primaryBtn: {
+    backgroundColor: "#166534",
+  },
+  primaryBtnText: {
+    color: "#fff",
   },
   section: {
-    paddingVertical: 40,
+    paddingVertical: 50,
     paddingHorizontal: 20,
   },
   sectionTitle: {
-    fontSize: 26,
-    fontWeight: '700',
-    textAlign: 'center',
+    fontSize: 28,
+    fontWeight: "700",
+    textAlign: "center",
     marginBottom: 8,
-    color: '#1a1a1a',
+    color: "#1a1a1a",
   },
   sectionSubtitle: {
     fontSize: 16,
-    color: '#555',
-    textAlign: 'center',
-    marginBottom: 24,
+    color: "black",
+    textAlign: "center",
+    marginBottom: 30,
+    maxWidth: 600,
+    alignSelf: "center",
+  },
+  processGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 16,
   },
   processCard: {
-    backgroundColor: '#ffffff',
+    width: width > 768 ? width / 2.3 : "90%",
+    backgroundColor: "#fff",
+    padding: 24,
     borderRadius: 15,
-    padding: 20,
-    marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    shadowColor: '#000',
+    borderColor: "#e5e7eb",
+    marginBottom: 20,
+    shadowColor: "#000",
     shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowRadius: 6,
+    elevation: 3,
+    alignItems: "center",
   },
   processNumber: {
-    fontSize: 40,
-    fontWeight: '700',
-    color: '#f0fdf4',
-    position: 'absolute',
-    top: 0,
-    left: 10,
+    position: "absolute",
+    top: -10,
+    left: 15,
+    fontSize: 48,
+    fontWeight: "700",
+    color: "black",
   },
-  processTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+  processCardTitle: {
+    fontSize: 20,
+    fontWeight: "600",
     marginBottom: 6,
-    color: '#1a1a1a',
+    color: "#1a1a1a",
   },
-  processDescription: {
-    fontSize: 14,
-    color: '#444',
-    lineHeight: 20,
+  processCardDesc: {
+    fontSize: 15,
+    textAlign: "center",
+    color: "#444",
+  },
+  teamGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 16,
   },
   teamCard: {
-    backgroundColor: '#f8fafc',
+    width: width > 768 ? width / 2.3 : "90%",
+    backgroundColor: "#f8fafc",
+    padding: 24,
     borderRadius: 15,
-    padding: 20,
-    marginBottom: 16,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowRadius: 6,
+    elevation: 3,
+    marginBottom: 20,
+    alignItems: "center",
   },
   teamName: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#166534',
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#166534",
   },
   teamRole: {
     fontSize: 14,
-    color: '#333',
+    color: "#333",
     marginTop: 4,
+    textAlign: "center",
   },
-  footer: {
-    backgroundColor: '#166534',
+  footerBar: {
+    backgroundColor: "#166534",
     paddingVertical: 20,
     paddingHorizontal: 16,
-    alignItems: 'center',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   footerText: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 14,
-    marginBottom: 10,
-    textAlign: 'center',
+    textAlign: "center",
   },
   footerLinks: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    gap: 16,
+    marginTop: 8,
   },
   footerLink: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 15,
-    marginHorizontal: 10,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
 });

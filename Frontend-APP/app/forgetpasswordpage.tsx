@@ -8,19 +8,25 @@ import {
   ScrollView,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
+import "../i18n"; // i18n configuration
+import { Ionicons } from "@expo/vector-icons";
 
 const ForgetPassword: React.FC = () => {
   const router = useRouter();
+  const { t, i18n } = useTranslation();
+
   const [step, setStep] = useState<number>(1);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
-  const [generatedOtp, setGeneratedOtp] = useState(""); // store OTP locally
+  const [generatedOtp, setGeneratedOtp] = useState(""); 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [resendTimer, setResendTimer] = useState(30);
   const [sending, setSending] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
+  
   const otpRefs = useRef<TextInput[]>([]);
 
   const passwordValid = {
@@ -31,6 +37,7 @@ const ForgetPassword: React.FC = () => {
     special: /[!@#$%^&*]/.test(password),
   };
 
+  
   const isPasswordMatch = password && password === confirmPassword;
 
   // OTP input handler
@@ -48,7 +55,7 @@ const ForgetPassword: React.FC = () => {
     setSending(true);
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
     setGeneratedOtp(otpCode);
-    alert(`Your OTP is: ${otpCode}`); // show OTP for testing
+    alert(`${t("YourOtpIs")}: ${otpCode}`);
     setStep(2);
     setResendTimer(30);
     setSending(false);
@@ -64,30 +71,25 @@ const ForgetPassword: React.FC = () => {
 
   // Verify OTP locally
   const verifyOtp = () => {
-    if (otp.join("") === generatedOtp) {
-      setStep(3);
-    } else {
-      alert("Invalid OTP");
-    }
+    if (otp.join("") === generatedOtp) setStep(3);
+    else alert(t("InvalidOtp"));
   };
 
   useEffect(() => {
-    if (step === 2 && otp.join("").length === 6) {
-      verifyOtp();
-    }
+    if (step === 2 && otp.join("").length === 6) verifyOtp();
   }, [otp]);
 
   // Reset password locally
   const resetPassword = () => {
     if (!Object.values(passwordValid).every(Boolean)) {
-      alert("Password does not meet requirements");
+      alert(t("PasswordNotMeet"));
       return;
     }
     if (!isPasswordMatch) {
-      alert("Passwords do not match");
+      alert(t("PasswordsNotMatch"));
       return;
     }
-    alert("Password reset successful!");
+    alert(t("PasswordResetSuccess"));
     router.push("/LandingPage");
   };
 
@@ -95,26 +97,26 @@ const ForgetPassword: React.FC = () => {
     <ScrollView contentContainerStyle={styles.container}>
       {step === 1 && (
         <View style={styles.card}>
-          <Text style={styles.title}>Forgot Password</Text>
+          <Text style={styles.title}>{t("ForgotPassword")}</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter your email"
+            placeholder={t("EnterEmail")}
             keyboardType="email-address"
             value={email}
             onChangeText={setEmail}
           />
           <TouchableOpacity style={styles.button} onPress={sendOtp} disabled={sending}>
-            <Text style={styles.buttonText}>{sending ? "Sending..." : "Send OTP"}</Text>
+            <Text style={styles.buttonText}>{sending ? t("Sending") : t("SendOtp")}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => router.back()}>
-            <Text style={styles.link}>Go Back</Text>
+            <Text style={styles.link}>{t("GoBack")}</Text>
           </TouchableOpacity>
         </View>
       )}
 
       {step === 2 && (
         <View style={styles.card}>
-          <Text style={styles.title}>Enter OTP</Text>
+          <Text style={styles.title}>{t("EnterOtp")}</Text>
           <View style={styles.otpWrapper}>
             {otp.map((d, i) => (
               <TextInput
@@ -130,11 +132,11 @@ const ForgetPassword: React.FC = () => {
           </View>
           {resendTimer > 0 ? (
             <TouchableOpacity disabled>
-              <Text>Resend OTP in {resendTimer}s</Text>
+              <Text>{t("ResendOtpIn")} {resendTimer}s</Text>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity onPress={sendOtp}>
-              <Text>Resend OTP</Text>
+              <Text>{t("ResendOtp")}</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -142,52 +144,50 @@ const ForgetPassword: React.FC = () => {
 
       {step === 3 && (
         <View style={styles.card}>
-          <Text style={styles.title}>Reset Password</Text>
-          <View style={styles.passwordWrapper}>
-            <TextInput
-              style={styles.input}
-              placeholder="New Password"
-              secureTextEntry={!passwordVisible}
-              value={password}
-              onChangeText={setPassword}
+          <Text style={styles.title}>{t("ResetPassword")}</Text>
+            <View style={styles.passwordField}>
+                    <TextInput
+            style={styles.input}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}  // Control with your state
+            placeholder="Password"
+            // 👇 Prevents system autofill/extra UI (sometimes adds its own icon)
+            textContentType="none"
+            autoComplete="off"
+          />
+            <TouchableOpacity
+            style={styles.eyeButton}
+            onPress={() => setShowPassword((prev) => !prev)}
+          >
+            <Ionicons
+              name={showPassword ? "eye-outline" : "eye-off-outline"}
+              size={22}
+              color="#374151"
             />
-            <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
-              <Text>{passwordVisible ? "Hide" : "Show"}</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
           </View>
           <View>
-            <Text style={{ color: passwordValid.length ? "green" : "red" }}>
-              • Minimum 8 characters
-            </Text>
-            <Text style={{ color: passwordValid.upper ? "green" : "red" }}>
-              • Uppercase letter
-            </Text>
-            <Text style={{ color: passwordValid.lower ? "green" : "red" }}>
-              • Lowercase letter
-            </Text>
-            <Text style={{ color: passwordValid.number ? "green" : "red" }}>
-              • Number
-            </Text>
-            <Text style={{ color: passwordValid.special ? "green" : "red" }}>
-              • Special character (!@#$%^&*)
-            </Text>
+            <Text style={{ color: passwordValid.length ? "green" : "red" }}>• {t("Min8Chars")}</Text>
+            <Text style={{ color: passwordValid.upper ? "green" : "red" }}>• {t("Uppercase")}</Text>
+            <Text style={{ color: passwordValid.lower ? "green" : "red" }}>• {t("Lowercase")}</Text>
+            <Text style={{ color: passwordValid.number ? "green" : "red" }}>• {t("Number")}</Text>
+            <Text style={{ color: passwordValid.special ? "green" : "red" }}>• {t("SpecialChar")}</Text>
           </View>
           <TextInput
             style={styles.input}
-            placeholder="Confirm Password"
+            placeholder={t("ConfirmPassword")}
             secureTextEntry
             value={confirmPassword}
             onChangeText={setConfirmPassword}
           />
-          {!isPasswordMatch && confirmPassword && (
-            <Text style={{ color: "red" }}>Passwords do not match</Text>
-          )}
+          {!isPasswordMatch && confirmPassword && <Text style={{ color: "red" }}>{t("PasswordsNotMatch")}</Text>}
           <TouchableOpacity
             style={styles.button}
             disabled={!Object.values(passwordValid).every(Boolean) || !isPasswordMatch}
             onPress={resetPassword}
           >
-            <Text style={styles.buttonText}>Reset Password</Text>
+            <Text style={styles.buttonText}>{t("ResetPassword")}</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -195,8 +195,15 @@ const ForgetPassword: React.FC = () => {
   );
 };
 
+
+
 const styles = StyleSheet.create({
   container: { flexGrow: 1, justifyContent: "center", alignItems: "center", padding: 20 },
+  eyeButton: {
+    position: "absolute",
+    right: 10,
+    top: "30%",
+  },
   card: { width: "100%", backgroundColor: "#fff", padding: 20, borderRadius: 10, marginBottom: 20 },
   title: { fontSize: 22, fontWeight: "bold", marginBottom: 15, textAlign: "center" },
   input: { borderWidth: 1, borderColor: "#ccc", borderRadius: 8, padding: 12, marginBottom: 15 },
@@ -206,6 +213,10 @@ const styles = StyleSheet.create({
   otpWrapper: { flexDirection: "row", justifyContent: "space-between" },
   otpBox: { borderWidth: 1, borderColor: "#ccc", borderRadius: 8, padding: 12, textAlign: "center", width: 40 },
   passwordWrapper: { flexDirection: "row", alignItems: "center" },
+   passwordField: {
+    position: "relative",
+    justifyContent: "center",
+  },
 });
 
 export default ForgetPassword;
