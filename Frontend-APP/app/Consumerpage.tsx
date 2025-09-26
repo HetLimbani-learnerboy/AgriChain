@@ -1,113 +1,97 @@
-import React from "react";
+// ConsumerPage.tsx
+import React, { useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  StyleSheet,
   Image,
+  StyleSheet,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useTranslation } from "react-i18next";
-import i18n from "../i18n"; // your i18n config
+import { useRouter } from "expo-router";
 
-type Action = {
-  title: string;
-  description: string;
-  image: any;
-};
-
-export default function ConsumerScreen() {
-  const { t } = useTranslation();
-
-  const consumerActions: Action[] = [
-    {
-      title: t("Traceability View"),
-      description: t(
-        "Crop → Farmer Details → Transport Info → Retail Price. Visualized as a timeline or flowchart for easy tracking."
-      ),
-      image: require("../assets/Images/png14_qv.png"),
-    },
-    {
-      title: t("QR Code Verification"),
-      description: t(
-        "Scan or view QR codes for product authentication and detailed info."
-      ),
-      image: require("../assets/Images/png14_qv.png"),
-    },
-    {
-      title: t("Sustainability Tips"),
-      description: t(
-        "Learn about eco-friendly practices and support sustainable agriculture."
-      ),
-      image: require("../assets/Images/png15_st.png"),
-    },
-  ];
-
-  const changeLanguage = (lang: "en" | "hi" | "gu") => {
-    i18n.changeLanguage(lang);
-  };
+const ConsumerPage: React.FC = () => {
+  const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>{t("ConsumerPortal")}</Text>
-        <Text style={styles.subtitle}>{t("ConsumerSubtitle")}</Text>
+    <ScrollView style={styles.container}>
+      <View style={styles.content}>
+        <Text style={styles.header}>Consumer Portal</Text>
+        <Text style={styles.subHeader}>
+          Scan QR codes and track the complete supply chain of your produce.
+        </Text>
 
         <View style={styles.cardsContainer}>
-          {consumerActions.map(({ title, description, image }) => (
-            <TouchableOpacity key={title} style={styles.actionCard}>
-              <Image source={image} style={styles.actionImage} resizeMode="cover" />
-              <Text style={styles.actionTitle}>{title}</Text>
-              <Text style={styles.actionDescription}>{description}</Text>
-            </TouchableOpacity>
-          ))}
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png13_tv.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Traceability View</Text>
+            <Text style={styles.cardText}>
+              Crop → Farmer Details → Transport Info → Retail Price.
+              {"\n"}Visualized as a timeline or flowchart for easy tracking.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png14_qv.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>QR Code Verification</Text>
+            <Text style={styles.cardText}>
+              Scan or view QR codes for product authentication and detailed info.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png15_st.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Sustainability Tips</Text>
+            <Text style={styles.cardText}>
+              Learn about eco-friendly practices and support sustainable agriculture.
+            </Text>
+          </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScrollView>
   );
-}
+};
+
+export default ConsumerPage;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f7faf1" },
-  content: { paddingHorizontal: 20, paddingBottom: 30 },
-  title: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: "black",
-    marginTop: 10,
-    marginBottom: 6,
-    textAlign: "center",
+  container: { flex: 1, backgroundColor: "#fdfbf5" },
+  content: { padding: 16 },
+  header: { fontSize: 28, fontWeight: "700", color: "#166534", marginBottom: 8 },
+  subHeader: { fontSize: 16, marginBottom: 16, color: "#333" },
+  cardsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
-  subtitle: { fontSize: 16, color: "#555", textAlign: "center", marginBottom: 25 },
-  cardsContainer: { flexDirection: "column", gap: 20 },
-  actionCard: {
+  card: {
+    width: "48%",
     backgroundColor: "#fff",
-    borderRadius: 18,
-    overflow: "hidden",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    alignItems: "center",
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
   },
-  actionImage: { width: "100%", height: 180 },
-  actionTitle: {
-    fontSize: 20,
-    fontWeight: "600",
-    color: "black",
-    marginTop: 15,
-    marginHorizontal: 15,
-    textAlign: "center",
+  cardImage: {
+    width: "100%",
+    height: 100,
+    borderRadius: 8,
+    marginBottom: 8,
+    resizeMode: "contain",
   },
-  actionDescription: {
-    fontSize: 15,
-    color: "black",
-    lineHeight: 22,
-    textAlign: "center",
-    marginHorizontal: 20,
-    marginBottom: 20,
-    marginTop: 6,
-  },
+  cardTitle: { fontSize: 16, fontWeight: "700", marginBottom: 4, color: "#166534" },
+  cardText: { fontSize: 14, color: "#333" },
 });

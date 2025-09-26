@@ -1,35 +1,28 @@
 // app/_layout.tsx
 import React from "react";
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import AppHeader from "../Components/AppHeader";
-import { I18nextProvider, useTranslation } from "react-i18next";
+import { I18nextProvider } from "react-i18next";
 import i18n from "../i18n"; // your i18n setup
 
 export default function RootLayout() {
-  // Hook must be inside a provider, so we wrap everything in I18nextProvider
   return (
     <I18nextProvider i18n={i18n}>
-      <View style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#fdfbf5" }}>
+        {/* Global Header */}
         <AppHeader />
 
+        {/* Bottom Tabs */}
         <Tabs
           screenOptions={{
             headerShown: false,
             tabBarActiveTintColor: "#269b59",
             tabBarInactiveTintColor: "#8E8E93",
+            tabBarStyle: { backgroundColor: "#fff", borderTopColor: "#eee" },
           }}
         >
-          <Tabs.Screen
-            name="LandingPage"
-            options={{
-              title: "Landing",
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name="planet-outline" size={size} color={color} />
-              ),
-            }}
-          />
           <Tabs.Screen
             name="index"
             options={{
@@ -39,6 +32,17 @@ export default function RootLayout() {
               ),
             }}
           />
+
+          <Tabs.Screen
+            name="GetStartedPage"
+            options={{
+              title: "Get Started",
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="rocket-outline" size={size} color={color} />
+              ),
+            }}
+          />
+
           <Tabs.Screen
             name="Farmerpage"
             options={{
@@ -63,11 +67,7 @@ export default function RootLayout() {
             options={{
               title: "Retailer",
               tabBarIcon: ({ color, size }) => (
-                <Ionicons
-                  name="storefront-outline"
-                  size={size}
-                  color={color}
-                />
+                <Ionicons name="storefront-outline" size={size} color={color} />
               ),
             }}
           />
@@ -81,7 +81,7 @@ export default function RootLayout() {
             }}
           />
         </Tabs>
-      </View>
+      </SafeAreaView>
     </I18nextProvider>
   );
 }
