@@ -286,6 +286,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+<<<<<<< HEAD
   Image,
   StyleSheet,
   ScrollView,
@@ -295,6 +296,19 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { useRouter } from "expo-router";
 import { url } from "../utils/basicUtils"; // Assuming this points to 'http://localhost:3021'
+=======
+  ScrollView,
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+} from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import { useRouter } from "expo-router";
+import { url } from "../utils/basicUtils";
+import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
+import "../i18n"; // Import i18n configuration
+>>>>>>> 21e5aa798b5bb78e2b5754e9673de3a007f7d6d7
 
 // --- Type Definitions ---
 type Role = "Farmer" | "Distributor" | "Retailer" | "Consumer";
@@ -319,12 +333,18 @@ interface PasswordValidations {
 
 const SignUp: React.FC = () => {
   const router = useRouter();
+  const { t, i18n } = useTranslation();
+
   const [step, setStep] = useState<number>(1);
   const [userId, setUserId] = useState<string>("");
   const [otp, setOtp] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 21e5aa798b5bb78e2b5754e9673de3a007f7d6d7
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -343,6 +363,7 @@ const SignUp: React.FC = () => {
     match: false,
   });
 
+<<<<<<< HEAD
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [apiError, setApiError] = useState<string>("");
 
@@ -355,6 +376,19 @@ const SignUp: React.FC = () => {
     }
     // Clear general API error
     if(apiError) setApiError("");
+=======
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
+    {}
+  );
+  const [apiError, setApiError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  // --- Input Handlers ---
+  const handleInputChange = (field: keyof FormData, value: string) => {
+    setFormData({ ...formData, [field]: value });
+    if (errors[field]) setErrors({ ...errors, [field]: undefined });
+    if (apiError) setApiError("");
+>>>>>>> 21e5aa798b5bb78e2b5754e9673de3a007f7d6d7
   };
 
   const handlePasswordChange = (value: string) => {
@@ -371,12 +405,17 @@ const SignUp: React.FC = () => {
 
   const handleConfirmPasswordChange = (value: string) => {
     handleInputChange("confirmPassword", value);
+<<<<<<< HEAD
     setPasswordValid(prev => ({
+=======
+    setPasswordValid((prev) => ({
+>>>>>>> 21e5aa798b5bb78e2b5754e9673de3a007f7d6d7
       ...prev,
       match: value === formData.password && value !== "",
     }));
   };
 
+<<<<<<< HEAD
   // --- Client-Side Validation ---
   const validateStep1 = (): boolean => {
     const newErrors: Partial<Record<keyof FormData, string>> = {};
@@ -395,16 +434,40 @@ const SignUp: React.FC = () => {
     if (!allPasswordCriteriaMet) {
         newErrors.password = "Please meet all password requirements.";
     }
+=======
+  // --- Validation ---
+  const validateStep1 = (): boolean => {
+    const newErrors: Partial<Record<keyof FormData, string>> = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!formData.name.trim()) newErrors.name = t("FullNameRequired");
+    if (!formData.email.trim()) newErrors.email = t("EmailRequired");
+    else if (!emailRegex.test(formData.email))
+      newErrors.email = t("InvalidEmail");
+    if (!formData.phone.trim()) newErrors.phone = t("PhoneRequired");
+
+    const allPasswordCriteriaMet = Object.values(passwordValid).every(
+      (v) => v === true
+    );
+    if (!allPasswordCriteriaMet) newErrors.password = t("PasswordInvalid");
+>>>>>>> 21e5aa798b5bb78e2b5754e9673de3a007f7d6d7
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+<<<<<<< HEAD
 
   // --- API Submission Logic ---
   const handleSignupSubmit = async () => {
     if (!validateStep1()) return;
     
+=======
+  // --- API ---
+  const handleSignupSubmit = async () => {
+    if (!validateStep1()) return;
+
+>>>>>>> 21e5aa798b5bb78e2b5754e9673de3a007f7d6d7
     setLoading(true);
     setApiError("");
 
@@ -426,6 +489,7 @@ const SignUp: React.FC = () => {
 
       if (res.status === 201) {
         setUserId(data.user.id);
+<<<<<<< HEAD
 
         // Now trigger OTP send request
         const otpRes = await fetch(`${url}/signup/verify/${data.user.id}`, { method: "GET" });
@@ -442,6 +506,18 @@ const SignUp: React.FC = () => {
     } catch (err) {
       console.error(err);
       setApiError("A server error occurred. Please check your connection.");
+=======
+        const otpRes = await fetch(`${url}/signup/verify/${data.user.id}`, {
+          method: "GET",
+        });
+        const otpData = await otpRes.json();
+        if (otpRes.status === 201) setStep(2);
+        else setApiError(otpData.message || t("OtpSendFail"));
+      } else setApiError(data.message || t("SignupError"));
+    } catch (err) {
+      console.error(err);
+      setApiError(t("ServerError"));
+>>>>>>> 21e5aa798b5bb78e2b5754e9673de3a007f7d6d7
     } finally {
       setLoading(false);
     }
@@ -449,12 +525,21 @@ const SignUp: React.FC = () => {
 
   const handleOtpSubmit = async () => {
     if (!otp || otp.length !== 6) {
+<<<<<<< HEAD
         setApiError("Please enter a valid 6-digit OTP.");
         return;
     }
     setLoading(true);
     setApiError("");
     
+=======
+      setApiError(t("OtpInvalid"));
+      return;
+    }
+    setLoading(true);
+    setApiError("");
+
+>>>>>>> 21e5aa798b5bb78e2b5754e9673de3a007f7d6d7
     try {
       const res = await fetch(`${url}/signup/verify/${userId}`, {
         method: "POST",
@@ -462,6 +547,7 @@ const SignUp: React.FC = () => {
         body: JSON.stringify({ otp }),
       });
       const data = await res.json();
+<<<<<<< HEAD
 
       if (res.status === 200) {
         Alert.alert("Success!", "Your account has been verified. Please sign in.", [
@@ -473,6 +559,16 @@ const SignUp: React.FC = () => {
     } catch (err) {
       console.error(err);
       setApiError("An error occurred while verifying OTP.");
+=======
+      if (res.status === 200) {
+        Alert.alert(t("Success"), t("AccountVerified"), [
+          { text: "OK", onPress: () => router.push("/signinPage") },
+        ]);
+      } else setApiError(data.message || t("OtpFail"));
+    } catch (err) {
+      console.error(err);
+      setApiError(t("OtpFail"));
+>>>>>>> 21e5aa798b5bb78e2b5754e9673de3a007f7d6d7
     } finally {
       setLoading(false);
     }
@@ -610,11 +706,146 @@ const SignUp: React.FC = () => {
     </>
   );
 
+  const passwordCriteria = [
+    { label: t("Min8Chars"), valid: passwordValid.length },
+    { label: t("Uppercase"), valid: passwordValid.upper },
+    { label: t("Lowercase"), valid: passwordValid.lower },
+    { label: t("Number"), valid: passwordValid.number },
+    { label: t("SpecialChar"), valid: passwordValid.special },
+    { label: t("PasswordsMatch"), valid: passwordValid.match },
+  ];
+
+  // --- Render ---
+  const renderSignupForm = () => (
+    <>
+      <Text style={styles.title}>{t("CreateAccount")}</Text>
+
+      {apiError ? <Text style={styles.apiErrorText}>{apiError}</Text> : null}
+
+      <TextInput
+        style={[styles.input, errors.name && styles.inputError]}
+        placeholder={t("FullName")}
+        value={formData.name}
+        onChangeText={(text) => handleInputChange("name", text)}
+      />
+      {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
+
+      <TextInput
+        style={[styles.input, errors.email && styles.inputError]}
+        placeholder={t("EmailAddress")}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        value={formData.email}
+        onChangeText={(text) => handleInputChange("email", text)}
+      />
+      {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+
+      <View style={[styles.passwordWrapper, errors.password && styles.inputError]}>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder={t("Password")}
+          secureTextEntry={!passwordVisible}
+          value={formData.password}
+          onChangeText={handlePasswordChange}
+        />
+        <TouchableOpacity
+          style={styles.eyeButton}
+          onPress={() => setShowPassword((prev) => !prev)}
+        >
+          <Ionicons
+            name={showPassword ? "eye-outline" : "eye-off-outline"}
+            size={22}
+            color="#374151"
+          />
+        </TouchableOpacity>
+      </View>
+
+      <TextInput
+        style={[styles.input, (errors.password || !passwordValid.match) && styles.inputError]}
+        placeholder={t("ConfirmPassword")}
+        secureTextEntry
+        value={formData.confirmPassword}
+        onChangeText={handleConfirmPasswordChange}
+      />
+      {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
+
+      <View style={styles.passwordRules}>
+        {passwordCriteria.map((item, index) => (
+          <Text
+            key={index}
+            style={{ color: item.valid ? "#2e7d32" : "#c62828", fontSize: 14, marginVertical: 2 }}
+          >
+            {item.valid ? "✓" : "•"} {item.label}
+          </Text>
+        ))}
+      </View>
+
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={formData.role}
+          onValueChange={(itemValue) => handleInputChange("role", itemValue)}
+        >
+          <Picker.Item label={t("Farmer")} value="Farmer" />
+          <Picker.Item label={t("Distributor")} value="Distributor" />
+          <Picker.Item label={t("Retailer")} value="Retailer" />
+          <Picker.Item label={t("Consumer")} value="Consumer" />
+        </Picker>
+      </View>
+
+      <TextInput
+        style={[styles.input, errors.phone && styles.inputError]}
+        placeholder={t("PhoneNumber")}
+        keyboardType="phone-pad"
+        value={formData.phone}
+        onChangeText={(text) => handleInputChange("phone", text)}
+      />
+      {errors.phone && <Text style={styles.errorText}>{errors.phone}</Text>}
+
+      <TouchableOpacity style={styles.button} onPress={handleSignupSubmit} disabled={loading}>
+        {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>{t("SignUp")}</Text>}
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => router.push("/signinPage")}>
+        <Text style={styles.link}>{t("AlreadyAccount")}</Text>
+      </TouchableOpacity>
+    </>
+  );
+
+  const renderOtpForm = () => (
+    <>
+      <Text style={styles.title}>{t("VerifyEmail")}</Text>
+      <Text style={styles.subtitle}>{t("OtpSentTo")} <Text style={{ fontWeight: "bold" }}>{formData.email}</Text></Text>
+
+      {apiError ? <Text style={styles.apiErrorText}>{apiError}</Text> : null}
+
+      <TextInput
+        style={styles.input}
+        placeholder={t("EnterOtp")}
+        keyboardType="numeric"
+        maxLength={6}
+        value={otp}
+        onChangeText={setOtp}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={handleOtpSubmit} disabled={loading}>
+        {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>{t("VerifyOtp")}</Text>}
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => setStep(1)}>
+        <Text style={styles.link}>{t("GoBack")}</Text>
+      </TouchableOpacity>
+    </>
+  );
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
+<<<<<<< HEAD
       <View style={styles.formWrapper}>
         {step === 1 ? renderSignupForm() : renderOtpForm()}
       </View>
+=======
+      <View style={styles.formWrapper}>{step === 1 ? renderSignupForm() : renderOtpForm()}</View>
+>>>>>>> 21e5aa798b5bb78e2b5754e9673de3a007f7d6d7
     </ScrollView>
   );
 };

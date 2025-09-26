@@ -10,25 +10,27 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
+import "../i18n";
 
 export default function SignInPage() {
   const router = useRouter();
+  const { t } = useTranslation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = () => {
-    // TODO: implement sign-in logic
     console.log("Email:", email, "Password:", password);
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Left / Center Form */}
       <View style={styles.card}>
-        <Text style={styles.formTitle}>Sign In</Text>
+        <Text style={styles.formTitle}>{t("SignIn")}</Text>
 
-        <Text style={styles.label}>Email Address</Text>
+        <Text style={styles.label}>{t("EmailAddress")}</Text>
         <TextInput
           style={styles.input}
           keyboardType="email-address"
@@ -38,14 +40,18 @@ export default function SignInPage() {
           onChangeText={setEmail}
         />
 
-        <Text style={styles.label}>Password</Text>
+        <Text style={styles.label}>{t("Password")}</Text>
         <View style={styles.passwordField}>
           <TextInput
-            style={[styles.input, { paddingRight: 40 }]}
-            secureTextEntry={!showPassword}
-            value={password}
-            onChangeText={setPassword}
-          />
+  style={styles.input}
+  value={password}
+  onChangeText={setPassword}
+  secureTextEntry={!showPassword}  // Control with your state
+  placeholder="Password"
+  // 👇 Prevents system autofill/extra UI (sometimes adds its own icon)
+  textContentType="none"
+  autoComplete="off"
+/>
           <TouchableOpacity
             style={styles.eyeButton}
             onPress={() => setShowPassword((prev) => !prev)}
@@ -59,41 +65,40 @@ export default function SignInPage() {
         </View>
 
         <TouchableOpacity style={styles.signinBtn} onPress={handleSubmit}>
-          <Text style={styles.signinBtnText}>Sign In</Text>
+          <Text style={styles.signinBtnText}>{t("SignIn")}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.googleBtn} onPress={() => console.log("Google login")}>
+        <TouchableOpacity style={styles.googleBtn}>
           <Image
             // source={require("../assets/GoogleLogo.png")}
             style={styles.googleIcon}
             resizeMode="contain"
           />
-          <Text style={styles.googleText}>Sign In with Google</Text>
+          <Text style={styles.googleText}>{t("SignInGoogle")}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => router.push("/forgetpasswordpage")}
           style={{ marginTop: 10 }}
         >
-          <Text style={styles.linkText}>Forgot Password?</Text>
+          <Text style={styles.linkText}>{t("ForgotPassword")}</Text>
         </TouchableOpacity>
 
         <View style={styles.switchRow}>
-          <Text style={styles.switchText}>Don’t have an account?</Text>
+          <Text style={styles.switchText}>{t("NoAccount")}</Text>
           <TouchableOpacity onPress={() => router.push("/signuppage")}>
-            <Text style={styles.linkText}>Sign Up</Text>
+            <Text style={styles.linkText}>{t("SignUp")}</Text>
           </TouchableOpacity>
         </View>
 
         <TouchableOpacity onPress={() => router.push("/")}>
-          <Text style={[styles.linkText, { marginTop: 8 }]}>Back to home</Text>
+          <Text style={[styles.linkText, { marginTop: 8 }]}>{t("BackHome")}</Text>
         </TouchableOpacity>
       </View>
-
-     
     </ScrollView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
