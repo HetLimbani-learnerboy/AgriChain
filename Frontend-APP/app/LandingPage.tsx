@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -10,9 +10,6 @@ import {
   Animated,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { useTranslation } from "react-i18next";
-import i18n from "../i18n";
 
 const { width } = Dimensions.get("window");
 
@@ -39,66 +36,47 @@ interface ProcessStep {
 
 const LandingPage: React.FC = () => {
   const router = useRouter();
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const { t, i18n } = useTranslation();
-
-
-  // Hero fade-in animation
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1200,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeAnim]);
 
   const team: TeamMember[] = [
-  { name: i18n.t("HetLimbani"), role: i18n.t("ProjectLead") },
-  { name: i18n.t("AbhiPatel"), role: i18n.t("BlockchainDev") },
-  { name: i18n.t("AnujRaval"), role: i18n.t("BlockchainDev") },
-  { name: i18n.t("TirthaJhaveri"), role: i18n.t("MobileAppDev") },
-  { name: i18n.t("HarshPatel"), role: i18n.t("FullStackDev") },
-  { name: i18n.t("MeetBabariya"), role: i18n.t("MobileAppDev") },
-];
- const processSteps: ProcessStep[] = [
-  {
-    title: i18n.t("Cultivation"),
-    description: i18n.t("CultivationDesc"),
-  },
-  {
-    title: i18n.t("Processing"),
-    description: i18n.t("ProcessingDesc"),
-  },
-  {
-    title: i18n.t("Distribution"),
-    description: i18n.t("DistributionDesc"),
-  },
-  {
-    title: i18n.t("Retail"),
-    description: i18n.t("RetailDesc"),
-  },
-];
+    { name: 'Het Limbani', role: 'Project Lead & Full-Stack Developer' },
+    { name: 'Abhi Patel', role: 'Blockchain Developer' },
+    { name: 'Anuj Raval', role: 'Blockchain Developer' },
+    { name: 'Tirtha Jhaveri', role: 'Mobile App Developer' },
+    { name: 'Harsh Patel', role: 'Full-Stack Developer' },
+    { name: 'Meet Babariya', role: 'Mobile App Developer' },
+  ];
+
+  const processSteps: ProcessStep[] = [
+    { title: 'Cultivation', description: 'Farmers register their produce, creating the first digital link in the chain.' },
+    { title: 'Processing', description: 'Processors log every step, from cleaning to packaging, ensuring quality control.' },
+    { title: 'Distribution', description: 'Distributors track shipments in real-time, maintaining the integrity of the supply line.' },
+    { title: 'Retail', description: 'Retailers provide consumers with a scannable QR code for full product history.' },
+  ];
 
   return (
-    <ScrollView style={styles.wrapper} contentContainerStyle={{ paddingBottom: 40 }}>
-       {/* HERO */}
-      <Animated.View style={[styles.heroBox, { opacity: fadeAnim }]}>
+    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+      {/* Hero Section */}
+      <View style={styles.heroBox}>
         <Image
           source={require("../assets/MainLogo.png")}
           style={styles.logo}
           resizeMode="contain"
         />
-        <Text style={styles.heroTitle}>{t("Welcome")}</Text>
-        <Text style={styles.heroTagline}>{t("Tagline")}</Text>
-        <Text style={styles.heroDescription}>{t("Description")}</Text>
-        <View style={styles.authBtnGroup}>
+        <Text style={styles.heroTitle}>Welcome to AgriChain 🔗</Text>
+        <Text style={styles.heroTagline}>
+          Track the supply chain from farm to fork with transparency.
+        </Text>
+        <Text style={styles.heroDescription}>
+          AgriChain leverages blockchain to bring radical transparency to the agricultural supply chain.
+        </Text>
+
+        <View style={styles.authButtonGroup}>
           <TouchableOpacity
             style={[styles.heroBtn, styles.primaryBtn]}
             onPress={() => router.push("/")}
           >
-            <Text style={[styles.heroBtnText, styles.primaryBtnText]}>
-              {t("GetStarted")}
+            <Text style={[styles.heroBtnText, styles.heroBtnTextPrimary]}>
+              Get Started
             </Text>
           </TouchableOpacity>
 
@@ -110,48 +88,48 @@ const LandingPage: React.FC = () => {
             <Text style={styles.heroBtnText}>{t("SignUp")}</Text>
           </TouchableOpacity>
         </View>
-      </Animated.View>
+      </View>
 
-      
-      {/* HOW IT WORKS */}
+      {/* How It Works */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{t("HowItWorks")}</Text>
-        <Text style={styles.sectionSubtitle}>{t("HowItWorksDesc")}</Text>
+        <Text style={styles.sectionTitle}>How AgriChain Works</Text>
+        <Text style={styles.sectionSubtitle}>
+          A simple, four-step process to ensure complete transparency.
+        </Text>
 
-        <View style={styles.processGrid}>
-          {processSteps.map((step, i) => (
-            <View key={i} style={styles.processCard}>
-              <Text style={styles.processCardTitle}>{step.title}</Text>
-              <Text style={styles.processCardDesc}>{step.description}</Text>
-            </View>
-          ))}
-        </View>
+        {processSteps.map((step, index) => (
+          <View key={step.title} style={styles.processCard}>
+            <Text style={styles.processNumber}>{index + 1}</Text>
+            <Text style={styles.processTitle}>{step.title}</Text>
+            <Text style={styles.processDescription}>{step.description}</Text>
+          </View>
+        ))}
       </View>
 
-       {/* TEAM */}
-      <View style={[styles.section, { backgroundColor: "#fff" }]}>
-        <Text style={styles.sectionTitle}>{t("MeetTeam")}</Text>
-        <Text style={styles.sectionSubtitle}>{t("MeetTeamDesc")}</Text>
+      {/* Team */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Meet the Innovators</Text>
+        <Text style={styles.sectionSubtitle}>
+          The dedicated team building the future of agricultural transparency.
+        </Text>
 
-        <View style={styles.teamGrid}>
-          {team.map((member) => (
-            <View key={member.name} style={styles.teamCard}>
-              <Text style={styles.teamName}>{member.name}</Text>
-              <Text style={styles.teamRole}>{member.role}</Text>
-            </View>
-          ))}
-        </View>
+        {team.map(member => (
+          <View key={member.name} style={styles.teamCard}>
+            <Text style={styles.teamName}>{member.name}</Text>
+            <Text style={styles.teamRole}>{member.role}</Text>
+          </View>
+        ))}
       </View>
 
-      {/* FOOTER */}
-      <View style={styles.footerBar}>
-        <Text style={styles.footerText}>{t("Footer")}</Text>
+      {/* Footer */}
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>© 2025 AgriChain. All Rights Reserved.</Text>
         <View style={styles.footerLinks}>
-          <TouchableOpacity onPress={() => navigation.navigate("ContactUsPage")}>
-            <Text style={styles.footerLink}>{t("Contact")}</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('ContactUsPage')}>
+            <Text style={styles.footerLink}>Contact Us</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("HelpDeskPage")}>
-            <Text style={styles.footerLink}>{t("HelpDesk")}</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('HelpDeskPage')}>
+            <Text style={styles.footerLink}>Help Desk</Text>
           </TouchableOpacity>
         </View>
       </View>

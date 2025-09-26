@@ -2,7 +2,6 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const transporter = require("../controllers/emailController");
-
 const router = express.Router();
 
 router.get("/verify/:id", async (req, res) => {
@@ -33,7 +32,9 @@ router.post("/verify/:id", async (req, res) => {
     const { otp } = req.body;
 
     const user = await User.findById(id);
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     if (user.isverifyed) {
       return res.status(400).json({ message: "Email already verified" });
@@ -52,7 +53,15 @@ router.post("/verify/:id", async (req, res) => {
     user.otpExpiry = undefined;
     await user.save();
 
-    return res.status(200).json({ message: "Email verified successfully" });
+    return res.status(200).json({
+      message: "Email verified successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: err.message });
