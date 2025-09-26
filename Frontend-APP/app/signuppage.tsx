@@ -9,10 +9,11 @@ import {
   Alert,
   StyleSheet,
   Image,
+  Platform,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useRouter } from "expo-router";
-import { url } from "../utils/basicUtils";
+
 
 type Role = "Farmer" | "Distributor" | "Retailer" | "Consumer";
 
@@ -60,120 +61,116 @@ const SignUp: React.FC = () => {
     match: false,
   });
 
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
-    {}
-  );
-  const [apiError, setApiError] = useState<string>("");
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
-  // --- Input Handlers ---
+  // Input handlers
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData({ ...formData, [field]: value });
     if (errors[field]) setErrors({ ...errors, [field]: undefined });
-    if (apiError) setApiError("");
+
+    // Update password validation dynamically
+    if (field === "password") handlePasswordChange(value);
+    if (field === "confirmPassword") handleConfirmPasswordChange(value);
   };
 
   const handlePasswordChange = (value: string) => {
-    handleInputChange("password", value);
-    setPasswordValid({
+    setFormData({ ...formData, password: value });
+    setPasswordValid((prev) => ({
+      ...prev,
       length: value.length >= 8,
       upper: /[A-Z]/.test(value),
       lower: /[a-z]/.test(value),
       number: /[0-9]/.test(value),
       special: /[!@#$%^&*]/.test(value),
       match: value === formData.confirmPassword && value !== "",
-    });
+    }));
   };
 
   const handleConfirmPasswordChange = (value: string) => {
-    handleInputChange("confirmPassword", value);
+    setFormData({ ...formData, confirmPassword: value });
     setPasswordValid((prev) => ({
       ...prev,
       match: value === formData.password && value !== "",
     }));
   };
 
-  // --- Validation ---
-  const validateStep1 = (): boolean => {
+  // Validate form
+  const validateForm = (): boolean => {
     const newErrors: Partial<Record<keyof FormData, string>> = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!formData.name.trim()) newErrors.name = "Full name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
-    else if (!emailRegex.test(formData.email))
-      newErrors.email = "Invalid email address";
+    else if (!emailRegex.test(formData.email)) newErrors.email = "Invalid email address";
     if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
-
-    const allPasswordCriteriaMet = Object.values(passwordValid).every(
-      (v) => v === true
-    );
-    if (!allPasswordCriteriaMet) newErrors.password = "Password is invalid";
+    if (!passwordValid.match) newErrors.password = "Password does not match or is invalid";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // --- API Calls ---
-  const handleSignupSubmit = async () => {
-    if (!validateStep1()) return;
+  // Signup handler
+  // const handleSignupSubmit = async () => {
+  //   if (!validateForm()) return;
+  //   setLoading(true);
 
-    setLoading(true);
-    setApiError("");
+  //   try {
+  //     const res = await fetch(`${url}/signup`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         name: formData.name,
+  //         email: formData.email,
+  //         password: formData.password,
+  //         phone: formData.phone,
+  //         role: formData.role.toLowerCase(),
+  //       }),
+  //     });
 
-    const payload = {
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-      phone: formData.phone,
-      role: formData.role.toLowerCase(),
-    };
+  //     const data = await res.json();
+  //     if (res.status === 201) {
+  //       setUserId(data.user.id);
+  //       Alert.alert("OTP Sent", "Check your email for the OTP.");
+  //       setStep(2);
+  //     } else {
+  //       alert(data.message || "Error creating user");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert("Server error");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-    try {
-      const res = await fetch(`${url}/signup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
+  // // OTP verification
+  // const handleOtpSubmit = async () => {
+  //   if (!otp || otp.length !== 6) return alert("Enter valid OTP");
 
-      if (res.status === 201) {
-        setUserId(data.user.id);
-        setStep(2);
-      } else setApiError(data.message || "Signup failed");
-    } catch (err) {
-      console.error(err);
-      setApiError("Server error");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //   setLoading(true);
+  //   try {
+  //     const res = await fetch(`${url}/signup/verify/${userId}`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ otp }),
+  //     });
 
-  const handleOtpSubmit = async () => {
-    if (!otp || otp.length !== 6) {
-      setApiError("Invalid OTP");
-      return;
-    }
-    setLoading(true);
-    setApiError("");
+  //     const data = await res.json();
 
-    try {
-      const res = await fetch(`${url}/signup/verify/${userId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ otp }),
-      });
-      const data = await res.json();
-      if (res.status === 200) {
-        Alert.alert("Success", "Account verified", [
-          { text: "OK", onPress: () => router.push("/signinPage") },
-        ]);
-      } else setApiError(data.message || "OTP verification failed");
-    } catch (err) {
-      console.error(err);
-      setApiError("OTP verification failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (res.ok) {
+  //       Alert.alert("Success", "Account verified successfully!", [
+  //         { text: "OK", onPress: () => router.push("/signinPage") },
+  //       ]);
+  //     } else {
+  //       alert(data.message || "OTP verification failed");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert("Error verifying OTP");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const passwordCriteria = [
     { label: "Min 8 characters", valid: passwordValid.length },
@@ -187,27 +184,35 @@ const SignUp: React.FC = () => {
   const renderSignupForm = () => (
     <>
       <Text style={styles.title}>Create Your Account</Text>
-      {apiError ? <Text style={styles.apiErrorText}>{apiError}</Text> : null}
+      {Object.values(errors).map((err, idx) => (
+        <Text key={idx} style={styles.errorText}>{err}</Text>
+      ))}
 
       <TextInput
-        style={[styles.input, errors.name && styles.inputError]}
+        style={styles.input}
         placeholder="Full Name"
         value={formData.name}
         onChangeText={(text) => handleInputChange("name", text)}
       />
-      {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
 
       <TextInput
-        style={[styles.input, errors.email && styles.inputError]}
+        style={styles.input}
         placeholder="Email"
         keyboardType="email-address"
         autoCapitalize="none"
         value={formData.email}
         onChangeText={(text) => handleInputChange("email", text)}
       />
-      {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
-      <View style={[styles.passwordWrapper, errors.password && styles.inputError]}>
+      <TextInput
+        style={styles.input}
+        placeholder="Phone Number"
+        keyboardType="phone-pad"
+        value={formData.phone}
+        onChangeText={(text) => handleInputChange("phone", text)}
+      />
+
+      <View style={styles.passwordWrapper}>
         <TextInput
           style={styles.passwordInput}
           placeholder="Password"
@@ -215,10 +220,7 @@ const SignUp: React.FC = () => {
           value={formData.password}
           onChangeText={handlePasswordChange}
         />
-        <TouchableOpacity
-          style={styles.togglePassword}
-          onPress={() => setPasswordVisible(!passwordVisible)}
-        >
+        <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
           <Image
             source={
               passwordVisible
@@ -231,20 +233,16 @@ const SignUp: React.FC = () => {
       </View>
 
       <TextInput
-        style={[styles.input, (errors.password || !passwordValid.match) && styles.inputError]}
+        style={styles.input}
         placeholder="Confirm Password"
         secureTextEntry
         value={formData.confirmPassword}
         onChangeText={handleConfirmPasswordChange}
       />
-      {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
       <View style={styles.passwordRules}>
         {passwordCriteria.map((item, idx) => (
-          <Text
-            key={idx}
-            style={{ color: item.valid ? "#2e7d32" : "#c62828", fontSize: 14, marginVertical: 2 }}
-          >
+          <Text key={idx} style={{ color: item.valid ? "#2e7d32" : "#c62828", fontSize: 14 }}>
             {item.valid ? "✓" : "•"} {item.label}
           </Text>
         ))}
@@ -262,16 +260,7 @@ const SignUp: React.FC = () => {
         </Picker>
       </View>
 
-      <TextInput
-        style={[styles.input, errors.phone && styles.inputError]}
-        placeholder="Phone Number"
-        keyboardType="phone-pad"
-        value={formData.phone}
-        onChangeText={(text) => handleInputChange("phone", text)}
-      />
-      {errors.phone && <Text style={styles.errorText}>{errors.phone}</Text>}
-
-      <TouchableOpacity style={styles.button} onPress={handleSignupSubmit} disabled={loading}>
+      <TouchableOpacity style={styles.button} /*onPress={handleSignupSubmit}*/ disabled={loading}>
         {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Sign Up</Text>}
       </TouchableOpacity>
 
@@ -284,8 +273,7 @@ const SignUp: React.FC = () => {
   const renderOtpForm = () => (
     <>
       <Text style={styles.title}>Verify Your Email</Text>
-      <Text style={styles.subtitle}>Enter OTP sent to <Text style={{ fontWeight: "bold" }}>{formData.email}</Text></Text>
-      {apiError && <Text style={styles.apiErrorText}>{apiError}</Text>}
+      <Text style={styles.subtitle}>Enter OTP sent to {formData.email}</Text>
 
       <TextInput
         style={styles.input}
@@ -296,7 +284,7 @@ const SignUp: React.FC = () => {
         onChangeText={setOtp}
       />
 
-      <TouchableOpacity style={styles.button} onPress={handleOtpSubmit} disabled={loading}>
+      <TouchableOpacity style={styles.button} /*onPress={handleOtpSubmit}*/ disabled={loading}>
         {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Verify OTP</Text>}
       </TouchableOpacity>
 
@@ -315,22 +303,37 @@ const SignUp: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: { flexGrow: 1, justifyContent: "center", padding: 20, backgroundColor: "#fdfbf5" },
-  formWrapper: { backgroundColor: "#fff", padding: 25, borderRadius: 15, shadowColor: "#000", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 10, elevation: 5 },
+  formWrapper: {
+    backgroundColor: "#fff",
+    padding: 25,
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+  },
   title: { fontSize: 26, fontWeight: "bold", color: "#166534", textAlign: "center", marginBottom: 10 },
-  subtitle: { fontSize: 16, color: "black", textAlign: "center", marginBottom: 20, paddingHorizontal: 10 },
-  input: { height: 50, borderColor: "#ddd", borderWidth: 1, borderRadius: 8, paddingHorizontal: 15, fontSize: 16, marginTop: 15, backgroundColor: "#fafafa" },
-  inputError: { borderColor: "#c62828", borderWidth: 1.5 },
+  subtitle: { fontSize: 16, color: "black", textAlign: "center", marginBottom: 20 },
+  input: {
+    height: 50,
+    borderColor: "#ddd",
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    marginTop: 15,
+    backgroundColor: "#fafafa",
+  },
   passwordWrapper: { flexDirection: "row", alignItems: "center", borderColor: "#ddd", borderWidth: 1, borderRadius: 8, marginTop: 15, backgroundColor: "#fafafa" },
-  passwordInput: { flex: 1, height: 50, paddingHorizontal: 15, fontSize: 16, borderWidth: 0 },
-  togglePassword: { paddingHorizontal: 10 },
-  eyeIcon: { width: 22, height: 22 },
+  passwordInput: { flex: 1, height: 50, paddingHorizontal: 15, fontSize: 16 },
+  eyeIcon: { width: 22, height: 22, marginRight: 10 },
   passwordRules: { marginTop: 10, marginBottom: 5, paddingLeft: 5 },
   pickerContainer: { borderColor: "#ddd", borderWidth: 1, borderRadius: 8, marginTop: 15, backgroundColor: "#fafafa" },
   button: { backgroundColor: "#166534", padding: 15, borderRadius: 8, alignItems: "center", marginTop: 20 },
   buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
   link: { color: "#166534", textAlign: "center", marginTop: 20, fontSize: 16, fontWeight: "500" },
   errorText: { color: "#c62828", fontSize: 12, marginTop: 5, paddingLeft: 5 },
-  apiErrorText: { color: "#c62828", fontSize: 14, textAlign: "center", marginBottom: 10, fontWeight: "bold" },
 });
 
 export default SignUp;
