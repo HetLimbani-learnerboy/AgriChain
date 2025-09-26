@@ -6,7 +6,6 @@ import "./ConsumerPagestyle.css";
 const ConsumerPage = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-
   const [roleOpen, setRoleOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const roleRef = useRef(null);
@@ -61,7 +60,6 @@ const ConsumerPage = () => {
         </div>
       </nav>
 
-      {/* Consumer Page Content */}
       <div className="consumer-dashboard-content">
         <h2>Consumer Portal</h2>
         <p>Scan QR codes and track the complete supply chain of your produce.</p>

@@ -136,9 +136,10 @@
 .signup-switch-text-back a:hover {
   text-decoration: underline;
 }
+
 .loader {
-  border: 4px solid #f3f3f3; 
-  border-top: 4px solid #166534; 
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #166534;
   border-radius: 50%;
   width: 18px;
   height: 18px;
@@ -147,8 +148,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 

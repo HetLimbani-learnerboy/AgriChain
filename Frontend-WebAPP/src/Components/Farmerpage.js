@@ -6,7 +6,6 @@ import "./FarmerPagestyle.css";
 const FarmerPage = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-
   const [roleOpen, setRoleOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const roleRef = useRef(null);
@@ -60,7 +59,6 @@ const FarmerPage = () => {
         </div>
       </nav>
 
-      {/* Farmer Page Content */}
       <div className="farmer-dashboard-content">
         <h2>Farmer Dashboard</h2>
         <p>Manage your crops, earnings, and market insights.</p>

@@ -86,7 +86,6 @@
     }
 }
 
-/* Mobile Phones */
 @media (max-width: 600px) {
     .distributor-dashboard-content {
         padding: 1rem;

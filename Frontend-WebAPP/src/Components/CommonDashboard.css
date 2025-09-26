@@ -1,0 +1,378 @@
+.dashboard-wrapper {
+  font-family: 'Poppins', sans-serif;
+  background-color: #fdfbf5;
+  min-height: 100vh;
+  color: black;
+  overflow-x: hidden;
+  transition: all 0.3s ease;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0fdf4;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-logo {
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #166534;
+  transition: color 0.3s ease;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  color:black;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-btn:hover {
+  color: #166534;
+  transform: scale(1.05);
+}
+
+.profile-container {
+  position: relative;
+}
+
+.profile-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+
+.profile-icon {
+    font-size: 1.2rem;
+    color:black;
+    font-weight: bolder;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.profile-btn:hover .profile-icon {
+    color: #166534;
+    transform: scale(1.05);
+}
+
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 55px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 250px;
+  z-index: 1001;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeInDown 0.35s forwards;
+}
+
+.dropdown-header {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  gap: 0.25rem;
+}
+
+.dropdown-header strong {
+  font-size: 1.1rem;
+  color: #166534;
+}
+
+.dropdown-header span {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.role-badge {
+  background-color: #e8f5e9;
+  color: #166534;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+  align-self: flex-start;
+  font-size: 0.8rem;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #fbebeb;
+  color: #dc2626;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #dc2626;
+  color: white;
+  transform: scale(1.02);
+}
+
+.main-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeInUp 0.5s ease;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h2 {
+  font-size: 2.5rem;
+  color: #166534;
+  margin-bottom: 0.5rem;
+  animation: fadeInDown 0.5s ease;
+}
+
+.dashboard-header p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  animation: fadeInUp 0.5s ease 0.2s;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.role-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.5s ease;
+}
+
+.role-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+}
+
+.role-card img {
+  width: 100px;
+  height: 100px;
+  margin: 1.5rem auto 1rem;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.role-card:hover img {
+  transform: scale(1.1);
+}
+
+.card-body {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.card-body h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.card-body p {
+  font-size: 0.95rem;
+  color: black;
+  line-height: 1.6;
+}
+
+.government-section {
+  background-color: #e8f5e9;
+  border-radius: 12px;
+  padding: 2.5rem;
+  margin-top: 3rem;
+  border-left: 5px solid #2e7d32;
+  animation: fadeInUp 0.6s ease;
+}
+
+.gov-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.gov-header img {
+  height: 50px;
+  transition: transform 0.3s ease;
+}
+
+.gov-header img:hover {
+  transform: scale(1.1);
+}
+
+.government-section h2 {
+  font-size: 2rem;
+  color: #166534;
+}
+
+.government-section p,
+.government-section li {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+.government-section ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.government-section li strong {
+  color: #166534;
+}
+
+.learn-more-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #166534;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.learn-more-btn:hover {
+  background-color: #2e7d32;
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .dashboard-header h2 {
+    font-size: 2rem;
+  }
+  .dashboard-header p {
+    font-size: 1rem;
+  }
+  .government-section {
+    padding: 2rem;
+  }
+  .government-section h2 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+  .navbar-title {
+    font-size: 1.2rem;
+  }
+  .nav-btn {
+    display: none;
+  }
+  .main-content {
+    padding: 1rem;
+  }
+  .dashboard-header h2 {
+    font-size: 1.5rem;
+  }
+  .government-section {
+    padding: 1.5rem;
+  }
+  .government-section h2 {
+    font-size: 1.5rem;
+  }
+  .card-container {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header h2 {
+    font-size: 1.3rem;
+  }
+  .dashboard-header p {
+    font-size: 0.95rem;
+  }
+  .government-section h2 {
+    font-size: 1.25rem;
+  }
+  .learn-more-btn {
+    width: 100%;
+    padding: 0.65rem;
+  }
+}
