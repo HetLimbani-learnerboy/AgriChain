@@ -19,7 +19,6 @@
   width: 100%;
 }
 
-
 .landing-navbar {
   background: #f0fdf4;
   display: flex;
@@ -31,7 +30,7 @@
   top: 0;
   z-index: 100;
   min-height: 60px;
-  flex-shrink: 0; /* Prevents navbar from shrinking */
+  flex-shrink: 0;
 }
 
 .navbar-left {
@@ -55,7 +54,7 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+  flex-wrap: wrap;
   justify-content: flex-end;
 }
 
@@ -71,10 +70,10 @@
   border: none;
   cursor: pointer;
   font-size: 1.3rem;
-  font-weight: 600; /* Slightly bolder for clarity */
+  font-weight: 600; 
   color: black;
   transition: color 0.3s ease, transform 0.2s ease;
-  padding: 0.5rem; /* Adds clickable area */
+  padding: 0.5rem; 
 }
 
 .role-button:hover,
@@ -83,7 +82,6 @@
   transform: scale(1.05);
 }
 
-/* Do not remove */
 .dashboard-button{
   background: none;
   border: none;
@@ -92,14 +90,14 @@
   font-weight: 600; 
   color: black;
   transition: color 0.3s ease, transform 0.2s ease;
-  padding: 0.5rem; /* Adds clickable area */
+  padding: 0.5rem; 
   margin-right: 1rem;
 }
 
 .dropdown-menulist,
 .dropdown-languagelist {
   position: absolute;
-  top: 100%; /* Positions right below the button */
+  top: 100%; 
   right: 0;
   margin-top: 0.5rem;
   background: #fff;
@@ -143,10 +141,8 @@
   color: black;
 }
 
-
-/* ===== Hero Section (Header) ===== */
 .landing-header {
-  flex-grow: 1; /* Key fix: Allows this section to fill available space */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -156,22 +152,20 @@
 }
 
 .landing-header h1 {
-  font-size: clamp(2rem, 5vw, 3rem); /* Fluid font size */
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
   color: #166534;
   margin-bottom: 1rem;
 }
 
 .landing-header p {
-  font-size: clamp(1rem, 2.5vw, 1.25rem); /* Fluid font size */
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
   font-weight: 400;
   line-height: 1.6;
   max-width: 800px;
   margin: 0 auto 2rem auto;
 }
 
-
-/* ===== Image Marquee ===== */
 .image-marquee {
   overflow: hidden;
   width: 100%;
@@ -198,14 +192,12 @@
   to { transform: translateX(-50%); }
 }
 
-
-/* ===== Government Section (Responsive Fix) ===== */
 .landing-government {
   padding: 3rem 1.5rem;
   background: #f0fdf4;
   text-align: center;
   animation: fadeInUp 1s ease-out;
-  flex-shrink: 0; /* Prevents section from shrinking */
+  flex-shrink: 0; 
 }
 
 .landing-government h2 {
@@ -239,8 +231,6 @@
   transform: scale(1.05);
 }
 
-
-/* ===== Workflow Section ===== */
 .workflow-section {
   background: #ffffff;
   padding: 4rem 1.5rem;
@@ -291,8 +281,6 @@
   font-size: 0.95rem;
 }
 
-
-/* ===== Auth Buttons ===== */
 .auth-btn-signin,
 .auth-btn-signup,
 .auth-btn-backbutton {
@@ -314,8 +302,6 @@
   transform: scale(1.05);
 }
 
-
-/* ===== General Animations ===== */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -332,10 +318,6 @@
   }
 }
 
-
-/* ===== Responsive Design Media Queries ===== */
-
-/* For Tablets and smaller desktops */
 @media (max-width: 992px) {
   .landing-navbar {
     padding: 0.75rem 1rem;
@@ -348,10 +330,9 @@
   }
 }
 
-/* For Mobile Devices */
 @media (max-width: 768px) {
   .navbar-title {
-    display: none; /* Hide title on very small screens to save space */
+    display: none; 
   }
   .navbar-right {
     gap: 0.5rem;
@@ -370,6 +351,6 @@
     height: 60px;
   }
   .workflow-steps {
-    grid-template-columns: 1fr; /* Stack cards vertically */
+    grid-template-columns: 1fr;
   }
 }

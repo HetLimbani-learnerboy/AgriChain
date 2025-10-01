@@ -9,6 +9,7 @@ import ConsumerPage from "./Components/ConsumerPage";
 import SignInPage from "./Components/SignInPage"
 import SignUpPage from "./Components/SignUpPage"
 import ForgetPassword from "./Components/ForgetPasswordpage"
+import CommonDashboard from "./Components/CommonDashboard";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/signin" element={< SignInPage />} />
         <Route path="/signup" element={< SignUpPage />} />
         <Route path="/forgetpassword" element={< ForgetPassword/>} />
+        <Route path="/commondashboard" element={< CommonDashboard/>} />
       </Routes>
   );
 };

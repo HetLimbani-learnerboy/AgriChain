@@ -1,112 +1,107 @@
-import React from "react";
+// DistributorPage.tsx
+import React, { useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  StyleSheet,
   Image,
+  StyleSheet,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useTranslation } from "react-i18next";
-import i18n from "../i18n";
+import { useRouter } from "expo-router";
 
-type Action = {
-  title: string;
-  description: string;
-  image: any;
-};
-
-export default function DistributorScreen() {
-  const { t } = useTranslation();
-
-  const distributorActions: Action[] = [
-    {
-      title: t("incomingProduceTitle"),
-      description: t("incomingProduceDesc"),
-      image: require("../assets/Images/png5_ip.png"),
-    },
-    {
-      title: t("updateTransportTitle"),
-      description: t("updateTransportDesc"),
-      image: require("../assets/Images/png6_ts.png"),
-    },
-    {
-      title: t("logisticsOverviewTitle"),
-      description: t("logisticsOverviewDesc"),
-      image: require("../assets/Images/png7_li.png"),
-    },
-    {
-      title: t("marketInsightsTitle"),
-      description: t("marketInsightsDesc"),
-      image: require("../assets/Images/png8_mi.png"),
-    },
-  ];
-
-  const changeLanguage = (lang: "en" | "hi" | "gu") => {
-    i18n.changeLanguage(lang);
-  };
+const DistributorPage: React.FC = () => {
+  const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>{t("distributorDashboard")}</Text>
-        <Text style={styles.subtitle}>{t("manageLogistics")}</Text>
+    <ScrollView style={styles.container}>
+      <View style={styles.content}>
+        <Text style={styles.header}>Distributor Dashboard</Text>
+        <Text style={styles.subHeader}>
+          Manage logistics, transport, and storage efficiently.
+        </Text>
 
         <View style={styles.cardsContainer}>
-          {distributorActions.map(({ title, description, image }) => (
-            <TouchableOpacity key={title} style={styles.actionCard}>
-              <Image source={image} style={styles.actionImage} resizeMode="cover" />
-              <Text style={styles.actionTitle}>{title}</Text>
-              <Text style={styles.actionDescription}>{description}</Text>
-            </TouchableOpacity>
-          ))}
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png5_ip.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Incoming Produce</Text>
+            <Text style={styles.cardText}>
+              Check all produce arriving from farmers before transport.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png6_ts.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Update Transport & Storage</Text>
+            <Text style={styles.cardText}>
+              Track pickup dates, storage temperatures, and delivery status.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png7_li.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Logistics Overview</Text>
+            <Text style={styles.cardText}>
+              View current shipments, transport routes, and pending deliveries.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png8_mi.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Market Insights</Text>
+            <Text style={styles.cardText}>
+              Get updates on market demand, pricing trends, and forecasts.
+            </Text>
+          </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScrollView>
   );
-}
+};
+
+export default DistributorPage;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f7faf1" },
-  content: { paddingHorizontal: 20, paddingBottom: 30 },
-  title: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: "black",
-    marginTop: 10,
-    marginBottom: 6,
-    textAlign: "center",
+  container: { flex: 1, backgroundColor: "#fdfbf5" },
+  content: { padding: 16 },
+  header: { fontSize: 28, fontWeight: "700", color: "#166534", marginBottom: 8 },
+  subHeader: { fontSize: 16, marginBottom: 16, color: "#333" },
+  cardsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
-  subtitle: { fontSize: 16, color: "#555", textAlign: "center", marginBottom: 25 },
-  cardsContainer: { flexDirection: "column", gap: 20 },
-  actionCard: {
+  card: {
+    width: "48%",
     backgroundColor: "#fff",
-    borderRadius: 18,
-    overflow: "hidden",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    alignItems: "center",
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
   },
-  actionImage: { width: "100%", height: 180 },
-  actionTitle: {
-    fontSize: 20,
-    fontWeight: "600",
-    color: "black",
-    marginTop: 15,
-    marginHorizontal: 15,
-    textAlign: "center",
+  cardImage: {
+    width: "100%",
+    height: 100,
+    borderRadius: 8,
+    marginBottom: 8,
+    resizeMode: "contain",
   },
-  actionDescription: {
-    fontSize: 15,
-    color: "black",
-    lineHeight: 22,
-    textAlign: "center",
-    marginHorizontal: 20,
-    marginBottom: 20,
-    marginTop: 6,
-  },
+  cardTitle: { fontSize: 16, fontWeight: "700", marginBottom: 4, color: "#166534" },
+  cardText: { fontSize: 14, color: "#333" },
 });

@@ -8,32 +8,28 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
-
     const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(401).json({ message: "User does not exist" });
-    }
-    if (!user.isverifyed) {
-      return res.status(404).json({ message: "User does not verifyed" });
-    }
-    if (!password || !user.password) {
-      return res.status(400).json({ message: "Missing credentials" });
-    }
+    if (!user) return res.status(401).json({ message: "User does not exist" });
+    if (!user.isverifyed) return res.status(403).json({ message: "Email not verified" });
 
     const passcheck = await bcrypt.compare(password, user.password);
-    if (!passcheck) {
-      console.log("Login unsuccessful");
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
+    if (!passcheck) return res.status(401).json({ message: "Invalid credentials" });
 
-    console.log("Login successful");
-    return res.status(200).json({ message: "Login successful" });
-
+    return res.status(200).json({
+      message: "Login successful",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
   } catch (err) {
     console.error("Signin error:", err);
     return res.status(500).json({ message: "Server error" });
   }
 });
+
 
 const sendOTPEmail = async (user) => {
   const otp = Math.floor(100000 + Math.random() * 900000).toString();

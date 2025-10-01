@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./SignUpPage.css";
 import { url } from "../utils/basicUtils";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [userId, setUserId] = useState("");
   const [otp, setOtp] = useState("");
@@ -92,8 +94,13 @@ const SignUp = () => {
         body: JSON.stringify({ otp }),
       });
       const data = await res.json();
-      if (res.status === 200) {
-        window.location.href = "http://localhost:3000/GetStarted";
+      if (res.ok) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("name", data.user.name);
+        localStorage.setItem("email", data.user.email);
+        localStorage.setItem("role", data.user.role);
+        alert("Signup successful!");
+        navigate("/commondashboard");
       } else {
         alert(data.message || "OTP verification failed");
       }

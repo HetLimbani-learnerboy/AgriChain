@@ -12,7 +12,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use("/signup", signupRoute);
 app.use("/signin", signinRoute);
 app.use("/contact", contactRoute);

@@ -59,7 +59,6 @@ const FarmerPage = () => {
         </div>
       </nav>
 
-      {/* Farmer Page Content */}
       <div className="farmer-dashboard-content">
         <h2>Farmer Dashboard</h2>
         <p>Manage your crops, earnings, and market insights.</p>

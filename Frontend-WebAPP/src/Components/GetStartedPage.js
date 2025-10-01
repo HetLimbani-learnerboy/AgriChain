@@ -6,7 +6,6 @@ import "./GetStartedPage.css";
 const GetStartedPage = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-
   const [roleOpen, setRoleOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const roleRef = useRef(null);
@@ -71,12 +70,10 @@ const GetStartedPage = () => {
         </div>
       </nav>
 
-      {/* Header */}
       <header className="landing-header">
         <h1>{t("welcome")} 🌾</h1>
         <p>{t("title")}</p>
 
-        {/* Image Marquee */}
         <div className="image-marquee">
           <div className="marquee-track">
             {imageFiles.concat(imageFiles).map((file, i) => (
@@ -86,7 +83,6 @@ const GetStartedPage = () => {
         </div>
       </header>
 
-      {/* Government Section */}
       <section className="landing-government">
         <h2>{t("government")}</h2>
         <p>{t("govText1")}</p>
@@ -94,7 +90,6 @@ const GetStartedPage = () => {
         <button className="gov-learnmore-btn" onClick={scrollToWorkflow}>{t("learnMore")}</button>
       </section>
 
-      {/* Workflow Section */}
       <section className="workflow-section" ref={workflowRef}>
         <h2 className="workflow-title">{t("workflowTitle")}</h2>
         <div className="workflow-steps">

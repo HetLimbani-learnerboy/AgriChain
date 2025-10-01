@@ -99,7 +99,7 @@ const ForgetPassword = () => {
       const data = await res.json();
       if (res.ok) {
         alert(data.message);
-        navigate("/GetStarted");
+        navigate("/signin");
       } else alert(data.message);
     } catch (err) {
       console.error(err);

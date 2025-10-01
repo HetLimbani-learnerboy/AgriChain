@@ -6,7 +6,6 @@ import "./RetailerPagestyle.css";
 const RetailerPage = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-
   const [roleOpen, setRoleOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const roleRef = useRef(null);
