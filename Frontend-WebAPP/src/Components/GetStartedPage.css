@@ -1,0 +1,356 @@
+.landing-wrapper {
+  margin: 0;
+  background: #fdfbf5;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.landing-wrapper {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-container-display {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.landing-navbar {
+  background: #f0fdf4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: 60px;
+  flex-shrink: 0;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.navbar-title {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #166534;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+
+.role-dropdown,
+.language-dropdown {
+  position: relative;
+}
+
+.role-button,
+.language-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  font-weight: 600; 
+  color: black;
+  transition: color 0.3s ease, transform 0.2s ease;
+  padding: 0.5rem; 
+}
+
+.role-button:hover,
+.language-button:hover , .dashboard-button:hover{
+  color: #15803d;
+  transform: scale(1.05);
+}
+
+.dashboard-button{
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  font-weight: 600; 
+  color: black;
+  transition: color 0.3s ease, transform 0.2s ease;
+  padding: 0.5rem; 
+  margin-right: 1rem;
+}
+
+.dropdown-menulist,
+.dropdown-languagelist {
+  position: absolute;
+  top: 100%; 
+  right: 0;
+  margin-top: 0.5rem;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  min-width: 150px;
+  z-index: 101;
+  font-weight: bolder;
+}
+
+.dropdown-menulist.show,
+.dropdown-languagelist.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-menulist button,
+.dropdown-languagelist button {
+  padding: 0.75rem 1.25rem;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: black;
+  width: 100%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-menulist button:hover,
+.dropdown-languagelist button:hover {
+  background: #f3f4f6;
+  font-weight: bolder;
+  color: black;
+}
+
+.landing-header {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  animation: fadeIn 1s ease-out;
+}
+
+.landing-header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: #166534;
+  margin-bottom: 1rem;
+}
+
+.landing-header p {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+}
+
+.image-marquee {
+  overflow: hidden;
+  width: 100%;
+  padding: 1.5rem 0;
+  flex-shrink: 0;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 2rem;
+  animation: scrollLeft 40s linear infinite;
+}
+
+.image-marquee img {
+  height: 200px;
+  width: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.landing-government {
+  padding: 3rem 1.5rem;
+  background: #f0fdf4;
+  text-align: center;
+  animation: fadeInUp 1s ease-out;
+  flex-shrink: 0; 
+}
+
+.landing-government h2 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 700;
+  color: #166534;
+  margin-bottom: 1rem;
+}
+
+.landing-government p {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  line-height: 1.7;
+  max-width: 1000px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.gov-learnmore-btn {
+  padding: 0.75rem 2rem;
+  background: #166534;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.gov-learnmore-btn:hover {
+  background: #15803d;
+  transform: scale(1.05);
+}
+
+.workflow-section {
+  background: #ffffff;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.workflow-title {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  margin-bottom: 3rem;
+  font-weight: 700;
+  color: #166534;
+}
+
+.workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.workflow-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.workflow-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  background-color: #f0fdf4;
+}
+
+.workflow-card h3 {
+  color: #166534;
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.workflow-card p {
+  color: black;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.auth-btn-signin,
+.auth-btn-signup,
+.auth-btn-backbutton {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background-color: #166534;
+  color: #ffffff;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.auth-btn-signin:hover,
+.auth-btn-signup:hover,
+.auth-btn-backbutton:hover {
+  background-color: #15803d;
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 992px) {
+  .landing-navbar {
+    padding: 0.75rem 1rem;
+  }
+  .navbar-right {
+    gap: 0.75rem;
+  }
+  .image-marquee img {
+    height: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-title {
+    display: none; 
+  }
+  .navbar-right {
+    gap: 0.5rem;
+  }
+  .auth-btn-signin,
+  .auth-btn-signup,
+  .auth-btn-backbutton {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  .role-button,
+  .language-button {
+    font-size: 0.9rem;
+  }
+  .image-marquee img {
+    height: 60px;
+  }
+  .workflow-steps {
+    grid-template-columns: 1fr;
+  }
+}

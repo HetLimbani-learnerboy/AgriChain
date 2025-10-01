@@ -1,123 +1,107 @@
-import React from "react";
+// DistributorPage.tsx
+import React, { useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  StyleSheet,
   Image,
+  StyleSheet,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
 
-type Action = {
-  title: string;
-  description: string;
-  image: any;
-};
+const DistributorPage: React.FC = () => {
+  const router = useRouter();
 
-const distributorActions: Action[] = [
-  {
-    title: "Incoming Produce",
-    description: "Check all produce arriving from farmers before transport.",
-    image: require("../assets/Images/png5_ip.png"),
-  },
-  {
-    title: "Update Transport & Storage",
-    description: "Track pickup dates, storage temperatures, and delivery status.",
-    image: require("../assets/Images/png6_ts.png"),
-  },
-  {
-    title: "Logistics Overview",
-    description: "View current shipments, transport routes, and pending deliveries.",
-    image: require("../assets/Images/png7_li.png"),
-  },
-  {
-    title: "Market Insights",
-    description: "Get updates on market demand, pricing trends, and forecasts.",
-    image: require("../assets/Images/png8_mi.png"),
-  },
-];
-
-export default function DistributorScreen() {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Distributor Dashboard</Text>
-        <Text style={styles.subtitle}>
+    <ScrollView style={styles.container}>
+      <View style={styles.content}>
+        <Text style={styles.header}>Distributor Dashboard</Text>
+        <Text style={styles.subHeader}>
           Manage logistics, transport, and storage efficiently.
         </Text>
 
         <View style={styles.cardsContainer}>
-          {distributorActions.map(({ title, description, image }) => (
-            <TouchableOpacity key={title} style={styles.actionCard}>
-              <Image source={image} style={styles.actionImage} resizeMode="cover" />
-              <Text style={styles.actionTitle}>{title}</Text>
-              <Text style={styles.actionDescription}>{description}</Text>
-            </TouchableOpacity>
-          ))}
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png5_ip.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Incoming Produce</Text>
+            <Text style={styles.cardText}>
+              Check all produce arriving from farmers before transport.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png6_ts.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Update Transport & Storage</Text>
+            <Text style={styles.cardText}>
+              Track pickup dates, storage temperatures, and delivery status.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png7_li.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Logistics Overview</Text>
+            <Text style={styles.cardText}>
+              View current shipments, transport routes, and pending deliveries.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png8_mi.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Market Insights</Text>
+            <Text style={styles.cardText}>
+              Get updates on market demand, pricing trends, and forecasts.
+            </Text>
+          </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScrollView>
   );
-}
+};
+
+export default DistributorPage;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fdfbf5",
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingBottom: 30,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: "black",
-    marginTop: 10,
-    marginBottom: 6,
-    textAlign: "center",
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "black",
-    textAlign: "center",
-    marginBottom: 25,
-  },
+  container: { flex: 1, backgroundColor: "#fdfbf5" },
+  content: { padding: 16 },
+  header: { fontSize: 28, fontWeight: "700", color: "#166534", marginBottom: 8 },
+  subHeader: { fontSize: 16, marginBottom: 16, color: "#333" },
   cardsContainer: {
-    flexDirection: "column",
-    gap: 20,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
-  actionCard: {
+  card: {
+    width: "48%",
     backgroundColor: "#fff",
-    borderRadius: 18,
-    overflow: "hidden",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    alignItems: "center",
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
   },
-  actionImage: {
+  cardImage: {
     width: "100%",
-    height: 180,
+    height: 100,
+    borderRadius: 8,
+    marginBottom: 8,
+    resizeMode: "contain",
   },
-  actionTitle: {
-    fontSize: 20,
-    fontWeight: "600",
-    color: "black",
-    marginTop: 15,
-    marginHorizontal: 15,
-    textAlign: "center",
-  },
-  actionDescription: {
-    fontSize: 15,
-    color: "black",
-    lineHeight: 22,
-    textAlign: "center",
-    marginHorizontal: 20,
-    marginBottom: 20,
-    marginTop: 6,
-  },
+  cardTitle: { fontSize: 16, fontWeight: "700", marginBottom: 4, color: "#166534" },
+  cardText: { fontSize: 14, color: "#333" },
 });

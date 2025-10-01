@@ -1,127 +1,101 @@
-import React from "react";
+// FarmerPage.tsx
+import React, { useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  StyleSheet,
   Image,
+  StyleSheet,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
 
-type Action = {
-  title: string;
-  description: string;
-  image: any; 
-};
+const FarmerPage: React.FC = () => {
+  const router = useRouter();
 
-const farmerActions: Action[] = [
-  {
-    title: "Add Produce",
-    description:
-      "Add new crops with details like crop name, quantity, price, grade, and location.",
-    image: require("../assets/Images/png1_ap.png"),
-  },
-  {
-    title: "My Produce List",
-    description:
-      "Track the status of your crops from Added → Transported → Sold.",
-    image: require("../assets/Images/png2_pl.png"),
-  },
-  {
-    title: "Earnings Overview",
-    description:
-      "View your total earnings, recent transactions, and profit summary.",
-    image: require("../assets/Images/png3_eo.png"),
-  },
-  {
-    title: "Market Prices",
-    description:
-      "Stay updated with the latest market rates and pricing trends for different crops.",
-    image: require("../assets/Images/png4_mp.png"),
-  },
-];
-
-export default function FarmerScreen() {
   return (
-    <SafeAreaView style={styles.container}>
-      
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Farmer Dashboard</Text>
-        <Text style={styles.subtitle}>
+    <ScrollView style={styles.container}>
+    
+      {/* Dashboard Content */}
+      <View style={styles.content}>
+        <Text style={styles.header}>Farmer Dashboard</Text>
+        <Text style={styles.subHeader}>
           Manage your crops, earnings, and market insights.
         </Text>
 
         <View style={styles.cardsContainer}>
-          {farmerActions.map(({ title, description, image }) => (
-            <TouchableOpacity key={title} style={styles.actionCard}>
-              <Image source={image} style={styles.actionImage} resizeMode="cover" />
-              <Text style={styles.actionTitle}>{title}</Text>
-              <Text style={styles.actionDescription}>{description}</Text>
-            </TouchableOpacity>
-          ))}
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png1_ap.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Add Produce</Text>
+            <Text style={styles.cardText}>
+              Add new crops with details like crop name, quantity, price, grade,
+              and location.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png2_pl.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>My Produce List</Text>
+            <Text style={styles.cardText}>
+              Track the status of your crops from Added → Transported → Sold.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png3_eo.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Earnings Overview</Text>
+            <Text style={styles.cardText}>
+              View your total earnings, recent transactions, and profit summary.
+            </Text>
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={require("../assets/Images/png4_mp.png")}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Market Prices</Text>
+            <Text style={styles.cardText}>
+              Stay updated with the latest market rates and pricing trends for
+              different crops.
+            </Text>
+          </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScrollView>
   );
-}
+};
+
+export default FarmerPage;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fdfbf5",
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingBottom: 30,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: "black",
-    marginTop: 10,
-    marginBottom: 6,
-    textAlign: "center",
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "black",
-    textAlign: "center",
-    marginBottom: 25,
-  },
-  cardsContainer: {
-    flexDirection: "column",
-    gap: 20,
-  },
-  actionCard: {
+  container: { flex: 1, backgroundColor: "#fdfbf5" },
+  content: { padding: 16 },
+  header: { fontSize: 28, fontWeight: "700", color: "#166534", marginBottom: 8 },
+  subHeader: { fontSize: 16, marginBottom: 16, color: "#333" },
+  cardsContainer: { flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" },
+  card: {
+    width: "48%",
     backgroundColor: "#fff",
-    borderRadius: 18,
-    overflow: "hidden",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
   },
-  actionImage: {
-    width: "100%",
-    height: 180,
-  },
-  actionTitle: {
-    fontSize: 20,
-    fontWeight: "600",
-    color: "black",
-    marginTop: 15,
-    marginHorizontal: 15,
-    textAlign: "center",
-  },
-  actionDescription: {
-    fontSize: 15,
-    color: "black",
-    lineHeight: 22,
-    textAlign: "center",
-    marginHorizontal: 20,
-    marginBottom: 20,
-    marginTop: 6,
-  },
+  cardImage: { width: "100%", height: 100, borderRadius: 8, marginBottom: 8, resizeMode: "contain" },
+  cardTitle: { fontSize: 16, fontWeight: "700", marginBottom: 4, color: "#166534" },
+  cardText: { fontSize: 14, color: "#333" },
 });
