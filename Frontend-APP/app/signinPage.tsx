@@ -100,7 +100,7 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => router.push("/Forgetpasswordpage")}
+            onPress={() => router.push("/forgetpasswordpage")}
           >
             <Text style={styles.forgetPassword}>Forgot Password?</Text>
           </TouchableOpacity>
