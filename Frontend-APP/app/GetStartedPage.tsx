@@ -60,13 +60,13 @@ const handleRoleSelect = () => {
       router.push("/Farmerpage"); 
       break;
     case "Distributor":
-      router.push("/DistributorPage");
+      router.push("/Distributorpage");
       break;
     case "Retailer":
       router.push("/Retailerpage");
       break;
     case "Consumer":
-      router.push("/ConsumerPage");
+      router.push("/Consumerpage");
       break;
     default:
       console.warn("Unknown role selected:", selectedRole);
