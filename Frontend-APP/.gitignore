@@ -5,8 +5,11 @@
 /.pnp
 .pnp.js
 
+
 # testing
 /coverage
+utils/basicUtils.ts
+
 
 # production
 /build
@@ -27,6 +30,7 @@ yarn-error.log*
 
 expo-env.d.ts
 # @end expo-cli
+
 
 
 .expo/".expo/" 
